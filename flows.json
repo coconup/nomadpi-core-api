@@ -1,1 +1,1248 @@
-[]
+[
+    {
+        "id": "2f6480327ea906c3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3ee3b10c02a9dae4",
+        "type": "subflow",
+        "name": "[GPIO] dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 100,
+                "y": 1140,
+                "wires": [
+                    {
+                        "id": "9fddd250c6d53f2f"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "4e1f9183000d244e",
+        "type": "subflow",
+        "name": "[GPIO] set item state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "39b9590a0e0c7f6e"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d2eb75050cc2ea33",
+        "type": "subflow",
+        "name": "[GPIO] Get item state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ad6e53e4c4004a25"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ad6e53e4c4004a25",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "e83d5dc5a3f616c1",
+        "type": "mcp23017chip",
+        "addr": "0x20",
+        "interval": "100"
+    },
+    {
+        "id": "3ee1f64cf96afd3f",
+        "type": "switch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "property": "target_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wifi_relay",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1140,
+        "wires": [
+            [
+                "97059ba81f6ce727",
+                "827e13d335fd312c"
+            ],
+            [
+                "db7856cec630e598",
+                "827e13d335fd312c"
+            ]
+        ]
+    },
+    {
+        "id": "97059ba81f6ce727",
+        "type": "switch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "property": "target_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "8",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 8,
+        "x": 770,
+        "y": 420,
+        "wires": [
+            [
+                "f2b73ec8783670eb",
+                "51e9ffee4c0bc96b"
+            ],
+            [
+                "6c1e1dc4910a7401",
+                "4d7a3d34f6c7c660"
+            ],
+            [
+                "968be9d3d6d4eebf",
+                "70f12259a4a7ad76"
+            ],
+            [
+                "0ea16f9f74190e0f",
+                "a06c202dae056775"
+            ],
+            [
+                "2f6aac866698cfdc",
+                "ecd927f10a908484"
+            ],
+            [
+                "a96a03dab3a26335",
+                "ab52291981ecc883"
+            ],
+            [
+                "5e666f6ef9bf1e74",
+                "827313b3d4fdaa84"
+            ],
+            [
+                "a45a4f2438934378",
+                "0ee1e822b54e8ba0"
+            ]
+        ]
+    },
+    {
+        "id": "db7856cec630e598",
+        "type": "switch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "property": "target_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "8",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 8,
+        "x": 970,
+        "y": 1320,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f2b73ec8783670eb",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "17",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6c1e1dc4910a7401",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "27",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "51e9ffee4c0bc96b",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "8",
+        "invert": true,
+        "x": 990,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d7a3d34f6c7c660",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "9",
+        "invert": true,
+        "x": 990,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70f12259a4a7ad76",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "22",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "968be9d3d6d4eebf",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "10",
+        "invert": true,
+        "x": 990,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a06c202dae056775",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "10",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "0ea16f9f74190e0f",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "11",
+        "invert": true,
+        "x": 990,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ecd927f10a908484",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "9",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "2f6aac866698cfdc",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "12",
+        "invert": true,
+        "x": 990,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ab52291981ecc883",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "11",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a96a03dab3a26335",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "13",
+        "invert": true,
+        "x": 990,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ee1e822b54e8ba0",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "5",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 960,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "a45a4f2438934378",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "15",
+        "invert": true,
+        "x": 990,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e666f6ef9bf1e74",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "14",
+        "invert": true,
+        "x": 990,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "827e13d335fd312c",
+        "type": "subflow:4e1f9183000d244e",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "x": 840,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "2d81b52e2955a532",
+        "type": "catch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Catch all errrors",
+        "scope": null,
+        "uncaught": false,
+        "x": 160,
+        "y": 1260,
+        "wires": [
+            [
+                "3f20f14ce766eb97"
+            ]
+        ]
+    },
+    {
+        "id": "9fddd250c6d53f2f",
+        "type": "subflow:d2eb75050cc2ea33",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "x": 240,
+        "y": 1140,
+        "wires": [
+            [
+                "4306530c6c75eff8"
+            ]
+        ]
+    },
+    {
+        "id": "4306530c6c75eff8",
+        "type": "function",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Set initial item state",
+        "func": "const {\n    payload,\n    ...item_state\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 1140,
+        "wires": [
+            [
+                "3ee1f64cf96afd3f"
+            ]
+        ]
+    },
+    {
+        "id": "3f20f14ce766eb97",
+        "type": "function",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Get initial item state",
+        "func": "return flow.get('initial_item_state');",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1260,
+        "wires": [
+            [
+                "f86087ec09e17291"
+            ]
+        ]
+    },
+    {
+        "id": "f86087ec09e17291",
+        "type": "subflow:4e1f9183000d244e",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "x": 580,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "827313b3d4fdaa84",
+        "type": "pi-gpiod out",
+        "z": "3ee3b10c02a9dae4",
+        "name": "PIN: 27 (node.pin=0, not editable through UI)",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "0",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 1070,
+        "y": 680,
+        "wires": [],
+        "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
+    },
+    {
+        "id": "39b9590a0e0c7f6e",
+        "type": "function",
+        "z": "4e1f9183000d244e",
+        "name": "Set GPIO global state",
+        "func": "let stateGPIO = {...global.get('state_gpio') || {}};\n\nstateGPIO[msg.target_type] ||= {};\nstateGPIO[msg.target_type][msg.target_id] = msg.payload;\n\nglobal.set('state_gpio', stateGPIO);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e04ed1ed071d783",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "17",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "181899d4c42a0535",
+        "type": "function",
+        "z": "4e1f9183000d244e",
+        "name": "Parse item state",
+        "func": "const {\n    topic,\n    payload\n} = msg;\n\nconst pin_map = {\n    11: 1,\n    13: 2,\n    15: 3,\n    19: 4,\n    21: 5,\n    23: 6,\n    27: 7,\n    29: 9\n};\n\nconst[_, pin] = topic.split('/');\n\nreturn {\n    target_type: 'relay',\n    target_id: pin_map[pin],\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "39b9590a0e0c7f6e"
+            ]
+        ]
+    },
+    {
+        "id": "2195f8148f42cb08",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "27",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "03f68ea237711be2",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "22",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "3989ec9a38185470",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "10",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "fc3d12c5b8ceb523",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "9",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 300,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "afd8739179792ecd",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "11",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 340,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "ac23151ea4185b05",
+        "type": "pi-gpiod in",
+        "z": "4e1f9183000d244e",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "5",
+        "intype": "PUD_OFF",
+        "debounce": "25",
+        "read": true,
+        "x": 90,
+        "y": 420,
+        "wires": [
+            [
+                "181899d4c42a0535"
+            ]
+        ]
+    },
+    {
+        "id": "ad6e53e4c4004a25",
+        "type": "function",
+        "z": "d2eb75050cc2ea33",
+        "name": "Get GPIO item state",
+        "func": "const stateGPIO = {...global.get('state_gpio') || {}};\n\nreturn {\n    ...msg,\n    item_state: (stateGPIO[msg.target_type] ||= {})[msg.target_id] || 0\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd6f48cb877d8037",
+        "type": "subflow:3ee3b10c02a9dae4",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "x": 990,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f929074e5e6b01b3",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Toggle",
+        "func": "const {\n    item_state,\n    target_type,\n    target_id\n} = msg;\n\nreturn {\n    target_type,\n    target_id,\n    payload: item_state === 0 ? 1 : 0\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 180,
+        "wires": [
+            [
+                "dd6f48cb877d8037"
+            ]
+        ]
+    },
+    {
+        "id": "82815de83cf25863",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "90c4a3afd5076e64"
+            ]
+        ]
+    },
+    {
+        "id": "1bccc0445d55310b",
+        "type": "subflow:d2eb75050cc2ea33",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "x": 660,
+        "y": 180,
+        "wires": [
+            [
+                "f929074e5e6b01b3"
+            ]
+        ]
+    },
+    {
+        "id": "90c4a3afd5076e64",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 1",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 1\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "c2ab88a316f52251",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 160,
+        "wires": [
+            [
+                "744075e5aa78dc4e"
+            ]
+        ]
+    },
+    {
+        "id": "744075e5aa78dc4e",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 2",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 2\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "407ae424c06eceb1",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "1a2f7e2de813c471"
+            ]
+        ]
+    },
+    {
+        "id": "1a2f7e2de813c471",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 3",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 3\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 220,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "4d84a5ab67cc4c3b",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "2a03fd0d13e62d2a"
+            ]
+        ]
+    },
+    {
+        "id": "2a03fd0d13e62d2a",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 4",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 4\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "1411fd958d971939",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 340,
+        "wires": [
+            [
+                "59b24134294bfac0"
+            ]
+        ]
+    },
+    {
+        "id": "59b24134294bfac0",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 5",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 5\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "cf282f06380978f6",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 400,
+        "wires": [
+            [
+                "292e4ff1d9d68e2c"
+            ]
+        ]
+    },
+    {
+        "id": "292e4ff1d9d68e2c",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 6",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 6\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 400,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "708083cc14d12329",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "9838e74d18b5d5bc"
+            ]
+        ]
+    },
+    {
+        "id": "9838e74d18b5d5bc",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 7",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 7\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    },
+    {
+        "id": "b6ff1858607e4cf5",
+        "type": "inject",
+        "z": "2f6480327ea906c3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "408db813edd47217"
+            ]
+        ]
+    },
+    {
+        "id": "408db813edd47217",
+        "type": "function",
+        "z": "2f6480327ea906c3",
+        "name": "Relay 8",
+        "func": "return {\n    target_type: 'relay',\n    target_id: 8\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "1bccc0445d55310b"
+            ]
+        ]
+    }
+]
