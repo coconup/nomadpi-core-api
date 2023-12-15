@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "43f1ddd45d338663",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
         "name": "[GPIO] dispatcher",
@@ -75,6 +83,39 @@
                 "wires": [
                     {
                         "id": "ad6e53e4c4004a25",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "44f3ed9f999bd3a8",
+        "type": "subflow",
+        "name": "[JBD BMS] Get battery stats",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "e9419abf35522968"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 620,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b034b52cd70cb3d7",
                         "port": 0
                     }
                 ]
@@ -316,34 +357,6 @@
         "wires": []
     },
     {
-        "id": "51e9ffee4c0bc96b",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "8",
-        "invert": true,
-        "x": 990,
-        "y": 40,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4d7a3d34f6c7c660",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "9",
-        "invert": true,
-        "x": 990,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "70f12259a4a7ad76",
         "type": "pi-gpiod out",
         "z": "3ee3b10c02a9dae4",
@@ -360,20 +373,6 @@
         "x": 960,
         "y": 280,
         "wires": []
-    },
-    {
-        "id": "968be9d3d6d4eebf",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "10",
-        "invert": true,
-        "x": 990,
-        "y": 240,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "a06c202dae056775",
@@ -394,20 +393,6 @@
         "wires": []
     },
     {
-        "id": "0ea16f9f74190e0f",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "11",
-        "invert": true,
-        "x": 990,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "ecd927f10a908484",
         "type": "pi-gpiod out",
         "z": "3ee3b10c02a9dae4",
@@ -424,20 +409,6 @@
         "x": 960,
         "y": 480,
         "wires": []
-    },
-    {
-        "id": "2f6aac866698cfdc",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "12",
-        "invert": true,
-        "x": 990,
-        "y": 440,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "ab52291981ecc883",
@@ -458,20 +429,6 @@
         "wires": []
     },
     {
-        "id": "a96a03dab3a26335",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "13",
-        "invert": true,
-        "x": 990,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "0ee1e822b54e8ba0",
         "type": "pi-gpiod out",
         "z": "3ee3b10c02a9dae4",
@@ -488,34 +445,6 @@
         "x": 960,
         "y": 780,
         "wires": []
-    },
-    {
-        "id": "a45a4f2438934378",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "15",
-        "invert": true,
-        "x": 990,
-        "y": 740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "5e666f6ef9bf1e74",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "14",
-        "invert": true,
-        "x": 990,
-        "y": 640,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "827e13d335fd312c",
@@ -623,6 +552,118 @@
         "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
     },
     {
+        "id": "51e9ffee4c0bc96b",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "8",
+        "invert": true,
+        "x": 990,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d7a3d34f6c7c660",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "9",
+        "invert": true,
+        "x": 990,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "968be9d3d6d4eebf",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "10",
+        "invert": true,
+        "x": 990,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ea16f9f74190e0f",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "11",
+        "invert": true,
+        "x": 990,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f6aac866698cfdc",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "12",
+        "invert": true,
+        "x": 990,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a96a03dab3a26335",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "13",
+        "invert": true,
+        "x": 990,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a45a4f2438934378",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "15",
+        "invert": true,
+        "x": 990,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e666f6ef9bf1e74",
+        "type": "mcp23017output",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "14",
+        "invert": true,
+        "x": 990,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "39b9590a0e0c7f6e",
         "type": "function",
         "z": "4e1f9183000d244e",
@@ -641,159 +682,6 @@
         ]
     },
     {
-        "id": "0e04ed1ed071d783",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "17",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 140,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "181899d4c42a0535",
-        "type": "function",
-        "z": "4e1f9183000d244e",
-        "name": "Parse item state",
-        "func": "const {\n    topic,\n    payload\n} = msg;\n\nconst pin_map = {\n    11: 1,\n    13: 2,\n    15: 3,\n    19: 4,\n    21: 5,\n    23: 6,\n    27: 7,\n    29: 9\n};\n\nconst[_, pin] = topic.split('/');\n\nreturn {\n    target_type: 'relay',\n    target_id: pin_map[pin],\n    payload\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 140,
-        "wires": [
-            [
-                "39b9590a0e0c7f6e"
-            ]
-        ]
-    },
-    {
-        "id": "2195f8148f42cb08",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "27",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 180,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "03f68ea237711be2",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "22",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 220,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "3989ec9a38185470",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "10",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 260,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "fc3d12c5b8ceb523",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "9",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 300,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "afd8739179792ecd",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "11",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 340,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
-        "id": "ac23151ea4185b05",
-        "type": "pi-gpiod in",
-        "z": "4e1f9183000d244e",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "5",
-        "intype": "PUD_OFF",
-        "debounce": "25",
-        "read": true,
-        "x": 90,
-        "y": 420,
-        "wires": [
-            [
-                "181899d4c42a0535"
-            ]
-        ]
-    },
-    {
         "id": "ad6e53e4c4004a25",
         "type": "function",
         "z": "d2eb75050cc2ea33",
@@ -806,6 +694,62 @@
         "finalize": "",
         "libs": [],
         "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e9419abf35522968",
+        "type": "function",
+        "z": "44f3ed9f999bd3a8",
+        "name": "JBD BMS script",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `liontronBmsInfo.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else if(!device_id) {\n    throw `\\`device_id\\` is required`\n} else {\n    return {\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "5b81d63543932a28"
+            ]
+        ]
+    },
+    {
+        "id": "5b81d63543932a28",
+        "type": "exec",
+        "z": "44f3ed9f999bd3a8",
+        "command": "python3 ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "b034b52cd70cb3d7"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b034b52cd70cb3d7",
+        "type": "json",
+        "z": "44f3ed9f999bd3a8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 530,
         "y": 80,
         "wires": [
             []
@@ -1244,5 +1188,83 @@
                 "1bccc0445d55310b"
             ]
         ]
+    },
+    {
+        "id": "07902ae4b7523777",
+        "type": "inject",
+        "z": "43f1ddd45d338663",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "23e3d5833d4f01d4"
+            ]
+        ]
+    },
+    {
+        "id": "23e3d5833d4f01d4",
+        "type": "function",
+        "z": "43f1ddd45d338663",
+        "name": "Set device ID",
+        "func": "return {\n    payload: {\n        device_id: 'a4:c1:38:0b:79:22'\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 280,
+        "wires": [
+            [
+                "1e2754fe85a66c65"
+            ]
+        ]
+    },
+    {
+        "id": "1e2754fe85a66c65",
+        "type": "subflow:44f3ed9f999bd3a8",
+        "z": "43f1ddd45d338663",
+        "x": 540,
+        "y": 280,
+        "wires": [
+            [
+                "7d1a1fc692ff5258"
+            ]
+        ]
+    },
+    {
+        "id": "7d1a1fc692ff5258",
+        "type": "debug",
+        "z": "43f1ddd45d338663",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 280,
+        "wires": []
     }
 ]
