@@ -2,7 +2,7 @@
     {
         "id": "2f6480327ea906c3",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Relays",
         "disabled": false,
         "info": "",
         "env": []
@@ -10,7 +10,15 @@
     {
         "id": "43f1ddd45d338663",
         "type": "tab",
-        "label": "Flow 2",
+        "label": "JBD BMS",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "254fbe7becd93c6d",
+        "type": "tab",
+        "label": "GPS",
         "disabled": false,
         "info": "",
         "env": []
@@ -126,10 +134,151 @@
         "color": "#DDAA99"
     },
     {
+        "id": "924d506d524e2f1f",
+        "type": "subflow",
+        "name": "[GPS] Initialize",
+        "info": "",
+        "category": "",
+        "in": [],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "cd03e8b953118d1f",
+        "type": "subflow",
+        "name": "[GPS] Get info",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "85c5be514632f153"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "85c5be514632f153",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "e83d5dc5a3f616c1",
         "type": "mcp23017chip",
         "addr": "0x20",
         "interval": "100"
+    },
+    {
+        "id": "fb64b34bb7bd548d",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
     },
     {
         "id": "3ee1f64cf96afd3f",
@@ -756,6 +905,63 @@
         ]
     },
     {
+        "id": "43815fbb22b94432",
+        "type": "gpsd",
+        "z": "924d506d524e2f1f",
+        "name": "",
+        "hostname": "127.0.0.1",
+        "port": "2947",
+        "tpv": true,
+        "sky": false,
+        "info": false,
+        "device": false,
+        "gst": false,
+        "att": false,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "49ee4acd56fb9817"
+            ]
+        ]
+    },
+    {
+        "id": "49ee4acd56fb9817",
+        "type": "function",
+        "z": "924d506d524e2f1f",
+        "name": "Set `global.gps_info`",
+        "func": "global.set('gps_info', msg.payload);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "85c5be514632f153",
+        "type": "function",
+        "z": "cd03e8b953118d1f",
+        "name": "Get `global.gps_info`",
+        "func": "const gps = global.get('gps_info');\nconst modes = {\n    0: 'unknown',\n    1: 'no_fix',\n    2: '2d',\n    3: '3d'\n};\n\nif(!gps) {\n    throw `GPS info not available`\n};\n\nreturn {\n    payload: {\n        mode: modes[gps.mode],\n        time: gps.time,\n        longitude: gps.lon,\n        latitude: gps.lat,\n        altitude_hae: gps.altHAE,\n        altitude_msl: gps.altMSL,\n        speed: gps.speed,\n        direction: gps.track,\n        climb: gps.climb,\n        estimated_errors: {\n            longitude: gps.epx,\n            latitude: gps.epy,\n            altitude: gps.epv,\n            speed: gps.eps,\n            direction: gps.epd,\n            climb: gps.epc\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "dd6f48cb877d8037",
         "type": "subflow:3ee3b10c02a9dae4",
         "z": "2f6480327ea906c3",
@@ -1266,5 +1472,72 @@
         "x": 740,
         "y": 280,
         "wires": []
+    },
+    {
+        "id": "811698183eefda21",
+        "type": "subflow:924d506d524e2f1f",
+        "z": "254fbe7becd93c6d",
+        "name": "",
+        "x": 130,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1e73c37b977c04c8",
+        "type": "inject",
+        "z": "254fbe7becd93c6d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "6a470f531cdcf5bb"
+            ]
+        ]
+    },
+    {
+        "id": "43a66530f131fe31",
+        "type": "debug",
+        "z": "254fbe7becd93c6d",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6a470f531cdcf5bb",
+        "type": "subflow:cd03e8b953118d1f",
+        "z": "254fbe7becd93c6d",
+        "name": "",
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "43a66530f131fe31"
+            ]
+        ]
     }
 ]
