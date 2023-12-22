@@ -24,6 +24,22 @@
         "env": []
     },
     {
+        "id": "0176619f63694862",
+        "type": "tab",
+        "label": "Temperature sensor",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "181d977a8b81274c",
+        "type": "tab",
+        "label": "HTTP API",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
         "name": "[GPIO] dispatcher",
@@ -169,6 +185,72 @@
                 "wires": [
                     {
                         "id": "85c5be514632f153",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "48376301d7cf8ab5",
+        "type": "subflow",
+        "name": "[GPIO] Get items state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b305862eb524c8b9"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 400,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b305862eb524c8b9",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "c30c47ad0a20b80b",
+        "type": "subflow",
+        "name": "[Temp Sensor] Get temperatures",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c2d74b2b38c9e67b"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 720,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "215a88fad5308406",
                         "port": 0
                     }
                 ]
@@ -824,7 +906,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
+        "x": 200,
         "y": 80,
         "wires": [
             []
@@ -880,7 +962,7 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 340,
+        "x": 360,
         "y": 80,
         "wires": [
             [
@@ -930,7 +1012,7 @@
         "type": "function",
         "z": "924d506d524e2f1f",
         "name": "Set `global.gps_info`",
-        "func": "global.set('gps_info', msg.payload);",
+        "func": "const {\n    payload\n} = msg;\n\nif([2,3].includes(payload.mode || !global.get('gps_info'))) {\n    global.set('gps_info', msg.payload);\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -948,7 +1030,7 @@
         "type": "function",
         "z": "cd03e8b953118d1f",
         "name": "Get `global.gps_info`",
-        "func": "const gps = global.get('gps_info');\nconst modes = {\n    0: 'unknown',\n    1: 'no_fix',\n    2: '2d',\n    3: '3d'\n};\n\nif(!gps) {\n    throw `GPS info not available`\n};\n\nreturn {\n    payload: {\n        mode: modes[gps.mode],\n        time: gps.time,\n        longitude: gps.lon,\n        latitude: gps.lat,\n        altitude_hae: gps.altHAE,\n        altitude_msl: gps.altMSL,\n        speed: gps.speed,\n        direction: gps.track,\n        climb: gps.climb,\n        estimated_errors: {\n            longitude: gps.epx,\n            latitude: gps.epy,\n            altitude: gps.epv,\n            speed: gps.eps,\n            direction: gps.epd,\n            climb: gps.epc\n        }\n    }\n};",
+        "func": "const gps = global.get('gps_info');\nconst modes = {\n    0: 'unknown',\n    1: 'no_fix',\n    2: '2d',\n    3: '3d'\n};\n\nif(!gps) {\n    throw `GPS info not available`\n};\n\nreturn {\n    ...msg,\n    payload: {\n        mode: modes[gps.mode],\n        time: gps.time,\n        longitude: gps.lon,\n        latitude: gps.lat,\n        altitude_hae: gps.altHAE,\n        altitude_msl: gps.altMSL,\n        speed: gps.speed,\n        direction: gps.track,\n        climb: gps.climb,\n        estimated_errors: {\n            longitude: gps.epx,\n            latitude: gps.epy,\n            altitude: gps.epv,\n            speed: gps.eps,\n            direction: gps.epd,\n            climb: gps.epc\n        }\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -956,6 +1038,84 @@
         "finalize": "",
         "libs": [],
         "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b305862eb524c8b9",
+        "type": "function",
+        "z": "48376301d7cf8ab5",
+        "name": "Get GPIO items state",
+        "func": "const {\n    _msgid='',\n    ...payload\n} = global.get('state_gpio') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2d74b2b38c9e67b",
+        "type": "function",
+        "z": "c30c47ad0a20b80b",
+        "name": "Temperature sensor script",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `ds18b20.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 80,
+        "wires": [
+            [
+                "9494fc6e2243e775"
+            ]
+        ]
+    },
+    {
+        "id": "9494fc6e2243e775",
+        "type": "exec",
+        "z": "c30c47ad0a20b80b",
+        "command": "python3 ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "215a88fad5308406"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "215a88fad5308406",
+        "type": "function",
+        "z": "c30c47ad0a20b80b",
+        "name": "Parse temperatures",
+        "func": "const {\n    payload\n} = msg;\n\nconst parsedPayload = (\n    payload\n        .split(\"\\n\")\n        .filter(s => !!s)\n        .map(string => {\n            const [\n                index,\n                temperature,\n                unit\n            ] = string.trim().split(/[\\s,\\t,\\n]+/);\n\n            return {\n                index: parseInt(index),\n                temperature: parseFloat(temperature),\n                unit\n            }\n        })\n);\n\nreturn {\n    ...msg,\n    payload: parsedPayload\n};\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
         "y": 80,
         "wires": [
             []
@@ -1448,6 +1608,7 @@
         "id": "1e2754fe85a66c65",
         "type": "subflow:44f3ed9f999bd3a8",
         "z": "43f1ddd45d338663",
+        "name": "",
         "x": 540,
         "y": 280,
         "wires": [
@@ -1539,5 +1700,236 @@
                 "43a66530f131fe31"
             ]
         ]
+    },
+    {
+        "id": "fa44778ce07e4609",
+        "type": "inject",
+        "z": "0176619f63694862",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 120,
+        "wires": [
+            [
+                "081541771c01eea7"
+            ]
+        ]
+    },
+    {
+        "id": "081541771c01eea7",
+        "type": "subflow:c30c47ad0a20b80b",
+        "z": "0176619f63694862",
+        "name": "",
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "e8ec4d805872edc5"
+            ]
+        ]
+    },
+    {
+        "id": "e8ec4d805872edc5",
+        "type": "debug",
+        "z": "0176619f63694862",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f7a70eb3ee7a6e7c",
+        "type": "subflow:48376301d7cf8ab5",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "5454baccb3adcf75"
+            ]
+        ]
+    },
+    {
+        "id": "0a1d29608ba1f9c3",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/state_gpio`",
+        "url": "api/v1/state_gpio",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "f7a70eb3ee7a6e7c"
+            ]
+        ]
+    },
+    {
+        "id": "5454baccb3adcf75",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 560,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a3d784e0a78df174",
+        "type": "subflow:48376301d7cf8ab5",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "d18fe836933072ef"
+            ]
+        ]
+    },
+    {
+        "id": "8b7eee730dc79980",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "POST `api/v1/switches/:switch_type/:switch_id`",
+        "url": "api/v1/switches/:switch_type/:switch_id",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 180,
+        "wires": [
+            [
+                "a3d784e0a78df174"
+            ]
+        ]
+    },
+    {
+        "id": "d18fe836933072ef",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1020,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "09fb0f13ef4f8d1f",
+        "type": "subflow:c30c47ad0a20b80b",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 470,
+        "y": 340,
+        "wires": [
+            [
+                "fd2c6e14df5619c5"
+            ]
+        ]
+    },
+    {
+        "id": "a55ba29cae6b62f5",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/temperature_values`",
+        "url": "api/v1/temperature_values",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "09fb0f13ef4f8d1f"
+            ]
+        ]
+    },
+    {
+        "id": "fd2c6e14df5619c5",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 680,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f6fe2ecb7716291c",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/gps_values`",
+        "url": "api/v1/gps_values",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 440,
+        "wires": [
+            [
+                "6ccf70ed017a483e"
+            ]
+        ]
+    },
+    {
+        "id": "6ccf70ed017a483e",
+        "type": "subflow:cd03e8b953118d1f",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "db72e358f763ea55"
+            ]
+        ]
+    },
+    {
+        "id": "db72e358f763ea55",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 580,
+        "y": 440,
+        "wires": []
     }
 ]
