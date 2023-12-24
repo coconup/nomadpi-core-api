@@ -635,7 +635,7 @@
         "type": "function",
         "z": "3ee3b10c02a9dae4",
         "name": "Set initial item state and reset payload",
-        "func": "const {\n    payload: item_state,\n    request_payload,\n    ...rest\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn {\n    ...rest,\n    payload: request_payload\n};",
+        "func": "const {\n    payload: item_state,\n    request_payload,\n    ...rest\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn {\n    ...rest,\n    statusCode: 200,\n    payload: request_payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -787,7 +787,7 @@
         "type": "function",
         "z": "3ee3b10c02a9dae4",
         "name": "Set and validate request payload",
-        "func": "const {\n    relay_position,\n    payload: request_payload,\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = request_payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            error\n        }\n    ]\n};\n\nreturn [\n    {\n        ...msg,\n        request_payload\n    },\n    null\n];",
+        "func": "const {\n    relay_position,\n    payload: request_payload,\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = request_payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            statusCode: 400,\n            error\n        }\n    ]\n};\n\nreturn [\n    {\n        ...msg,\n        request_payload\n    },\n    null\n];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -1054,7 +1054,7 @@
         "type": "function",
         "z": "c30c47ad0a20b80b",
         "name": "Parse temperatures",
-        "func": "const {\n    payload\n} = msg;\n\nconst parsedPayload = (\n    payload\n        .split(\"\\n\")\n        .filter(s => !!s)\n        .map(string => {\n            const [\n                index,\n                temperature,\n                unit\n            ] = string.trim().split(/[\\s,\\t,\\n]+/);\n\n            return {\n                index: parseInt(index),\n                temperature: parseFloat(temperature),\n                unit\n            }\n        })\n);\n\nreturn {\n    ...msg,\n    payload: parsedPayload\n};\n\n",
+        "func": "const {\n    payload\n} = msg;\n\nlet parsedPayload = {};\n\npayload\n    .split(\"\\n\")\n    .filter(s => !!s)\n    .forEach(string => {\n        const [\n            index,\n            temperature,\n            unit\n        ] = string.trim().split(/[\\s,\\t,\\n]+/);\n\n        parsedPayload[parseInt(index)] = {\n            temperature: parseFloat(temperature),\n            unit\n        }\n    });\n\nreturn {\n    ...msg,\n    payload: parsedPayload\n};\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1773,7 +1773,7 @@
         "type": "http response",
         "z": "181d977a8b81274c",
         "name": "Response",
-        "statusCode": "200",
+        "statusCode": "",
         "headers": {
             "Content-Type": "application/json"
         },
@@ -1787,7 +1787,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 470,
-        "y": 340,
+        "y": 260,
         "wires": [
             [
                 "fd2c6e14df5619c5"
@@ -1804,7 +1804,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 340,
+        "y": 260,
         "wires": [
             [
                 "09fb0f13ef4f8d1f"
@@ -1821,7 +1821,7 @@
             "Content-Type": "application/json"
         },
         "x": 680,
-        "y": 340,
+        "y": 260,
         "wires": []
     },
     {
@@ -1834,7 +1834,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 440,
+        "y": 360,
         "wires": [
             [
                 "6ccf70ed017a483e"
@@ -1847,7 +1847,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 400,
-        "y": 440,
+        "y": 360,
         "wires": [
             [
                 "db72e358f763ea55"
@@ -1864,7 +1864,7 @@
             "Content-Type": "application/json"
         },
         "x": 580,
-        "y": 440,
+        "y": 360,
         "wires": []
     },
     {
