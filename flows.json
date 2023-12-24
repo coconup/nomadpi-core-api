@@ -48,15 +48,30 @@
         "in": [
             {
                 "x": 100,
-                "y": 1140,
+                "y": 660,
                 "wires": [
                     {
-                        "id": "9fddd250c6d53f2f"
+                        "id": "69ac112e549ead7a"
                     }
                 ]
             }
         ],
-        "out": [],
+        "out": [
+            {
+                "x": 1360,
+                "y": 920,
+                "wires": [
+                    {
+                        "id": "827e13d335fd312c",
+                        "port": 0
+                    },
+                    {
+                        "id": "69ac112e549ead7a",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -74,11 +89,25 @@
                 "wires": [
                     {
                         "id": "39b9590a0e0c7f6e"
+                    },
+                    {
+                        "id": "8859bada97e55b53"
                     }
                 ]
             }
         ],
-        "out": [],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "39b9590a0e0c7f6e",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -363,46 +392,11 @@
         }
     },
     {
-        "id": "3ee1f64cf96afd3f",
-        "type": "switch",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "property": "target_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "relay",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "wifi_relay",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 610,
-        "y": 1140,
-        "wires": [
-            [
-                "97059ba81f6ce727",
-                "827e13d335fd312c"
-            ],
-            [
-                "db7856cec630e598",
-                "827e13d335fd312c"
-            ]
-        ]
-    },
-    {
         "id": "97059ba81f6ce727",
         "type": "switch",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "property": "target_id",
+        "property": "relay_position",
         "propertyType": "msg",
         "rules": [
             {
@@ -449,8 +443,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 8,
-        "x": 770,
-        "y": 420,
+        "x": 1370,
+        "y": 500,
         "wires": [
             [
                 "f2b73ec8783670eb",
@@ -487,71 +481,6 @@
         ]
     },
     {
-        "id": "db7856cec630e598",
-        "type": "switch",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "property": "target_id",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "3",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "4",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "5",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "6",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "7",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "8",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 8,
-        "x": 970,
-        "y": 1320,
-        "wires": [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
-        ]
-    },
-    {
         "id": "f2b73ec8783670eb",
         "type": "pi-gpiod out",
         "z": "3ee3b10c02a9dae4",
@@ -565,8 +494,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 80,
+        "x": 1560,
+        "y": 160,
         "wires": []
     },
     {
@@ -583,8 +512,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 180,
+        "x": 1560,
+        "y": 260,
         "wires": []
     },
     {
@@ -601,8 +530,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 280,
+        "x": 1560,
+        "y": 360,
         "wires": []
     },
     {
@@ -619,8 +548,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 380,
+        "x": 1560,
+        "y": 460,
         "wires": []
     },
     {
@@ -637,8 +566,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 480,
+        "x": 1560,
+        "y": 560,
         "wires": []
     },
     {
@@ -655,8 +584,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 580,
+        "x": 1560,
+        "y": 660,
         "wires": []
     },
     {
@@ -673,8 +602,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 960,
-        "y": 780,
+        "x": 1560,
+        "y": 860,
         "wires": []
     },
     {
@@ -682,23 +611,10 @@
         "type": "subflow:4e1f9183000d244e",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "x": 840,
-        "y": 1140,
-        "wires": []
-    },
-    {
-        "id": "2d81b52e2955a532",
-        "type": "catch",
-        "z": "3ee3b10c02a9dae4",
-        "name": "Catch all errrors",
-        "scope": null,
-        "uncaught": false,
-        "x": 160,
-        "y": 1260,
+        "x": 1160,
+        "y": 700,
         "wires": [
-            [
-                "3f20f14ce766eb97"
-            ]
+            []
         ]
     },
     {
@@ -706,8 +622,8 @@
         "type": "subflow:d2eb75050cc2ea33",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "x": 240,
-        "y": 1140,
+        "x": 580,
+        "y": 640,
         "wires": [
             [
                 "4306530c6c75eff8"
@@ -718,50 +634,22 @@
         "id": "4306530c6c75eff8",
         "type": "function",
         "z": "3ee3b10c02a9dae4",
-        "name": "Set initial item state",
-        "func": "const {\n    payload,\n    ...item_state\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn msg;",
+        "name": "Set initial item state and reset payload",
+        "func": "const {\n    payload: item_state,\n    request_payload,\n    ...rest\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn {\n    ...rest,\n    payload: request_payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 1140,
+        "x": 850,
+        "y": 640,
         "wires": [
             [
-                "3ee1f64cf96afd3f"
+                "827e13d335fd312c",
+                "9c7423bd52cc2dec"
             ]
         ]
-    },
-    {
-        "id": "3f20f14ce766eb97",
-        "type": "function",
-        "z": "3ee3b10c02a9dae4",
-        "name": "Get initial item state",
-        "func": "return flow.get('initial_item_state');",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 1260,
-        "wires": [
-            [
-                "f86087ec09e17291"
-            ]
-        ]
-    },
-    {
-        "id": "f86087ec09e17291",
-        "type": "subflow:4e1f9183000d244e",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "x": 580,
-        "y": 1260,
-        "wires": []
     },
     {
         "id": "827313b3d4fdaa84",
@@ -777,8 +665,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1070,
-        "y": 680,
+        "x": 1670,
+        "y": 760,
         "wires": [],
         "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
     },
@@ -790,8 +678,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "8",
         "invert": true,
-        "x": 990,
-        "y": 40,
+        "x": 1590,
+        "y": 120,
         "wires": [
             []
         ]
@@ -804,8 +692,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "9",
         "invert": true,
-        "x": 990,
-        "y": 140,
+        "x": 1590,
+        "y": 220,
         "wires": [
             []
         ]
@@ -818,8 +706,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "10",
         "invert": true,
-        "x": 990,
-        "y": 240,
+        "x": 1590,
+        "y": 320,
         "wires": [
             []
         ]
@@ -832,8 +720,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "11",
         "invert": true,
-        "x": 990,
-        "y": 340,
+        "x": 1590,
+        "y": 420,
         "wires": [
             []
         ]
@@ -846,8 +734,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "12",
         "invert": true,
-        "x": 990,
-        "y": 440,
+        "x": 1590,
+        "y": 520,
         "wires": [
             []
         ]
@@ -860,8 +748,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "13",
         "invert": true,
-        "x": 990,
-        "y": 540,
+        "x": 1590,
+        "y": 620,
         "wires": [
             []
         ]
@@ -874,8 +762,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "15",
         "invert": true,
-        "x": 990,
-        "y": 740,
+        "x": 1590,
+        "y": 820,
         "wires": [
             []
         ]
@@ -888,10 +776,51 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "14",
         "invert": true,
-        "x": 990,
-        "y": 640,
+        "x": 1590,
+        "y": 720,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "69ac112e549ead7a",
+        "type": "function",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Set and validate request payload",
+        "func": "const {\n    relay_position,\n    payload: request_payload,\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = request_payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            error\n        }\n    ]\n};\n\nreturn [\n    {\n        ...msg,\n        request_payload\n    },\n    null\n];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 660,
+        "wires": [
+            [
+                "9fddd250c6d53f2f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9c7423bd52cc2dec",
+        "type": "function",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Parse payload",
+        "func": "const {\n    relay_position,\n    payload\n} = msg;\n\nreturn {\n    relay_position,\n    payload: payload.state\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 600,
+        "wires": [
+            [
+                "97059ba81f6ce727"
+            ]
         ]
     },
     {
@@ -899,7 +828,7 @@
         "type": "function",
         "z": "4e1f9183000d244e",
         "name": "Set GPIO global state",
-        "func": "let stateGPIO = {...global.get('state_gpio') || {}};\n\nstateGPIO[msg.target_type] ||= {};\nstateGPIO[msg.target_type][msg.target_id] = msg.payload;\n\nglobal.set('state_gpio', stateGPIO);",
+        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = payload;\n\nif ([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    throw `Invalid payload`\n}\n\nlet stateGPIO = {...global.get('state_gpio') || {}};\nstateGPIO[relay_position] = payload;\n\nglobal.set('state_gpio', stateGPIO);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -913,11 +842,28 @@
         ]
     },
     {
+        "id": "8859bada97e55b53",
+        "type": "debug",
+        "z": "4e1f9183000d244e",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 220,
+        "y": 200,
+        "wires": []
+    },
+    {
         "id": "ad6e53e4c4004a25",
         "type": "function",
         "z": "d2eb75050cc2ea33",
         "name": "Get GPIO item state",
-        "func": "const stateGPIO = {...global.get('state_gpio') || {}};\n\nreturn {\n    ...msg,\n    item_state: (stateGPIO[msg.target_type] ||= {})[msg.target_id] || 0\n}",
+        "func": "const stateGPIO = {...global.get('state_gpio') || {}};\n\nreturn {\n    ...msg,\n    payload: stateGPIO[msg.relay_position] || {}\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1128,14 +1074,16 @@
         "name": "",
         "x": 990,
         "y": 180,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "f929074e5e6b01b3",
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Toggle",
-        "func": "const {\n    item_state,\n    target_type,\n    target_id\n} = msg;\n\nreturn {\n    target_type,\n    target_id,\n    payload: item_state === 0 ? 1 : 0\n}",
+        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst { state } = payload;\n\nreturn {\n    relay_position,\n    payload: {\n        state: state === 0 ? 1 : 0\n    }\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1197,7 +1145,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 1",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 1\n}",
+        "func": "return {\n    relay_position: 1\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1246,7 +1194,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 2",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 2\n}",
+        "func": "return {\n    relay_position: 2\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1295,7 +1243,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 3",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 3\n}",
+        "func": "return {\n    relay_position: 3\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1344,7 +1292,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 4",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 4\n}",
+        "func": "return {\n    relay_position: 4\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1393,7 +1341,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 5",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 5\n}",
+        "func": "return {\n    relay_position: 5\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1442,7 +1390,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 6",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 6\n}",
+        "func": "return {\n    relay_position: 6\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1491,7 +1439,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 7",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 7\n}",
+        "func": "return {\n    relay_position: 7\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1540,7 +1488,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Relay 8",
-        "func": "return {\n    target_type: 'relay',\n    target_id: 8\n}",
+        "func": "return {\n    relay_position: 8\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1765,7 +1713,7 @@
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 380,
+        "x": 420,
         "y": 100,
         "wires": [
             [
@@ -1777,12 +1725,12 @@
         "id": "0a1d29608ba1f9c3",
         "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "GET `api/v1/state_gpio`",
-        "url": "api/v1/state_gpio",
+        "name": "GET `api/v1/relays/state`",
+        "url": "api/v1/relays/state",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 160,
+        "x": 170,
         "y": 100,
         "wires": [
             [
@@ -1799,37 +1747,24 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 560,
+        "x": 600,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "a3d784e0a78df174",
-        "type": "subflow:48376301d7cf8ab5",
-        "z": "181d977a8b81274c",
-        "name": "",
-        "x": 540,
-        "y": 180,
-        "wires": [
-            [
-                "d18fe836933072ef"
-            ]
-        ]
     },
     {
         "id": "8b7eee730dc79980",
         "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "POST `api/v1/switches/:switch_type/:switch_id`",
-        "url": "api/v1/switches/:switch_type/:switch_id",
+        "name": "POST `api/v1/relays/:relay_position`",
+        "url": "api/v1/relays/:relay_position",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 240,
+        "x": 200,
         "y": 180,
         "wires": [
             [
-                "a3d784e0a78df174"
+                "8388c33c12ff50eb"
             ]
         ]
     },
@@ -1842,7 +1777,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1020,
+        "x": 800,
         "y": 180,
         "wires": []
     },
@@ -1931,5 +1866,38 @@
         "x": 580,
         "y": 440,
         "wires": []
+    },
+    {
+        "id": "c0684478196683c8",
+        "type": "subflow:3ee3b10c02a9dae4",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "d18fe836933072ef"
+            ]
+        ]
+    },
+    {
+        "id": "8388c33c12ff50eb",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Parse request",
+        "func": "const { state } = msg.req.body;\nconst { params } = msg.req;\nconst { relay_position } = params;\n\nreturn {\n    ...msg,\n    relay_position,\n    payload: { state }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "c0684478196683c8"
+            ]
+        ]
     }
 ]
