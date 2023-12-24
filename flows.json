@@ -58,7 +58,7 @@
         ],
         "out": [
             {
-                "x": 1360,
+                "x": 860,
                 "y": 920,
                 "wires": [
                     {
@@ -89,9 +89,6 @@
                 "wires": [
                     {
                         "id": "39b9590a0e0c7f6e"
-                    },
-                    {
-                        "id": "8859bada97e55b53"
                     }
                 ]
             }
@@ -443,8 +440,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 8,
-        "x": 1370,
-        "y": 500,
+        "x": 830,
+        "y": 520,
         "wires": [
             [
                 "f2b73ec8783670eb",
@@ -494,8 +491,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 160,
+        "x": 1020,
+        "y": 180,
         "wires": []
     },
     {
@@ -512,8 +509,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 260,
+        "x": 1020,
+        "y": 280,
         "wires": []
     },
     {
@@ -530,8 +527,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 360,
+        "x": 1020,
+        "y": 380,
         "wires": []
     },
     {
@@ -548,8 +545,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 460,
+        "x": 1020,
+        "y": 480,
         "wires": []
     },
     {
@@ -566,8 +563,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 560,
+        "x": 1020,
+        "y": 580,
         "wires": []
     },
     {
@@ -584,8 +581,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 660,
+        "x": 1020,
+        "y": 680,
         "wires": []
     },
     {
@@ -602,8 +599,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1560,
-        "y": 860,
+        "x": 1020,
+        "y": 880,
         "wires": []
     },
     {
@@ -611,44 +608,10 @@
         "type": "subflow:4e1f9183000d244e",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "x": 1160,
-        "y": 700,
+        "x": 640,
+        "y": 680,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "9fddd250c6d53f2f",
-        "type": "subflow:d2eb75050cc2ea33",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "x": 580,
-        "y": 640,
-        "wires": [
-            [
-                "4306530c6c75eff8"
-            ]
-        ]
-    },
-    {
-        "id": "4306530c6c75eff8",
-        "type": "function",
-        "z": "3ee3b10c02a9dae4",
-        "name": "Set initial item state and reset payload",
-        "func": "const {\n    payload: item_state,\n    request_payload,\n    ...rest\n} = msg;\n\nflow.set('initial_item_state', item_state);\n\nreturn {\n    ...rest,\n    statusCode: 200,\n    payload: request_payload\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 640,
-        "wires": [
-            [
-                "827e13d335fd312c",
-                "9c7423bd52cc2dec"
-            ]
         ]
     },
     {
@@ -665,8 +628,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1670,
-        "y": 760,
+        "x": 1130,
+        "y": 780,
         "wires": [],
         "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
     },
@@ -678,8 +641,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "8",
         "invert": true,
-        "x": 1590,
-        "y": 120,
+        "x": 1050,
+        "y": 140,
         "wires": [
             []
         ]
@@ -692,8 +655,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "9",
         "invert": true,
-        "x": 1590,
-        "y": 220,
+        "x": 1050,
+        "y": 240,
         "wires": [
             []
         ]
@@ -706,8 +669,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "10",
         "invert": true,
-        "x": 1590,
-        "y": 320,
+        "x": 1050,
+        "y": 340,
         "wires": [
             []
         ]
@@ -720,8 +683,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "11",
         "invert": true,
-        "x": 1590,
-        "y": 420,
+        "x": 1050,
+        "y": 440,
         "wires": [
             []
         ]
@@ -734,8 +697,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "12",
         "invert": true,
-        "x": 1590,
-        "y": 520,
+        "x": 1050,
+        "y": 540,
         "wires": [
             []
         ]
@@ -748,8 +711,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "13",
         "invert": true,
-        "x": 1590,
-        "y": 620,
+        "x": 1050,
+        "y": 640,
         "wires": [
             []
         ]
@@ -762,8 +725,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "15",
         "invert": true,
-        "x": 1590,
-        "y": 820,
+        "x": 1050,
+        "y": 840,
         "wires": [
             []
         ]
@@ -776,8 +739,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "14",
         "invert": true,
-        "x": 1590,
-        "y": 720,
+        "x": 1050,
+        "y": 740,
         "wires": [
             []
         ]
@@ -786,19 +749,20 @@
         "id": "69ac112e549ead7a",
         "type": "function",
         "z": "3ee3b10c02a9dae4",
-        "name": "Set and validate request payload",
-        "func": "const {\n    relay_position,\n    payload: request_payload,\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = request_payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            statusCode: 400,\n            error\n        }\n    ]\n};\n\nreturn [\n    {\n        ...msg,\n        request_payload\n    },\n    null\n];",
+        "name": "Validate request payload",
+        "func": "const {\n    relay_position,\n    payload\n} = msg;\n\nconst {\n    state,\n    actor,\n    ...rest\n} = payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            statusCode: 400,\n            error\n        }\n    ]\n};\n\nreturn [\n    msg,\n    null\n];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
+        "x": 270,
         "y": 660,
         "wires": [
             [
-                "9fddd250c6d53f2f"
+                "827e13d335fd312c",
+                "9c7423bd52cc2dec"
             ],
             []
         ]
@@ -815,8 +779,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1140,
-        "y": 600,
+        "x": 600,
+        "y": 620,
         "wires": [
             [
                 "97059ba81f6ce727"
@@ -828,7 +792,7 @@
         "type": "function",
         "z": "4e1f9183000d244e",
         "name": "Set GPIO global state",
-        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst {\n    state,\n    ...rest\n} = payload;\n\nif ([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    throw `Invalid payload`\n}\n\nlet stateGPIO = {...global.get('state_gpio') || {}};\nstateGPIO[relay_position] = payload;\n\nglobal.set('state_gpio', stateGPIO);\n\nreturn msg;",
+        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst {\n    state,\n    actor,\n    ...rest\n} = payload;\n\nif ([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    throw `Invalid payload`\n}\n\nlet state_gpio = {...global.get('state_gpio') || {}};\n\nlet item_state = state_gpio[relay_position] || {};\nitem_state.state = state;\nitem_state.actors ||= [];\n\nif(actor) {\n    const item_actor = item_state.actors.find(({actor: a}) => a === actor);\n    if (state && !item_actor) {\n        item_state.actors.push({\n            actor,\n            state\n        })\n    } else if(!state && item_actor) {\n        item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n    }\n}\n\nstate_gpio[relay_position] = item_state;\n\nglobal.set('state_gpio', state_gpio);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -840,23 +804,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "8859bada97e55b53",
-        "type": "debug",
-        "z": "4e1f9183000d244e",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 220,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "ad6e53e4c4004a25",
@@ -1083,7 +1030,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Toggle",
-        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst { state } = payload;\n\nreturn {\n    relay_position,\n    payload: {\n        state: state === 0 ? 1 : 0\n    }\n}",
+        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst { state } = payload;\n\nreturn {\n    relay_position,\n    payload: {\n        state: state === 0 ? 1 : 0,\n        actor: 'test'\n    }\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
