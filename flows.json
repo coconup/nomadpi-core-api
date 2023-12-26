@@ -40,6 +40,14 @@
         "env": []
     },
     {
+        "id": "fde5c8556ec79e4d",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
         "name": "[GPIO] dispatcher",
@@ -51,23 +59,23 @@
                 "y": 660,
                 "wires": [
                     {
-                        "id": "69ac112e549ead7a"
+                        "id": "827e13d335fd312c"
                     }
                 ]
             }
         ],
         "out": [
             {
-                "x": 860,
-                "y": 920,
+                "x": 480,
+                "y": 700,
                 "wires": [
                     {
                         "id": "827e13d335fd312c",
                         "port": 0
                     },
                     {
-                        "id": "69ac112e549ead7a",
-                        "port": 1
+                        "id": "d604f0318f30da1e",
+                        "port": 0
                     }
                 ]
             }
@@ -79,7 +87,7 @@
     {
         "id": "4e1f9183000d244e",
         "type": "subflow",
-        "name": "[GPIO] set item state",
+        "name": "[GPIO] set items state",
         "info": "",
         "category": "",
         "in": [
@@ -88,18 +96,21 @@
                 "y": 80,
                 "wires": [
                     {
-                        "id": "39b9590a0e0c7f6e"
+                        "id": "8a0ad5065fdbb073"
+                    },
+                    {
+                        "id": "82d0634d018f3f19"
                     }
                 ]
             }
         ],
         "out": [
             {
-                "x": 340,
+                "x": 560,
                 "y": 80,
                 "wires": [
                     {
-                        "id": "39b9590a0e0c7f6e",
+                        "id": "63d13c5a16c612f0",
                         "port": 0
                     }
                 ]
@@ -608,10 +619,12 @@
         "type": "subflow:4e1f9183000d244e",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "x": 640,
-        "y": 680,
+        "x": 240,
+        "y": 660,
         "wires": [
-            []
+            [
+                "9c7423bd52cc2dec"
+            ]
         ]
     },
     {
@@ -746,46 +759,93 @@
         ]
     },
     {
-        "id": "69ac112e549ead7a",
-        "type": "function",
-        "z": "3ee3b10c02a9dae4",
-        "name": "Validate request payload",
-        "func": "const {\n    relay_position,\n    payload\n} = msg;\n\nconst {\n    state,\n    actor,\n    ...rest\n} = payload;\n\nif([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    const error = {\n        message: 'Invalid request'\n    }\n    return [\n        null, \n        {\n            ...msg,\n            statusCode: 400,\n            error\n        }\n    ]\n};\n\nreturn [\n    msg,\n    null\n];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 270,
-        "y": 660,
-        "wires": [
-            [
-                "827e13d335fd312c",
-                "9c7423bd52cc2dec"
-            ],
-            []
-        ]
-    },
-    {
         "id": "9c7423bd52cc2dec",
         "type": "function",
         "z": "3ee3b10c02a9dae4",
         "name": "Parse payload",
-        "func": "const {\n    relay_position,\n    payload\n} = msg;\n\nreturn {\n    relay_position,\n    payload: payload.state\n};",
+        "func": "const payload = msg.payload.map(({relay_position, state}) => {\n    return {\n        relay_position,\n        state: state ? 1 : 0\n    }\n});\n\nreturn [payload];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 620,
+        "x": 500,
+        "y": 600,
         "wires": [
             [
-                "97059ba81f6ce727"
+                "cb62e607ee8a7a3a"
             ]
         ]
+    },
+    {
+        "id": "1aee12fc671bca2f",
+        "type": "catch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "d604f0318f30da1e"
+            ]
+        ]
+    },
+    {
+        "id": "e875b2f4412a8801",
+        "type": "debug",
+        "z": "3ee3b10c02a9dae4",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "d604f0318f30da1e",
+        "type": "function",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Parse error",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "e875b2f4412a8801"
+            ]
+        ]
+    },
+    {
+        "id": "cb62e607ee8a7a3a",
+        "type": "debug",
+        "z": "3ee3b10c02a9dae4",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 660,
+        "wires": []
     },
     {
         "id": "39b9590a0e0c7f6e",
@@ -799,18 +859,73 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
+        "x": 500,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a0ad5065fdbb073",
+        "type": "function",
+        "z": "4e1f9183000d244e",
+        "name": "Validate new state",
+        "func": "const {\n    payload\n} = msg;\n\nif(!Array.isArray(payload)) {\n    throw { type: 'invalid_payload' }\n};\n\nconst relays_state = {\n    ...global.get('relays_state') || {}\n};\n\npayload.forEach(item => {\n    const {\n        relay_position,\n        state,\n        actor,\n        mode,\n        ...rest\n    } = item;\n\n    const item_state = relays_state[relay_position] || {};\n\n    if (\n        [state, relay_position].includes(undefined)\n        || Object.keys(rest).length > 0\n        || (mode && !['subscribe', 'unsubscribe'].includes(mode))\n        || (!!mode !== !!actor)\n    ) {\n        throw { type: 'invalid_payload' }\n    };\n\n    if (mode === 'subscribe' && actor && item_state.actors) {\n        const conflicting_actors = item_state.actors.filter(({ state: s }) => s !== state);\n        if (conflicting_actors.length > 0) {\n            throw {\n                type: 'conflicting_actors_found',\n                conflicting_actors\n            }\n        }\n    };\n})\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "63d13c5a16c612f0"
+            ]
+        ]
+    },
+    {
+        "id": "63d13c5a16c612f0",
+        "type": "function",
+        "z": "4e1f9183000d244e",
+        "name": "Set `global.relays_state`",
+        "func": "const {\n    payload\n} = msg;\n\nlet relays_state = {...global.get('relays_state') || {}};\n\npayload.forEach(item => {\n    const {\n        relay_position,\n        state,\n        actor,\n        mode\n    } = item;\n\n    let item_state = relays_state[relay_position] || {};\n    item_state.state = state;\n    item_state.actors ||= [];\n\n    if(actor) {\n        if(mode === 'subscribe') {\n            const item_actor = item_state.actors.find(({actor: a}) => a === actor);\n            if (!item_actor) {\n                item_state.actors.push({\n                    actor,\n                    state\n                })\n            }\n        } else if(mode === 'unsubscribe') {\n            item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n        }\n    }\n\n    relays_state[relay_position] = item_state;\n})\n\nglobal.set('relays_state', relays_state);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
         "y": 80,
         "wires": [
             []
         ]
     },
     {
+        "id": "82d0634d018f3f19",
+        "type": "debug",
+        "z": "4e1f9183000d244e",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 200,
+        "y": 200,
+        "wires": []
+    },
+    {
         "id": "ad6e53e4c4004a25",
         "type": "function",
         "z": "d2eb75050cc2ea33",
         "name": "Get GPIO item state",
-        "func": "const stateGPIO = {...global.get('state_gpio') || {}};\n\nreturn {\n    ...msg,\n    payload: stateGPIO[msg.relay_position] || {}\n}",
+        "func": "const relays_state = {...global.get('relays_state') || {}};\n\nreturn {\n    ...msg,\n    payload: relays_state[msg.relay_position] || {}\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -941,7 +1056,7 @@
         "type": "function",
         "z": "48376301d7cf8ab5",
         "name": "Get GPIO items state",
-        "func": "const {\n    _msgid='',\n    ...payload\n} = global.get('state_gpio') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
+        "func": "const {\n    _msgid='',\n    ...payload\n} = global.get('relays_state') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1030,7 +1145,7 @@
         "type": "function",
         "z": "2f6480327ea906c3",
         "name": "Toggle",
-        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst { state } = payload;\n\nreturn {\n    relay_position,\n    payload: {\n        state: state === 0 ? 1 : 0,\n        actor: 'test'\n    }\n}",
+        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst { state } = payload;\n\nreturn {\n    payload: [\n        {\n            relay_position,\n            state: state === 0 ? 1 : 0,\n            // actor: 'test',\n            // mode: 'subscribe'\n        },\n        {\n            relay_position: relay_position+1,\n            state: state === 0 ? 1 : 0,\n            // actor: 'test',\n            // mode: 'subscribe'\n        }\n    ]\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1699,42 +1814,12 @@
         "wires": []
     },
     {
-        "id": "8b7eee730dc79980",
-        "type": "http in",
-        "z": "181d977a8b81274c",
-        "name": "POST `api/v1/relays/:relay_position`",
-        "url": "api/v1/relays/:relay_position",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 200,
-        "y": 180,
-        "wires": [
-            [
-                "8388c33c12ff50eb"
-            ]
-        ]
-    },
-    {
-        "id": "d18fe836933072ef",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 800,
-        "y": 180,
-        "wires": []
-    },
-    {
         "id": "09fb0f13ef4f8d1f",
         "type": "subflow:c30c47ad0a20b80b",
         "z": "181d977a8b81274c",
         "name": "",
         "x": 470,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "fd2c6e14df5619c5"
@@ -1751,7 +1836,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "09fb0f13ef4f8d1f"
@@ -1768,7 +1853,7 @@
             "Content-Type": "application/json"
         },
         "x": 680,
-        "y": 260,
+        "y": 400,
         "wires": []
     },
     {
@@ -1781,7 +1866,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 360,
+        "y": 500,
         "wires": [
             [
                 "6ccf70ed017a483e"
@@ -1794,7 +1879,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 400,
-        "y": 360,
+        "y": 500,
         "wires": [
             [
                 "db72e358f763ea55"
@@ -1811,40 +1896,88 @@
             "Content-Type": "application/json"
         },
         "x": 580,
-        "y": 360,
+        "y": 500,
         "wires": []
     },
     {
-        "id": "c0684478196683c8",
-        "type": "subflow:3ee3b10c02a9dae4",
+        "id": "0f0bba26d386cac0",
+        "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "",
-        "x": 630,
-        "y": 180,
+        "name": "POST `api/v1/relays/state`",
+        "url": "api/v1/relays/state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 240,
         "wires": [
             [
-                "d18fe836933072ef"
+                "1fdbc5f6e83fb59b"
             ]
         ]
     },
     {
-        "id": "8388c33c12ff50eb",
+        "id": "41da5c626064985a",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 920,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "03af40a681e75b74",
+        "type": "subflow:3ee3b10c02a9dae4",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 570,
+        "y": 240,
+        "wires": [
+            [
+                "41da5c626064985a",
+                "389da8959485f1ce"
+            ]
+        ]
+    },
+    {
+        "id": "1fdbc5f6e83fb59b",
         "type": "function",
         "z": "181d977a8b81274c",
         "name": "Parse request",
-        "func": "const { state } = msg.req.body;\nconst { params } = msg.req;\nconst { relay_position } = params;\n\nreturn {\n    ...msg,\n    relay_position,\n    payload: { state }\n};",
+        "func": "const payload = msg.req.body;\n\nreturn {\n    ...msg,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 180,
+        "x": 380,
+        "y": 240,
         "wires": [
             [
-                "c0684478196683c8"
+                "03af40a681e75b74"
             ]
         ]
+    },
+    {
+        "id": "389da8959485f1ce",
+        "type": "debug",
+        "z": "181d977a8b81274c",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 340,
+        "wires": []
     }
 ]
