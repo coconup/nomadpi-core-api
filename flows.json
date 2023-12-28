@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "d06ae3eee692de3d",
+        "type": "tab",
+        "label": "USB",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "254fbe7becd93c6d",
         "type": "tab",
         "label": "GPS",
@@ -40,7 +48,7 @@
         "env": []
     },
     {
-        "id": "fde5c8556ec79e4d",
+        "id": "d1fe66a0a15b470a",
         "type": "tab",
         "label": "Flow 1",
         "disabled": false,
@@ -50,13 +58,13 @@
     {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
-        "name": "[GPIO] dispatcher",
+        "name": "[Relays] dispatcher",
         "info": "",
         "category": "",
         "in": [
             {
                 "x": 100,
-                "y": 660,
+                "y": 480,
                 "wires": [
                     {
                         "id": "827e13d335fd312c"
@@ -67,7 +75,7 @@
         "out": [
             {
                 "x": 480,
-                "y": 700,
+                "y": 520,
                 "wires": [
                     {
                         "id": "827e13d335fd312c",
@@ -87,7 +95,7 @@
     {
         "id": "4e1f9183000d244e",
         "type": "subflow",
-        "name": "[GPIO] set items state",
+        "name": "[Relays] set items state",
         "info": "",
         "category": "",
         "in": [
@@ -97,9 +105,6 @@
                 "wires": [
                     {
                         "id": "8a0ad5065fdbb073"
-                    },
-                    {
-                        "id": "82d0634d018f3f19"
                     }
                 ]
             }
@@ -123,7 +128,7 @@
     {
         "id": "d2eb75050cc2ea33",
         "type": "subflow",
-        "name": "[GPIO] Get item state",
+        "name": "[Relays] Get item state",
         "info": "",
         "category": "",
         "in": [
@@ -234,7 +239,7 @@
     {
         "id": "48376301d7cf8ab5",
         "type": "subflow",
-        "name": "[GPIO] Get items state",
+        "name": "[Relays] Get items state",
         "info": "",
         "category": "",
         "in": [
@@ -288,6 +293,72 @@
                 "wires": [
                     {
                         "id": "215a88fad5308406",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "b3276c87a286f102",
+        "type": "subflow",
+        "name": "[USB] Scan devices",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "08e3e221b1ea90ee"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 760,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "4a1a8de294b7154f",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "2f860c0929d372d8",
+        "type": "subflow",
+        "name": "[DB] Run query",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "d3fb6d1d0e15f941"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 440,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "1c4a76541ff62d0d",
                         "port": 0
                     }
                 ]
@@ -400,6 +471,48 @@
         }
     },
     {
+        "id": "f57dd118a2654036",
+        "type": "MySQL-Server-Connector",
+        "name": "MariaDB",
+        "host": "${DB_HOST}",
+        "port": "3306",
+        "user": "${DB_USER}",
+        "password": "${DB_PASSWORD}",
+        "tls": false,
+        "database": "${DB_NAME}"
+    },
+    {
+        "id": "fff9b047550b9220",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "97059ba81f6ce727",
         "type": "switch",
         "z": "3ee3b10c02a9dae4",
@@ -451,8 +564,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 8,
-        "x": 830,
-        "y": 520,
+        "x": 990,
+        "y": 400,
         "wires": [
             [
                 "f2b73ec8783670eb",
@@ -502,8 +615,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 180,
+        "x": 1180,
+        "y": 60,
         "wires": []
     },
     {
@@ -520,8 +633,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 280,
+        "x": 1180,
+        "y": 160,
         "wires": []
     },
     {
@@ -538,8 +651,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 380,
+        "x": 1180,
+        "y": 260,
         "wires": []
     },
     {
@@ -556,8 +669,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 480,
+        "x": 1180,
+        "y": 360,
         "wires": []
     },
     {
@@ -574,8 +687,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 580,
+        "x": 1180,
+        "y": 460,
         "wires": []
     },
     {
@@ -592,8 +705,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 680,
+        "x": 1180,
+        "y": 560,
         "wires": []
     },
     {
@@ -610,8 +723,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1020,
-        "y": 880,
+        "x": 1180,
+        "y": 760,
         "wires": []
     },
     {
@@ -619,11 +732,11 @@
         "type": "subflow:4e1f9183000d244e",
         "z": "3ee3b10c02a9dae4",
         "name": "",
-        "x": 240,
-        "y": 660,
+        "x": 250,
+        "y": 480,
         "wires": [
             [
-                "9c7423bd52cc2dec"
+                "9e128262d7408f9d"
             ]
         ]
     },
@@ -641,8 +754,8 @@
         "sermin": "1000",
         "sermax": "2000",
         "freq": "800",
-        "x": 1130,
-        "y": 780,
+        "x": 1290,
+        "y": 660,
         "wires": [],
         "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
     },
@@ -654,8 +767,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "8",
         "invert": true,
-        "x": 1050,
-        "y": 140,
+        "x": 1210,
+        "y": 20,
         "wires": [
             []
         ]
@@ -668,8 +781,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "9",
         "invert": true,
-        "x": 1050,
-        "y": 240,
+        "x": 1210,
+        "y": 120,
         "wires": [
             []
         ]
@@ -682,8 +795,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "10",
         "invert": true,
-        "x": 1050,
-        "y": 340,
+        "x": 1210,
+        "y": 220,
         "wires": [
             []
         ]
@@ -696,8 +809,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "11",
         "invert": true,
-        "x": 1050,
-        "y": 440,
+        "x": 1210,
+        "y": 320,
         "wires": [
             []
         ]
@@ -710,8 +823,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "12",
         "invert": true,
-        "x": 1050,
-        "y": 540,
+        "x": 1210,
+        "y": 420,
         "wires": [
             []
         ]
@@ -724,8 +837,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "13",
         "invert": true,
-        "x": 1050,
-        "y": 640,
+        "x": 1210,
+        "y": 520,
         "wires": [
             []
         ]
@@ -738,8 +851,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "15",
         "invert": true,
-        "x": 1050,
-        "y": 840,
+        "x": 1210,
+        "y": 720,
         "wires": [
             []
         ]
@@ -752,8 +865,8 @@
         "chip": "e83d5dc5a3f616c1",
         "bitNum": "14",
         "invert": true,
-        "x": 1050,
-        "y": 740,
+        "x": 1210,
+        "y": 620,
         "wires": [
             []
         ]
@@ -763,18 +876,18 @@
         "type": "function",
         "z": "3ee3b10c02a9dae4",
         "name": "Parse payload",
-        "func": "const payload = msg.payload.map(({relay_position, state}) => {\n    return {\n        relay_position,\n        state: state ? 1 : 0\n    }\n});\n\nreturn [payload];",
+        "func": "const {\n    relay_position,\n    state\n} = msg.payload;\n\nreturn {\n    relay_position,\n    payload: state ? 1 : 0\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 600,
+        "x": 840,
+        "y": 400,
         "wires": [
             [
-                "cb62e607ee8a7a3a"
+                "97059ba81f6ce727"
             ]
         ]
     },
@@ -786,7 +899,7 @@
         "scope": null,
         "uncaught": false,
         "x": 140,
-        "y": 760,
+        "y": 580,
         "wires": [
             [
                 "d604f0318f30da1e"
@@ -794,28 +907,11 @@
         ]
     },
     {
-        "id": "e875b2f4412a8801",
-        "type": "debug",
-        "z": "3ee3b10c02a9dae4",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 860,
-        "wires": []
-    },
-    {
         "id": "d604f0318f30da1e",
         "type": "function",
         "z": "3ee3b10c02a9dae4",
         "name": "Parse error",
-        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 422,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -823,45 +919,59 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 760,
+        "y": 580,
         "wires": [
-            [
-                "e875b2f4412a8801"
-            ]
+            []
         ]
     },
     {
-        "id": "cb62e607ee8a7a3a",
-        "type": "debug",
-        "z": "3ee3b10c02a9dae4",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 660,
-        "wires": []
-    },
-    {
-        "id": "39b9590a0e0c7f6e",
+        "id": "9e128262d7408f9d",
         "type": "function",
-        "z": "4e1f9183000d244e",
-        "name": "Set GPIO global state",
-        "func": "const {\n    payload,\n    relay_position\n} = msg;\n\nconst {\n    state,\n    actor,\n    ...rest\n} = payload;\n\nif ([state, relay_position].includes(undefined) || Object.keys(rest).length > 0) {\n    throw `Invalid payload`\n}\n\nlet state_gpio = {...global.get('state_gpio') || {}};\n\nlet item_state = state_gpio[relay_position] || {};\nitem_state.state = state;\nitem_state.actors ||= [];\n\nif(actor) {\n    const item_actor = item_state.actors.find(({actor: a}) => a === actor);\n    if (state && !item_actor) {\n        item_state.actors.push({\n            actor,\n            state\n        })\n    } else if(!state && item_actor) {\n        item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n    }\n}\n\nstate_gpio[relay_position] = item_state;\n\nglobal.set('state_gpio', state_gpio);\n\nreturn msg;",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Group payloads",
+        "func": "const payload = msg.payload.map(item => {\n    const {\n        relay_type,\n        vendor_id,\n        mqtt_topic,\n        relay_position,\n        state\n    } = item;\n    \n    return {\n        payload: {\n            relay_type,\n            vendor_id,\n            mqtt_topic,\n            relay_position,\n            state\n        }\n    }\n});\n\nreturn [payload];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 400,
+        "x": 480,
+        "y": 440,
         "wires": [
+            [
+                "080e9cb5061c772f"
+            ]
+        ]
+    },
+    {
+        "id": "080e9cb5061c772f",
+        "type": "switch",
+        "z": "3ee3b10c02a9dae4",
+        "name": "Relay type",
+        "property": "payload.relay_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wifi_relay",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "9c7423bd52cc2dec"
+            ],
             []
         ]
     },
@@ -870,7 +980,7 @@
         "type": "function",
         "z": "4e1f9183000d244e",
         "name": "Validate new state",
-        "func": "const {\n    payload\n} = msg;\n\nif(!Array.isArray(payload)) {\n    throw { type: 'invalid_payload' }\n};\n\nconst relays_state = {\n    ...global.get('relays_state') || {}\n};\n\npayload.forEach(item => {\n    const {\n        relay_position,\n        state,\n        actor,\n        mode,\n        ...rest\n    } = item;\n\n    const item_state = relays_state[relay_position] || {};\n\n    if (\n        [state, relay_position].includes(undefined)\n        || Object.keys(rest).length > 0\n        || (mode && !['subscribe', 'unsubscribe'].includes(mode))\n        || (!!mode !== !!actor)\n    ) {\n        throw { type: 'invalid_payload' }\n    };\n\n    if (mode === 'subscribe' && actor && item_state.actors) {\n        const conflicting_actors = item_state.actors.filter(({ state: s }) => s !== state);\n        if (conflicting_actors.length > 0) {\n            throw {\n                type: 'conflicting_actors_found',\n                conflicting_actors\n            }\n        }\n    };\n})\n\nreturn msg;\n",
+        "func": "const {\n    payload\n} = msg;\n\nif(!Array.isArray(payload)) {\n    throw { type: 'invalid_payload' }\n};\n\nconst relays_state = {\n    ...global.get('relays_state') || {}\n};\n\npayload.forEach(item => {\n    const {\n        relay_type,\n        relay_position,\n        state,\n        actor,\n        mode,\n        vendor_id,\n        mqtt_topic,\n        ...rest\n    } = item;\n\n    const relay_type_state = relays_state[relay_type] || {};\n    const item_state = relay_type_state[relay_position] || {};\n\n    if (\n        [relay_position, relay_type].includes(undefined)\n        || !['wifi_relay', 'relay'].includes(relay_type)\n        || Object.keys(rest).length > 0\n        || (\n            relay_type === 'wifi_relay' \n            && [vendor_id, mqtt_topic].includes(undefined)\n        )\n        || (\n            relay_type === 'relay'\n            && (!!vendor_id || !!mqtt_topic)\n        )\n        || !['subscribe', 'unsubscribe'].includes(mode)\n        || !actor\n        || (state !== undefined && mode === 'unsubscribe')\n        || (state === undefined && mode === 'subscribe')\n    ) {\n        throw { type: 'invalid_payload' }\n    };\n\n    if (\n        mode === 'subscribe'\n        && state !== item_state.state\n        && (item_state.actors || []).length > 0\n    ) {\n        throw {\n            type: 'conflicting_actors_found',\n            relay_type,\n            relay_position,\n            actors: item_state.actors\n        }\n    };\n})\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -890,7 +1000,7 @@
         "type": "function",
         "z": "4e1f9183000d244e",
         "name": "Set `global.relays_state`",
-        "func": "const {\n    payload\n} = msg;\n\nlet relays_state = {...global.get('relays_state') || {}};\n\npayload.forEach(item => {\n    const {\n        relay_position,\n        state,\n        actor,\n        mode\n    } = item;\n\n    let item_state = relays_state[relay_position] || {};\n    item_state.state = state;\n    item_state.actors ||= [];\n\n    if(actor) {\n        if(mode === 'subscribe') {\n            const item_actor = item_state.actors.find(({actor: a}) => a === actor);\n            if (!item_actor) {\n                item_state.actors.push({\n                    actor,\n                    state\n                })\n            }\n        } else if(mode === 'unsubscribe') {\n            item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n        }\n    }\n\n    relays_state[relay_position] = item_state;\n})\n\nglobal.set('relays_state', relays_state);\n\nreturn msg;",
+        "func": "const {\n    payload\n} = msg;\n\nlet relays_state = {...global.get('relays_state') || {}};\n\nconst newPayload = payload.map(item => {\n    const {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state,\n        actor,\n        mode\n    } = item;\n\n    let relay_type_state = relays_state[relay_type] || {};\n\n    let item_state = relay_type_state[relay_position] || {};\n    item_state.actors ||= [];\n\n    if(mode === 'subscribe') {\n        item_state.state = state;\n        if (!item_state.actors.find(({actor: a}) => a === actor)) {\n            item_state.actors.push({ actor })\n        }\n    } else if(mode === 'unsubscribe') {\n        item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n        if(item_state.actors.length === 0) {\n            item_state.state = false;\n        }\n    }\n\n    relay_type_state[relay_position] = item_state;\n    relays_state[relay_type] = relay_type_state;\n\n    return {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state: item_state.state\n    }\n});\n\nglobal.set('relays_state', relays_state);\n\nreturn {\n    ...msg,\n    payload: newPayload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -902,23 +1012,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "82d0634d018f3f19",
-        "type": "debug",
-        "z": "4e1f9183000d244e",
-        "name": "debug 7",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 200,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "ad6e53e4c4004a25",
@@ -1127,6 +1220,114 @@
         "y": 80,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "719e21a14994edb0",
+        "type": "exec",
+        "z": "b3276c87a286f102",
+        "command": "python3",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "86cffd55d951734a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "08e3e221b1ea90ee",
+        "type": "function",
+        "z": "b3276c87a286f102",
+        "name": "Scan USB script",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `usbScan.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "719e21a14994edb0"
+            ]
+        ]
+    },
+    {
+        "id": "86cffd55d951734a",
+        "type": "json",
+        "z": "b3276c87a286f102",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 80,
+        "wires": [
+            [
+                "4a1a8de294b7154f"
+            ]
+        ]
+    },
+    {
+        "id": "4a1a8de294b7154f",
+        "type": "function",
+        "z": "b3276c87a286f102",
+        "name": "Parse items",
+        "func": "const {\n    payload\n} = msg;\n\nconst usb_items = payload.map(item => {\n    const {\n        idVendor,\n        idProduct,\n        iManufacturer,\n        iProduct,\n        iSerial\n    } = item;\n\n    const [vendor_id, vendor_name] = idVendor.split(/ (.*)/s, 2);\n    const [product_id, product_name] = idProduct.split(/ (.*)/s, 2);\n    const manufacturer_name = iManufacturer.split(/ (.*)/s, 2)[1];\n    const product_description = iProduct.split(/ (.*)/s, 2)[1];\n    const serial = iSerial.split(/ (.*)/s, 2)[1];\n\n    return {\n        product_id,\n        product_name,\n        vendor_id,\n        vendor_name,\n        manufacturer_name,\n        product_description,\n        serial\n    }\n});\n\nreturn {\n    ...msg,\n    payload: usb_items\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c4a76541ff62d0d",
+        "type": "MySQL-Connector",
+        "z": "2f860c0929d372d8",
+        "server": "f57dd118a2654036",
+        "name": "",
+        "x": 340,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d3fb6d1d0e15f941",
+        "type": "function",
+        "z": "2f860c0929d372d8",
+        "name": "Parse payload",
+        "func": "const {\n    sql_query,\n    params\n} = msg.payload;\n\nreturn {\n    ...msg,\n    topic: sql_query,\n    payload: params\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "1c4a76541ff62d0d"
+            ]
         ]
     },
     {
@@ -1645,6 +1846,179 @@
         "wires": []
     },
     {
+        "id": "7ee90873b0cc3487",
+        "type": "inject",
+        "z": "d06ae3eee692de3d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "684314d35968f05c"
+            ]
+        ]
+    },
+    {
+        "id": "6b9d29fa591ebd37",
+        "type": "file",
+        "z": "d06ae3eee692de3d",
+        "name": "",
+        "filename": "path",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 560,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ca51f19ab2691b69",
+        "type": "function",
+        "z": "d06ae3eee692de3d",
+        "name": "function 1",
+        "func": "const path = `/lib/udev/rules.d/999-vanpi-usb-devices.rules`;\n\nreturn {\n    ...msg,\n    path\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "684314d35968f05c",
+        "type": "subflow:b3276c87a286f102",
+        "z": "d06ae3eee692de3d",
+        "name": "",
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "ea8d16ecb29a73ce"
+            ]
+        ]
+    },
+    {
+        "id": "ea8d16ecb29a73ce",
+        "type": "debug",
+        "z": "d06ae3eee692de3d",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5d3285a4a6cc03f7",
+        "type": "debug",
+        "z": "d06ae3eee692de3d",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e4e215cf824a2a68",
+        "type": "inject",
+        "z": "d06ae3eee692de3d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 460,
+        "wires": [
+            [
+                "9b98797cd45b84ac"
+            ]
+        ]
+    },
+    {
+        "id": "ea8716830cd7eec0",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "d06ae3eee692de3d",
+        "name": "",
+        "x": 560,
+        "y": 460,
+        "wires": [
+            [
+                "5d3285a4a6cc03f7"
+            ]
+        ]
+    },
+    {
+        "id": "9b98797cd45b84ac",
+        "type": "function",
+        "z": "d06ae3eee692de3d",
+        "name": "function 2",
+        "func": "const payload = {\n    sql_query: 'select * from relays'\n}\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "ea8716830cd7eec0"
+            ]
+        ]
+    },
+    {
         "id": "811698183eefda21",
         "type": "subflow:924d506d524e2f1f",
         "z": "254fbe7becd93c6d",
@@ -1745,7 +2119,7 @@
         "type": "subflow:c30c47ad0a20b80b",
         "z": "0176619f63694862",
         "name": "",
-        "x": 430,
+        "x": 410,
         "y": 120,
         "wires": [
             [
@@ -1766,7 +2140,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
+        "x": 620,
         "y": 120,
         "wires": []
     },
@@ -1775,7 +2149,7 @@
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 420,
+        "x": 410,
         "y": 100,
         "wires": [
             [
@@ -1925,7 +2299,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 920,
+        "x": 740,
         "y": 240,
         "wires": []
     },
@@ -1938,8 +2312,7 @@
         "y": 240,
         "wires": [
             [
-                "41da5c626064985a",
-                "389da8959485f1ce"
+                "41da5c626064985a"
             ]
         ]
     },
@@ -1964,9 +2337,68 @@
         ]
     },
     {
-        "id": "389da8959485f1ce",
+        "id": "0de3a3f38db23062",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "stat/tasmota_test",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "c9aeddf2423f02c2"
+            ]
+        ]
+    },
+    {
+        "id": "955d1b66f57352d9",
+        "type": "mqtt out",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "stat/tasmota_test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 550,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8bb39527bc092b84",
+        "type": "function",
+        "z": "d1fe66a0a15b470a",
+        "name": "function 3",
+        "func": "return {payload: 'world'}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 320,
+        "wires": [
+            [
+                "955d1b66f57352d9"
+            ]
+        ]
+    },
+    {
+        "id": "c9aeddf2423f02c2",
         "type": "debug",
-        "z": "181d977a8b81274c",
+        "z": "d1fe66a0a15b470a",
         "name": "debug 6",
         "active": true,
         "tosidebar": true,
@@ -1976,8 +2408,269 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 780,
-        "y": 340,
+        "x": 480,
+        "y": 180,
         "wires": []
+    },
+    {
+        "id": "43a1aebb7cadca3b",
+        "type": "inject",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "8bb39527bc092b84"
+            ]
+        ]
+    },
+    {
+        "id": "31482b014b714389",
+        "type": "mqtt out",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "cmnd/tasmota_test/POWER1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 690,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0dca77c32be0089b",
+        "type": "function",
+        "z": "d1fe66a0a15b470a",
+        "name": "function 4",
+        "func": "return {payload: 'ON'}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 460,
+        "wires": [
+            [
+                "31482b014b714389"
+            ]
+        ]
+    },
+    {
+        "id": "b8d8ea038f410cfb",
+        "type": "inject",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 460,
+        "wires": [
+            [
+                "0dca77c32be0089b"
+            ]
+        ]
+    },
+    {
+        "id": "0747aeccd0cf3158",
+        "type": "function",
+        "z": "d1fe66a0a15b470a",
+        "name": "function 5",
+        "func": "return {payload: 'OFF'}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "31482b014b714389"
+            ]
+        ]
+    },
+    {
+        "id": "7f8ea82823d00189",
+        "type": "inject",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 520,
+        "wires": [
+            [
+                "0747aeccd0cf3158"
+            ]
+        ]
+    },
+    {
+        "id": "326dafec0bb6c97d",
+        "type": "mqtt out",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "cmnd/tasmota_test/POWER2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 690,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "24da06e016f85680",
+        "type": "function",
+        "z": "d1fe66a0a15b470a",
+        "name": "function 6",
+        "func": "return {payload: 'ON'}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 620,
+        "wires": [
+            [
+                "326dafec0bb6c97d"
+            ]
+        ]
+    },
+    {
+        "id": "1d7c14eff6295053",
+        "type": "inject",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 620,
+        "wires": [
+            [
+                "24da06e016f85680"
+            ]
+        ]
+    },
+    {
+        "id": "e5b8b11f3dc32b95",
+        "type": "function",
+        "z": "d1fe66a0a15b470a",
+        "name": "function 7",
+        "func": "return {payload: 'OFF'}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "326dafec0bb6c97d"
+            ]
+        ]
+    },
+    {
+        "id": "672a9251c4214c70",
+        "type": "inject",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 680,
+        "wires": [
+            [
+                "e5b8b11f3dc32b95"
+            ]
+        ]
     }
 ]

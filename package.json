@@ -2,7 +2,10 @@
     "name": "van-pi-api",
     "description": "A Node-RED Project",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-contrib-gpsd": "1.0.4",
+        "node-red-contrib-mcp23017chip": "0.1.0"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
