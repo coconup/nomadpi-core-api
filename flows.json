@@ -144,7 +144,7 @@
         ],
         "out": [
             {
-                "x": 340,
+                "x": 300,
                 "y": 80,
                 "wires": [
                     {
@@ -369,6 +369,50 @@
         "color": "#DDAA99"
     },
     {
+        "id": "28a3f62edac8391d",
+        "type": "subflow",
+        "name": "[Relays] GPIO dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 460,
+                "wires": [
+                    {
+                        "id": "97059ba81f6ce727"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d843692079f79c4f",
+        "type": "subflow",
+        "name": "[Relays] MQTT dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "3ffcd74351762851"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "e83d5dc5a3f616c1",
         "type": "mcp23017chip",
         "addr": "0x20",
@@ -513,221 +557,6 @@
         "sessionExpiry": ""
     },
     {
-        "id": "97059ba81f6ce727",
-        "type": "switch",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "property": "relay_position",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "3",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "4",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "5",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "6",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "7",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "8",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 8,
-        "x": 990,
-        "y": 400,
-        "wires": [
-            [
-                "f2b73ec8783670eb",
-                "51e9ffee4c0bc96b"
-            ],
-            [
-                "6c1e1dc4910a7401",
-                "4d7a3d34f6c7c660"
-            ],
-            [
-                "968be9d3d6d4eebf",
-                "70f12259a4a7ad76"
-            ],
-            [
-                "0ea16f9f74190e0f",
-                "a06c202dae056775"
-            ],
-            [
-                "2f6aac866698cfdc",
-                "ecd927f10a908484"
-            ],
-            [
-                "a96a03dab3a26335",
-                "ab52291981ecc883"
-            ],
-            [
-                "5e666f6ef9bf1e74",
-                "827313b3d4fdaa84"
-            ],
-            [
-                "a45a4f2438934378",
-                "0ee1e822b54e8ba0"
-            ]
-        ]
-    },
-    {
-        "id": "f2b73ec8783670eb",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "17",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "6c1e1dc4910a7401",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "27",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "70f12259a4a7ad76",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "22",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "a06c202dae056775",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "10",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "ecd927f10a908484",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "9",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "ab52291981ecc883",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "11",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "0ee1e822b54e8ba0",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "5",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1180,
-        "y": 760,
-        "wires": []
-    },
-    {
         "id": "827e13d335fd312c",
         "type": "subflow:4e1f9183000d244e",
         "z": "3ee3b10c02a9dae4",
@@ -738,137 +567,6 @@
             [
                 "9e128262d7408f9d"
             ]
-        ]
-    },
-    {
-        "id": "827313b3d4fdaa84",
-        "type": "pi-gpiod out",
-        "z": "3ee3b10c02a9dae4",
-        "name": "PIN: 27 (node.pin=0, not editable through UI)",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "0",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 1290,
-        "y": 660,
-        "wires": [],
-        "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
-    },
-    {
-        "id": "51e9ffee4c0bc96b",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "8",
-        "invert": true,
-        "x": 1210,
-        "y": 20,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4d7a3d34f6c7c660",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "9",
-        "invert": true,
-        "x": 1210,
-        "y": 120,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "968be9d3d6d4eebf",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "10",
-        "invert": true,
-        "x": 1210,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0ea16f9f74190e0f",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "11",
-        "invert": true,
-        "x": 1210,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2f6aac866698cfdc",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "12",
-        "invert": true,
-        "x": 1210,
-        "y": 420,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a96a03dab3a26335",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "13",
-        "invert": true,
-        "x": 1210,
-        "y": 520,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a45a4f2438934378",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "15",
-        "invert": true,
-        "x": 1210,
-        "y": 720,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "5e666f6ef9bf1e74",
-        "type": "mcp23017output",
-        "z": "3ee3b10c02a9dae4",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "14",
-        "invert": true,
-        "x": 1210,
-        "y": 620,
-        "wires": [
-            []
         ]
     },
     {
@@ -887,7 +585,7 @@
         "y": 400,
         "wires": [
             [
-                "97059ba81f6ce727"
+                "816adb2ad456cbd8"
             ]
         ]
     },
@@ -972,8 +670,27 @@
             [
                 "9c7423bd52cc2dec"
             ],
-            []
+            [
+                "248e1755cef2988d"
+            ]
         ]
+    },
+    {
+        "id": "816adb2ad456cbd8",
+        "type": "subflow:28a3f62edac8391d",
+        "z": "3ee3b10c02a9dae4",
+        "name": "",
+        "x": 1050,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "248e1755cef2988d",
+        "type": "subflow:d843692079f79c4f",
+        "z": "3ee3b10c02a9dae4",
+        "x": 820,
+        "y": 460,
+        "wires": []
     },
     {
         "id": "8a0ad5065fdbb073",
@@ -1000,7 +717,7 @@
         "type": "function",
         "z": "4e1f9183000d244e",
         "name": "Set `global.relays_state`",
-        "func": "const {\n    payload\n} = msg;\n\nlet relays_state = {...global.get('relays_state') || {}};\n\nconst newPayload = payload.map(item => {\n    const {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state,\n        actor,\n        mode\n    } = item;\n\n    let relay_type_state = relays_state[relay_type] || {};\n\n    let item_state = relay_type_state[relay_position] || {};\n    item_state.actors ||= [];\n\n    if(mode === 'subscribe') {\n        item_state.state = state;\n        if (!item_state.actors.find(({actor: a}) => a === actor)) {\n            item_state.actors.push({ actor })\n        }\n    } else if(mode === 'unsubscribe') {\n        item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n        if(item_state.actors.length === 0) {\n            item_state.state = false;\n        }\n    }\n\n    relay_type_state[relay_position] = item_state;\n    relays_state[relay_type] = relay_type_state;\n\n    return {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state: item_state.state\n    }\n});\n\nglobal.set('relays_state', relays_state);\n\nreturn {\n    ...msg,\n    payload: newPayload\n};",
+        "func": "const {\n    payload\n} = msg;\n\nlet relays_state = {...global.get('relays_state') || {}};\n\nconst newPayload = payload.map(item => {\n    const {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state,\n        actor,\n        mode\n    } = item;\n\n    let relay_type_state = relays_state[relay_type] || {};\n    let mqtt_topic_state = relay_type_state[mqtt_topic] || {};\n\n    let item_state;\n    if(relay_type === 'relay') {\n        item_state = relay_type_state[relay_position] || {};\n    } else if(relay_type === 'wifi_relay') {\n        item_state = mqtt_topic_state[relay_position] || {};\n    }\n    \n    item_state.actors ||= [];\n\n    if(mode === 'subscribe') {\n        item_state.state = state;\n        if (!item_state.actors.find(({actor: a}) => a === actor)) {\n            item_state.actors.push({ actor })\n        }\n    } else if(mode === 'unsubscribe') {\n        item_state.actors = item_state.actors.filter(({actor: a}) => a !== actor);\n        if(item_state.actors.length === 0) {\n            item_state.state = false;\n        }\n    }\n\n    if(relay_type === 'relay') {\n        relay_type_state[relay_position] = item_state;\n    } else if(relay_type === 'wifi_relay') {\n        mqtt_topic_state[relay_position] = item_state;\n        relay_type_state[mqtt_topic] = mqtt_topic_state;\n    }\n    \n    relays_state[relay_type] = relay_type_state;\n\n    return {\n        relay_type,\n        relay_position,\n        vendor_id,\n        mqtt_topic,\n        state: item_state.state\n    }\n});\n\nglobal.set('relays_state', relays_state);\n\nreturn {\n    ...msg,\n    payload: newPayload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1017,15 +734,15 @@
         "id": "ad6e53e4c4004a25",
         "type": "function",
         "z": "d2eb75050cc2ea33",
-        "name": "Get GPIO item state",
-        "func": "const relays_state = {...global.get('relays_state') || {}};\n\nreturn {\n    ...msg,\n    payload: relays_state[msg.relay_position] || {}\n}",
+        "name": "Get item state",
+        "func": "const {\n    relay_type,\n    mqtt_topic,\n    relay_position\n} = msg;\n\nconst relays_state = {...global.get('relays_state') || {}};\n\nconst relay_type_state = relays_state[relay_type] || {};\n\nlet relay_state;\nif(relay_type === 'wifi_relay') {\n    const mqtt_topic_state = relay_type_state[mqtt_topic] || {};\n    relay_state = mqtt_topic_state[relay_position]; \n} else if(relay_type === 'relay') {\n    relay_state = relay_type_state[relay_position];\n}\n\nreturn {\n    ...msg,\n    payload: relay_state || {}\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
+        "x": 180,
         "y": 80,
         "wires": [
             []
@@ -1329,6 +1046,439 @@
                 "1c4a76541ff62d0d"
             ]
         ]
+    },
+    {
+        "id": "97059ba81f6ce727",
+        "type": "switch",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "property": "relay_position",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "8",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 8,
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "f2b73ec8783670eb",
+                "51e9ffee4c0bc96b"
+            ],
+            [
+                "6c1e1dc4910a7401",
+                "4d7a3d34f6c7c660"
+            ],
+            [
+                "968be9d3d6d4eebf",
+                "70f12259a4a7ad76"
+            ],
+            [
+                "0ea16f9f74190e0f",
+                "a06c202dae056775"
+            ],
+            [
+                "2f6aac866698cfdc",
+                "ecd927f10a908484"
+            ],
+            [
+                "a96a03dab3a26335",
+                "ab52291981ecc883"
+            ],
+            [
+                "5e666f6ef9bf1e74",
+                "827313b3d4fdaa84"
+            ],
+            [
+                "a45a4f2438934378",
+                "0ee1e822b54e8ba0"
+            ]
+        ]
+    },
+    {
+        "id": "f2b73ec8783670eb",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "17",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6c1e1dc4910a7401",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "27",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "70f12259a4a7ad76",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "22",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "a06c202dae056775",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "10",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "ecd927f10a908484",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "9",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ab52291981ecc883",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "11",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "0ee1e822b54e8ba0",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "5",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 380,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "827313b3d4fdaa84",
+        "type": "pi-gpiod out",
+        "z": "28a3f62edac8391d",
+        "name": "PIN: 27 (node.pin=0, not editable through UI)",
+        "host": "${GPIOD_HOST}",
+        "port": 8888,
+        "pin": "0",
+        "set": false,
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 490,
+        "y": 720,
+        "wires": [],
+        "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
+    },
+    {
+        "id": "51e9ffee4c0bc96b",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "8",
+        "invert": true,
+        "x": 410,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d7a3d34f6c7c660",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "9",
+        "invert": true,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "968be9d3d6d4eebf",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "10",
+        "invert": true,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ea16f9f74190e0f",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "11",
+        "invert": true,
+        "x": 410,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f6aac866698cfdc",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "12",
+        "invert": true,
+        "x": 410,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a96a03dab3a26335",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "13",
+        "invert": true,
+        "x": 410,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a45a4f2438934378",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "15",
+        "invert": true,
+        "x": 410,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e666f6ef9bf1e74",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "14",
+        "invert": true,
+        "x": 410,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "41b66de42d91cee8",
+        "type": "function",
+        "z": "d843692079f79c4f",
+        "name": "Parse payload",
+        "func": "const {\n    relay_position='',\n    mqtt_topic,\n    state\n} = msg.payload;\n\nconst topic = `cmnd/${mqtt_topic}/POWER${relay_position}`;\n\nreturn {\n    topic,\n    payload: state ? 'on' : 'off',\n    qos: 2\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "e1924512decc72e2"
+            ]
+        ]
+    },
+    {
+        "id": "3ffcd74351762851",
+        "type": "switch",
+        "z": "d843692079f79c4f",
+        "name": "Vendor type",
+        "property": "payload.vendor_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "tasmota",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "41b66de42d91cee8"
+            ],
+            [
+                "b68f65dc6383d334"
+            ]
+        ]
+    },
+    {
+        "id": "b68f65dc6383d334",
+        "type": "function",
+        "z": "d843692079f79c4f",
+        "name": "Throw error",
+        "func": "const {\n    vendor_id\n} = msg.payload;\n\nthrow { type: `invalid_vendor_id`, vendor_id };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1924512decc72e2",
+        "type": "mqtt out",
+        "z": "d843692079f79c4f",
+        "name": "Dispatch MQTT command",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 620,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "dd6f48cb877d8037",
