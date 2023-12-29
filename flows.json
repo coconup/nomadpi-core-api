@@ -177,7 +177,7 @@
         ],
         "out": [
             {
-                "x": 620,
+                "x": 660,
                 "y": 80,
                 "wires": [
                     {
@@ -408,6 +408,98 @@
             }
         ],
         "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "e0baa17c5072b7d3",
+        "type": "subflow",
+        "name": "[USB] Rewrite `udev` rules",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "82aef1b2f5d6d0c5"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1400,
+                "y": 60,
+                "wires": [
+                    {
+                        "id": "3483775fb8fe0b42",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d88de85075ac25db",
+        "type": "subflow",
+        "name": "[USB] Create `usb_devices` view",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ec0297ab17af6839"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d1e3712ec6c2128d",
+        "type": "subflow",
+        "name": "[Batteries] Dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "8276b42967ce2963"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 820,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "a85ad1d6b4e922a4",
+                        "port": 0
+                    },
+                    {
+                        "id": "cff0d2d68e414164",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -688,7 +780,8 @@
         "id": "248e1755cef2988d",
         "type": "subflow:d843692079f79c4f",
         "z": "3ee3b10c02a9dae4",
-        "x": 820,
+        "name": "",
+        "x": 870,
         "y": 460,
         "wires": []
     },
@@ -753,7 +846,7 @@
         "type": "function",
         "z": "44f3ed9f999bd3a8",
         "name": "JBD BMS script",
-        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `liontronBmsInfo.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else if(!device_id) {\n    throw `\\`device_id\\` is required`\n} else {\n    return {\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `liontronBmsInfo.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw {\n        type: 'missing_env_variable',\n        message: `$PEKAWAY_SCRIPTS_PATH is not set`\n    }\n} else if(!device_id) {\n    throw {\n        type: 'invalid_request',\n        message: `\\`device_id\\` is required`\n    }\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1481,6 +1574,253 @@
         "wires": []
     },
     {
+        "id": "82aef1b2f5d6d0c5",
+        "type": "function",
+        "z": "e0baa17c5072b7d3",
+        "name": "Compose query",
+        "func": "const payload = {\n    sql_query: 'select * from usb_devices'\n}\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "5dc5371dfb879bae"
+            ]
+        ]
+    },
+    {
+        "id": "5dc5371dfb879bae",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "e0baa17c5072b7d3",
+        "name": "",
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "043806d87c0eb8f3"
+            ]
+        ]
+    },
+    {
+        "id": "043806d87c0eb8f3",
+        "type": "function",
+        "z": "e0baa17c5072b7d3",
+        "name": "`.rule` file content",
+        "func": "const payload = msg.payload.map(item => {\n    const {\n        device_key,\n        device_spec\n    } = item;\n\n    const {\n        vendor_id,\n        product_id\n    } = JSON.parse(device_spec);\n\n    return `KERNEL==\"tty*\", ATTRS{idVendor}==\"${vendor_id.replace('0x', '')}\", ATTRS{idProduct}==\"${product_id.replace('0x', '')}\", MODE:=\"0666\", SYMLINK+=\"${device_key}\"`\n}).join(\"\\n\");\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 80,
+        "wires": [
+            [
+                "d995c5942c7f9f0c"
+            ]
+        ]
+    },
+    {
+        "id": "d995c5942c7f9f0c",
+        "type": "file",
+        "z": "e0baa17c5072b7d3",
+        "name": "",
+        "filename": "/lib/udev/rules.d/99-vanpi-usb-devices.rules",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 830,
+        "y": 80,
+        "wires": [
+            [
+                "3483775fb8fe0b42"
+            ]
+        ]
+    },
+    {
+        "id": "3483775fb8fe0b42",
+        "type": "exec",
+        "z": "e0baa17c5072b7d3",
+        "command": "service udev restart && udevadm trigger",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1180,
+        "y": 80,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "779b79e0cc17eefe",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "d88de85075ac25db",
+        "name": "",
+        "x": 360,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec0297ab17af6839",
+        "type": "function",
+        "z": "d88de85075ac25db",
+        "name": "Compose query",
+        "func": "const sql_query = `\n  create or replace view usb_devices\n\n  as\n\n  select\n    :gpsd_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'gpsd_usb_device'\n\n  union all\n\n  select\n    'foo' as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'foo'\n`;\n\nconst params = { \n  gpsd_device_key: env.get('GPSD_UDEV_KEY')\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "779b79e0cc17eefe"
+            ]
+        ]
+    },
+    {
+        "id": "a85ad1d6b4e922a4",
+        "type": "subflow:44f3ed9f999bd3a8",
+        "z": "d1e3712ec6c2128d",
+        "name": "",
+        "x": 600,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8276b42967ce2963",
+        "type": "switch",
+        "z": "d1e3712ec6c2128d",
+        "name": "Device type",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "jbd",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "cc34d9c66177e492"
+            ],
+            [
+                "5f3fc687b18afa45"
+            ]
+        ]
+    },
+    {
+        "id": "cc34d9c66177e492",
+        "type": "switch",
+        "z": "d1e3712ec6c2128d",
+        "name": "Connection type",
+        "property": "payload.conntection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ble",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "a85ad1d6b4e922a4"
+            ],
+            [
+                "5f3fc687b18afa45"
+            ]
+        ]
+    },
+    {
+        "id": "5f3fc687b18afa45",
+        "type": "function",
+        "z": "d1e3712ec6c2128d",
+        "name": "Throw error",
+        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9a24ef20470b8ef8",
+        "type": "catch",
+        "z": "d1e3712ec6c2128d",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "cff0d2d68e414164"
+            ]
+        ]
+    },
+    {
+        "id": "cff0d2d68e414164",
+        "type": "function",
+        "z": "d1e3712ec6c2128d",
+        "name": "Parse error",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "dd6f48cb877d8037",
         "type": "subflow:3ee3b10c02a9dae4",
         "z": "2f6480327ea906c3",
@@ -2017,46 +2357,11 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 100,
+        "y": 220,
         "wires": [
             [
                 "684314d35968f05c"
             ]
-        ]
-    },
-    {
-        "id": "6b9d29fa591ebd37",
-        "type": "file",
-        "z": "d06ae3eee692de3d",
-        "name": "",
-        "filename": "path",
-        "filenameType": "msg",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 560,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ca51f19ab2691b69",
-        "type": "function",
-        "z": "d06ae3eee692de3d",
-        "name": "function 1",
-        "func": "const path = `/lib/udev/rules.d/999-vanpi-usb-devices.rules`;\n\nreturn {\n    ...msg,\n    path\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 320,
-        "wires": [
-            []
         ]
     },
     {
@@ -2065,7 +2370,7 @@
         "z": "d06ae3eee692de3d",
         "name": "",
         "x": 300,
-        "y": 100,
+        "y": 220,
         "wires": [
             [
                 "ea8d16ecb29a73ce"
@@ -2086,31 +2391,14 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 100,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "5d3285a4a6cc03f7",
-        "type": "debug",
-        "z": "d06ae3eee692de3d",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "e4e215cf824a2a68",
+        "id": "4b224b75b10a8cf7",
         "type": "inject",
         "z": "d06ae3eee692de3d",
-        "name": "",
+        "name": "Execute at start",
         "props": [
             {
                 "p": "payload"
@@ -2122,51 +2410,27 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 240,
-        "y": 460,
+        "x": 140,
+        "y": 80,
         "wires": [
             [
-                "9b98797cd45b84ac"
+                "4dc9a2652c5b20b8"
             ]
         ]
     },
     {
-        "id": "ea8716830cd7eec0",
-        "type": "subflow:2f860c0929d372d8",
+        "id": "4dc9a2652c5b20b8",
+        "type": "subflow:d88de85075ac25db",
         "z": "d06ae3eee692de3d",
         "name": "",
-        "x": 560,
-        "y": 460,
-        "wires": [
-            [
-                "5d3285a4a6cc03f7"
-            ]
-        ]
-    },
-    {
-        "id": "9b98797cd45b84ac",
-        "type": "function",
-        "z": "d06ae3eee692de3d",
-        "name": "function 2",
-        "func": "const payload = {\n    sql_query: 'select * from relays'\n}\n\nreturn {\n    payload\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 460,
-        "wires": [
-            [
-                "ea8716830cd7eec0"
-            ]
-        ]
+        "x": 370,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "811698183eefda21",
@@ -2343,7 +2607,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 470,
-        "y": 400,
+        "y": 220,
         "wires": [
             [
                 "fd2c6e14df5619c5"
@@ -2360,7 +2624,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 400,
+        "y": 220,
         "wires": [
             [
                 "09fb0f13ef4f8d1f"
@@ -2377,7 +2641,7 @@
             "Content-Type": "application/json"
         },
         "x": 680,
-        "y": 400,
+        "y": 220,
         "wires": []
     },
     {
@@ -2390,7 +2654,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 500,
+        "y": 300,
         "wires": [
             [
                 "6ccf70ed017a483e"
@@ -2402,8 +2666,8 @@
         "type": "subflow:cd03e8b953118d1f",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 400,
-        "y": 500,
+        "x": 380,
+        "y": 300,
         "wires": [
             [
                 "db72e358f763ea55"
@@ -2419,8 +2683,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 580,
-        "y": 500,
+        "x": 540,
+        "y": 300,
         "wires": []
     },
     {
@@ -2433,7 +2697,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 240,
+        "y": 140,
         "wires": [
             [
                 "1fdbc5f6e83fb59b"
@@ -2450,7 +2714,7 @@
             "Content-Type": "application/json"
         },
         "x": 740,
-        "y": 240,
+        "y": 140,
         "wires": []
     },
     {
@@ -2459,7 +2723,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 570,
-        "y": 240,
+        "y": 140,
         "wires": [
             [
                 "41da5c626064985a"
@@ -2479,10 +2743,158 @@
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 240,
+        "y": 140,
         "wires": [
             [
                 "03af40a681e75b74"
+            ]
+        ]
+    },
+    {
+        "id": "7d50cc6af9fcf19b",
+        "type": "subflow:b3276c87a286f102",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "188a549a1f51eeb4"
+            ]
+        ]
+    },
+    {
+        "id": "2c1d6d5eda93c0da",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/usb_devices`",
+        "url": "api/v1/usb_devices",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "7d50cc6af9fcf19b"
+            ]
+        ]
+    },
+    {
+        "id": "188a549a1f51eeb4",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 580,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "caa1f739e60d602d",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "POST `api/v1/usb_devices/reset`",
+        "url": "api/v1/usb_devices/reset",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "ae1a36b76f8f74c1"
+            ]
+        ]
+    },
+    {
+        "id": "eb6993c6d75facea",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 640,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "ae1a36b76f8f74c1",
+        "type": "subflow:e0baa17c5072b7d3",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 450,
+        "y": 420,
+        "wires": [
+            [
+                "eb6993c6d75facea"
+            ]
+        ]
+    },
+    {
+        "id": "d8869dc1f86645a1",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET api/v1/batteries/:connection_type/:device_type/:device_id/state`",
+        "url": "api/v1/batteries/:connection_type/:device_type/:device_id/state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 500,
+        "wires": [
+            [
+                "c338ef6230fc84a3"
+            ]
+        ]
+    },
+    {
+        "id": "9c9dedb968da9368",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1040,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c338ef6230fc84a3",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Parse request",
+        "func": "const {\n    connection_type,\n    device_type,\n    device_id\n} = msg.req.params;\n\nreturn {\n    ...msg,\n    payload: {\n        connection_type,\n        device_type,\n        device_id\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "101c0ecc3e216c58"
+            ]
+        ]
+    },
+    {
+        "id": "101c0ecc3e216c58",
+        "type": "subflow:d1e3712ec6c2128d",
+        "z": "181d977a8b81274c",
+        "x": 860,
+        "y": 500,
+        "wires": [
+            [
+                "9c9dedb968da9368"
             ]
         ]
     },
@@ -2491,7 +2903,7 @@
         "type": "mqtt in",
         "z": "d1fe66a0a15b470a",
         "name": "",
-        "topic": "stat/tasmota_test",
+        "topic": "cmnd/tasmota_test/POWER1",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "fff9b047550b9220",
@@ -2499,7 +2911,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
+        "x": 320,
         "y": 180,
         "wires": [
             [
@@ -2558,7 +2970,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
+        "x": 540,
         "y": 180,
         "wires": []
     },
