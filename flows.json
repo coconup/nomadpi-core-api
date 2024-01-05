@@ -1849,45 +1849,6 @@
         "wires": []
     },
     {
-        "id": "09fb0f13ef4f8d1f",
-        "type": "subflow:c30c47ad0a20b80b",
-        "z": "181d977a8b81274c",
-        "name": "",
-        "x": 490,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "a55ba29cae6b62f5",
-        "type": "http in",
-        "z": "181d977a8b81274c",
-        "name": "GET `api/v1/temperature_values`",
-        "url": "api/v1/temperature_values",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 220,
-        "wires": [
-            [
-                "09fb0f13ef4f8d1f"
-            ]
-        ]
-    },
-    {
-        "id": "fd2c6e14df5619c5",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "200",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 680,
-        "y": 220,
-        "wires": []
-    },
-    {
         "id": "f6fe2ecb7716291c",
         "type": "http in",
         "z": "181d977a8b81274c",
@@ -2151,7 +2112,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 580,
+        "y": 220,
         "wires": [
             [
                 "6d491cd23c82b12a"
@@ -2168,7 +2129,7 @@
             "Content-Type": "application/json"
         },
         "x": 720,
-        "y": 580,
+        "y": 220,
         "wires": []
     },
     {
@@ -2177,7 +2138,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 490,
-        "y": 580,
+        "y": 220,
         "wires": [
             [
                 "1beaa2df69f1f2f6"
