@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "412a66feda2814e4",
+        "type": "tab",
+        "label": "MQTT Hub",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2f6480327ea906c3",
         "type": "tab",
         "label": "[Test] Relays",
@@ -535,6 +543,87 @@
         "color": "#DDAA99"
     },
     {
+        "id": "43ab01fa1b483aad",
+        "type": "subflow",
+        "name": "[MQTT] Create `mqtt_devices` view",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "adf17e5e98e12d95"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "2af61905d791930b",
+        "type": "subflow",
+        "name": "[Water tanks] Set water tanks state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b27fc867cae90a0f"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5006edf73217beed",
+        "type": "subflow",
+        "name": "[Water tanks] Dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "5f4411a7693f4453"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 820,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "68bba093d0234b34",
+                        "port": 0
+                    },
+                    {
+                        "id": "20746b7155acadd5",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "e83d5dc5a3f616c1",
         "type": "mcp23017chip",
         "addr": "0x20",
@@ -581,19 +670,6 @@
         "password": "${DB_PASSWORD}",
         "tls": false,
         "database": "${DB_NAME}"
-    },
-    {
-        "id": "ee6223c1c3648284",
-        "type": "zigbee2mqtt-server",
-        "name": "",
-        "host": "127.0.0.1",
-        "mqtt_port": "1883",
-        "mqtt_username": "",
-        "mqtt_password": "",
-        "mqtt_qos": "2",
-        "tls": "",
-        "usetls": false,
-        "base_topic": "zigbee2mqtt"
     },
     {
         "id": "827e13d335fd312c",
@@ -1806,6 +1882,317 @@
         ]
     },
     {
+        "id": "c1ca75ba04464a24",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "43ab01fa1b483aad",
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "adf17e5e98e12d95",
+        "type": "function",
+        "z": "43ab01fa1b483aad",
+        "name": "Compose query",
+        "func": "const sql_query = `\n  create or replace view mqtt_devices\n\n  as\n\n  select\n    'water_tank' as device_type,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from water_tanks\n  where connection_type = 'mqtt'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "c1ca75ba04464a24"
+            ]
+        ]
+    },
+    {
+        "id": "b27fc867cae90a0f",
+        "type": "switch",
+        "z": "2af61905d791930b",
+        "name": "Value > 0",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "84c9c3b979ac8442"
+            ]
+        ]
+    },
+    {
+        "id": "84c9c3b979ac8442",
+        "type": "function",
+        "z": "2af61905d791930b",
+        "name": "Compose volumetric attributes query",
+        "func": "const {\n  device_id,\n  device_type,\n  value\n} = msg.payload;\n\nconst sql_query = `\n  select\n    volumetric_type,\n    volumetric_params\n  from water_tanks\n  where id = :device_id\n`;\n\nconst params = {\n  device_id\n};\n\nreturn {\n  ...msg,\n  mqtt_payload: {\n    device_id,\n    value\n  },\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "9e859df6d55df580"
+            ]
+        ]
+    },
+    {
+        "id": "9e859df6d55df580",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "2af61905d791930b",
+        "name": "",
+        "x": 680,
+        "y": 80,
+        "wires": [
+            [
+                "0826298b22e97e05"
+            ]
+        ]
+    },
+    {
+        "id": "0826298b22e97e05",
+        "type": "switch",
+        "z": "2af61905d791930b",
+        "name": "Switch `volumetric_type`",
+        "property": "payload[0].volumetric_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "rectangular",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "cylindrical",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 80,
+        "wires": [
+            [
+                "538b31be0df29263"
+            ],
+            [
+                "3d3606ea68b64a29"
+            ]
+        ]
+    },
+    {
+        "id": "538b31be0df29263",
+        "type": "function",
+        "z": "2af61905d791930b",
+        "name": "Calculate total and remaining volume",
+        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst {\n    sensor_distance_when_full,\n    height,\n    width,\n    length\n} = JSON.parse(volumetric_params);\n\nconst total_volume_litres = height * width * length / 1000;\nconst remaining_volume_liters = (\n    Math.max(\n        0, \n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * width * length\n    ) / 1000\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_litres,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 60,
+        "wires": [
+            [
+                "da3c73fc6dfbca7e"
+            ]
+        ]
+    },
+    {
+        "id": "da3c73fc6dfbca7e",
+        "type": "function",
+        "z": "2af61905d791930b",
+        "name": "Update `global.water_tanks_state`",
+        "func": "const water_tanks_state = global.get('water_tanks_state');\n\nconst {\n    device_id,\n    total_volume_litres,\n    remaining_volume_litres\n} = msg.payload;\n\nconst new_water_tanks_state = {\n    ...water_tanks_state,\n    [device_id]: {\n        total_volume_litres,\n        remaining_volume_litres\n    }\n}\n\nglobal.set('water_tanks_state', new_water_tanks_state);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d3606ea68b64a29",
+        "type": "function",
+        "z": "2af61905d791930b",
+        "name": "Calculate total and remaining volume",
+        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst {\n    sensor_distance_when_full,\n    height,\n    diameter\n} = JSON.parse(volumetric_params);\n\nconst square_radius = Math.pow(diameter / 2, 2);\nconst total_volume_litres = Math.PI * square_radius * height / 1000;\n\n// Calculate the remaining volume based on the liquid distance\nconst remaining_volume_liters = (\n    Math.max(\n        0,\n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * Math.PI * square_radius\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_litres,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 120,
+        "wires": [
+            [
+                "da3c73fc6dfbca7e"
+            ]
+        ]
+    },
+    {
+        "id": "5f4411a7693f4453",
+        "type": "switch",
+        "z": "5006edf73217beed",
+        "name": "Device type",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mqtt",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "34a42f464da15f1e"
+            ],
+            [
+                "9f0fa0e589e79c19"
+            ]
+        ]
+    },
+    {
+        "id": "34a42f464da15f1e",
+        "type": "switch",
+        "z": "5006edf73217beed",
+        "name": "Connection type",
+        "property": "payload.conntection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mqtt",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "20746b7155acadd5"
+            ],
+            [
+                "9f0fa0e589e79c19"
+            ]
+        ]
+    },
+    {
+        "id": "9f0fa0e589e79c19",
+        "type": "function",
+        "z": "5006edf73217beed",
+        "name": "Throw error",
+        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0777dcc46eeca04b",
+        "type": "catch",
+        "z": "5006edf73217beed",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "68bba093d0234b34"
+            ]
+        ]
+    },
+    {
+        "id": "68bba093d0234b34",
+        "type": "function",
+        "z": "5006edf73217beed",
+        "name": "Parse error",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "20746b7155acadd5",
+        "type": "function",
+        "z": "5006edf73217beed",
+        "name": "Get water tank state",
+        "func": "const water_tanks_state = global.get('water_tanks_state') || {};\n\nconst { device_id } = msg.payload;\n\nreturn {\n    ...msg,\n    payload: water_tanks_state[device_id]\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "f7a70eb3ee7a6e7c",
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
@@ -2146,6 +2533,69 @@
         ]
     },
     {
+        "id": "c938af4e7a78375a",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET api/v1/water_tanks/:connection_type/:device_type/:device_id/state`",
+        "url": "api/v1/water_tanks/:connection_type/:device_type/:device_id/state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 560,
+        "wires": [
+            [
+                "d3eb22cde699bee3"
+            ]
+        ]
+    },
+    {
+        "id": "53093d60384f9fd1",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1080,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "d3eb22cde699bee3",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Parse request",
+        "func": "const {\n    connection_type,\n    device_type,\n    device_id\n} = msg.req.params;\n\nreturn {\n    ...msg,\n    payload: {\n        connection_type,\n        device_type,\n        device_id\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 560,
+        "wires": [
+            [
+                "69d8b1cca223c818"
+            ]
+        ]
+    },
+    {
+        "id": "69d8b1cca223c818",
+        "type": "subflow:5006edf73217beed",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 890,
+        "y": 560,
+        "wires": [
+            [
+                "53093d60384f9fd1"
+            ]
+        ]
+    },
+    {
         "id": "f7360c1818b761fb",
         "type": "inject",
         "z": "e394437c1a103158",
@@ -2170,7 +2620,8 @@
         "y": 140,
         "wires": [
             [
-                "2dea7fa39895542b"
+                "2dea7fa39895542b",
+                "687a7ba2e7fefc00"
             ]
         ]
     },
@@ -2179,7 +2630,7 @@
         "type": "subflow:d88de85075ac25db",
         "z": "e394437c1a103158",
         "name": "",
-        "x": 370,
+        "x": 410,
         "y": 140,
         "wires": []
     },
@@ -2214,7 +2665,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 200,
+        "y": 280,
         "wires": [
             [
                 "081541771c01eea7"
@@ -2227,8 +2678,92 @@
         "z": "e394437c1a103158",
         "name": "",
         "x": 370,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "687a7ba2e7fefc00",
+        "type": "subflow:43ab01fa1b483aad",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 420,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "f2b8b0a08c62f6b1",
+        "type": "mqtt in",
+        "z": "412a66feda2814e4",
+        "name": "Listen to Hub MQTT topic",
+        "topic": "${HUB_MQTT_TOPIC}",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "3ee780688134ac27"
+            ]
+        ]
+    },
+    {
+        "id": "3ee780688134ac27",
+        "type": "switch",
+        "z": "412a66feda2814e4",
+        "name": "Switch `device_type`",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "water_tank",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "0d1af9c425416463"
+            ]
+        ]
+    },
+    {
+        "id": "9cfa201de2d41045",
+        "type": "subflow:2af61905d791930b",
+        "z": "412a66feda2814e4",
+        "name": "",
+        "x": 860,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0d1af9c425416463",
+        "type": "function",
+        "z": "412a66feda2814e4",
+        "name": "Parse payload",
+        "func": "const { payload } = msg;\nconst { message, ...rest } = payload;\n\nreturn {\n    ...msg,\n    payload: {\n        ...rest,\n        value: message\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 80,
+        "wires": [
+            [
+                "9cfa201de2d41045"
+            ]
+        ]
     },
     {
         "id": "dd6f48cb877d8037",
@@ -3315,6 +3850,63 @@
             [
                 "e5b8b11f3dc32b95"
             ]
+        ]
+    },
+    {
+        "id": "ce34dbaca0b7e2d0",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "water-sensor-test/startup",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 840,
+        "wires": [
+            [
+                "6c93626787f462fb"
+            ]
+        ]
+    },
+    {
+        "id": "6c93626787f462fb",
+        "type": "debug",
+        "z": "d1fe66a0a15b470a",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "807e59e6b95fa258",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "water-sensor-test/values",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 900,
+        "wires": [
+            []
         ]
     }
 ]
