@@ -72,6 +72,14 @@
         "env": []
     },
     {
+        "id": "e7a6fe05a4d2b37c",
+        "type": "tab",
+        "label": "[Test] Water tanks",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
         "name": "[Relays] dispatcher",
@@ -1786,7 +1794,7 @@
         "type": "switch",
         "z": "d1e3712ec6c2128d",
         "name": "Connection type",
-        "property": "payload.conntection_type",
+        "property": "payload.connection_type",
         "propertyType": "msg",
         "rules": [
             {
@@ -1966,7 +1974,7 @@
         "y": 80,
         "wires": [
             [
-                "0826298b22e97e05"
+                "5b0883d895bf1c0f"
             ]
         ]
     },
@@ -1975,7 +1983,7 @@
         "type": "switch",
         "z": "2af61905d791930b",
         "name": "Switch `volumetric_type`",
-        "property": "payload[0].volumetric_type",
+        "property": "payload.volumetric_type",
         "propertyType": "msg",
         "rules": [
             {
@@ -1992,7 +2000,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 890,
+        "x": 1130,
         "y": 80,
         "wires": [
             [
@@ -2008,14 +2016,14 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Calculate total and remaining volume",
-        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst {\n    sensor_distance_when_full,\n    height,\n    width,\n    length\n} = JSON.parse(volumetric_params);\n\nconst total_volume_litres = height * width * length / 1000;\nconst remaining_volume_liters = (\n    Math.max(\n        0, \n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * width * length\n    ) / 1000\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_litres,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
+        "func": "const { device_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_when_full,\n    sensor_distance_from_surface,\n    height,\n    width,\n    length\n} = msg.payload.volumetric_params;\n\nconst total_volume_liters = height * width * length / 1000;\nconst remaining_volume_liters = (\n    Math.max(\n        0, \n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * width * length\n    ) / 1000\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        sensor_distance_when_full,\n        remaining_volume_liters\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
+        "x": 1470,
         "y": 60,
         "wires": [
             [
@@ -2028,14 +2036,14 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Update `global.water_tanks_state`",
-        "func": "const water_tanks_state = global.get('water_tanks_state');\n\nconst {\n    device_id,\n    total_volume_litres,\n    remaining_volume_litres\n} = msg.payload;\n\nconst new_water_tanks_state = {\n    ...water_tanks_state,\n    [device_id]: {\n        total_volume_litres,\n        remaining_volume_litres\n    }\n}\n\nglobal.set('water_tanks_state', new_water_tanks_state);\n\nreturn msg;",
+        "func": "const water_tanks_state = global.get('water_tanks_state');\n\nconst {\n    device_id,\n    ...rest\n} = msg.payload;\n\nconst new_water_tanks_state = {\n    ...water_tanks_state,\n    [device_id]: rest\n}\n\nglobal.set('water_tanks_state', new_water_tanks_state);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1540,
+        "x": 1800,
         "y": 80,
         "wires": [
             []
@@ -2046,18 +2054,38 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Calculate total and remaining volume",
-        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst {\n    sensor_distance_when_full,\n    height,\n    diameter\n} = JSON.parse(volumetric_params);\n\nconst square_radius = Math.pow(diameter / 2, 2);\nconst total_volume_litres = Math.PI * square_radius * height / 1000;\n\n// Calculate the remaining volume based on the liquid distance\nconst remaining_volume_liters = (\n    Math.max(\n        0,\n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * Math.PI * square_radius\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_litres,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
+        "func": "const { device_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_from_surface,\n    sensor_distance_when_full,\n    height,\n    diameter\n} = msg.payload;\n\nconst square_radius = Math.pow(diameter / 2, 2);\nconst total_volume_liters = Math.PI * square_radius * height / 1000;\n\n// Calculate the remaining volume based on the liquid distance\nconst remaining_volume_liters = (\n    Math.max(\n        0,\n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * Math.PI * square_radius\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
+        "x": 1470,
         "y": 120,
         "wires": [
             [
                 "da3c73fc6dfbca7e"
+            ]
+        ]
+    },
+    {
+        "id": "5b0883d895bf1c0f",
+        "type": "function",
+        "z": "2af61905d791930b",
+        "name": "Parse volumetric params",
+        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst parsed_params = JSON.parse(volumetric_params);\n\nconst height = parseInt(parsed_params.height);\nconst width = parseInt(parsed_params.width);\nconst length = parseInt(parsed_params.length);\nconst diameter = parseInt(parsed_params.diameter);\nconst sensor_distance_when_full = parseInt(parsed_params.sensor_distance_when_full);\n\nreturn {\n    ...msg,\n    payload: {\n        ...msg.payload[0],\n        volumetric_params: {\n            height,\n            width,\n            length,\n            diameter,\n            sensor_distance_when_full,\n            sensor_distance_from_surface\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 80,
+        "wires": [
+            [
+                "0826298b22e97e05"
             ]
         ]
     },
@@ -2097,7 +2125,7 @@
         "type": "switch",
         "z": "5006edf73217beed",
         "name": "Connection type",
-        "property": "payload.conntection_type",
+        "property": "payload.connection_type",
         "propertyType": "msg",
         "rules": [
             {
@@ -3908,5 +3936,83 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "c735411758053451",
+        "type": "inject",
+        "z": "e7a6fe05a4d2b37c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "adfa8d2186a6f889"
+            ]
+        ]
+    },
+    {
+        "id": "adfa8d2186a6f889",
+        "type": "function",
+        "z": "e7a6fe05a4d2b37c",
+        "name": "Parse request",
+        "func": "return {\n    ...msg,\n    payload: {\n        connection_type: 'mqtt',\n        device_type: 'mqtt',\n        device_id: 1\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "4725867557157b87"
+            ]
+        ]
+    },
+    {
+        "id": "4725867557157b87",
+        "type": "subflow:5006edf73217beed",
+        "z": "e7a6fe05a4d2b37c",
+        "name": "",
+        "x": 510,
+        "y": 100,
+        "wires": [
+            [
+                "f266801fc9a08cc1"
+            ]
+        ]
+    },
+    {
+        "id": "f266801fc9a08cc1",
+        "type": "debug",
+        "z": "e7a6fe05a4d2b37c",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 100,
+        "wires": []
     }
 ]
