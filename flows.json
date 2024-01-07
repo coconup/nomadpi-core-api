@@ -632,6 +632,105 @@
         "color": "#DDAA99"
     },
     {
+        "id": "d522f6d2f07435cd",
+        "type": "subflow",
+        "name": "[Portainer] Get container",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "0d5b2114da75e3d1"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1220,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "4a6ce239161630fd",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "9c0f55db9b5a4462",
+        "type": "subflow",
+        "name": "[Portainer] Get access token",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "352a53d8795dfcbb"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 600,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "eb520c589947876d",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "7b9d1f6f5864ccce",
+        "type": "subflow",
+        "name": "[Portainer] Restart container",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "932fb4a01c4811ce"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1300,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "08e96559c84b53f6",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "e83d5dc5a3f616c1",
         "type": "mcp23017chip",
         "addr": "0x20",
@@ -2221,6 +2320,234 @@
         ]
     },
     {
+        "id": "4a6ce239161630fd",
+        "type": "function",
+        "z": "d522f6d2f07435cd",
+        "name": "Get container info",
+        "func": "const { service_name } = msg;\nconst service = msg.payload.find(i => {\n    return i['Names'].includes(`/${service_name}`)\n});\n\nreturn {\n    ...msg,\n    payload: service\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d5b2114da75e3d1",
+        "type": "function",
+        "z": "d522f6d2f07435cd",
+        "name": "Validate request",
+        "func": "const { service_name } = msg.payload;\n\nif (!service_name) {\n    throw { type: 'invalid_request' }\n};\n\nreturn {\n    ...msg,\n    service_name\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "99ccd3cca2dd4597"
+            ]
+        ]
+    },
+    {
+        "id": "99ccd3cca2dd4597",
+        "type": "subflow:9c0f55db9b5a4462",
+        "z": "d522f6d2f07435cd",
+        "name": "",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "c2b9d9ba03fcdc2b"
+            ]
+        ]
+    },
+    {
+        "id": "a49dfc6056dda404",
+        "type": "http request",
+        "z": "d522f6d2f07435cd",
+        "name": "Portainer API request",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "x-api-key",
+                "valueType": "msg",
+                "valueValue": "access_token"
+            }
+        ],
+        "x": 860,
+        "y": 80,
+        "wires": [
+            [
+                "4a6ce239161630fd"
+            ]
+        ]
+    },
+    {
+        "id": "c2b9d9ba03fcdc2b",
+        "type": "function",
+        "z": "d522f6d2f07435cd",
+        "name": "Compose request",
+        "func": "const api_url = global.get('portainer_api_url');\n\nconst { value: access_token } = msg.payload[0];\n\nconst url = `${api_url}/docker/containers/json?all=true`\n\nreturn {\n    ...msg,\n    url,\n    access_token\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 80,
+        "wires": [
+            [
+                "a49dfc6056dda404"
+            ]
+        ]
+    },
+    {
+        "id": "352a53d8795dfcbb",
+        "type": "function",
+        "z": "9c0f55db9b5a4462",
+        "name": "Get Portainer access token query",
+        "func": "const sql_query = `\n  select value\n  from settings\n  where setting_key = 'portainer_access_token'\n`;\n\nconst params = {};\n\nreturn {\n    ...msg,\n    payload: {\n        sql_query,\n        params\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "eb520c589947876d"
+            ]
+        ]
+    },
+    {
+        "id": "eb520c589947876d",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "9c0f55db9b5a4462",
+        "name": "",
+        "x": 480,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "932fb4a01c4811ce",
+        "type": "subflow:d522f6d2f07435cd",
+        "z": "7b9d1f6f5864ccce",
+        "name": "",
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "83c260bfccf56224"
+            ]
+        ]
+    },
+    {
+        "id": "83c260bfccf56224",
+        "type": "function",
+        "z": "7b9d1f6f5864ccce",
+        "name": "Set `container_id`",
+        "func": "const container_id = msg.payload['Id'];\n\nreturn {\n    ...msg,\n    container_id\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "a6fbba7a7bdee225"
+            ]
+        ]
+    },
+    {
+        "id": "08e96559c84b53f6",
+        "type": "http request",
+        "z": "7b9d1f6f5864ccce",
+        "name": "Portainer API request",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "x-api-key",
+                "valueType": "msg",
+                "valueValue": "access_token"
+            }
+        ],
+        "x": 1140,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6fbba7a7bdee225",
+        "type": "subflow:9c0f55db9b5a4462",
+        "z": "7b9d1f6f5864ccce",
+        "name": "",
+        "x": 700,
+        "y": 80,
+        "wires": [
+            [
+                "db260d6111a6b71f"
+            ]
+        ]
+    },
+    {
+        "id": "db260d6111a6b71f",
+        "type": "function",
+        "z": "7b9d1f6f5864ccce",
+        "name": "Compose request",
+        "func": "const api_url = global.get('portainer_api_url');\n\nconst { container_id } = msg;\nconst { value: access_token } = msg.payload[0];\n\nconst url = `${api_url}/docker/containers/${container_id}/restart`\n\nreturn {\n    ...msg,\n    url,\n    access_token\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 80,
+        "wires": [
+            [
+                "08e96559c84b53f6"
+            ]
+        ]
+    },
+    {
         "id": "f7a70eb3ee7a6e7c",
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
@@ -2624,6 +2951,226 @@
         ]
     },
     {
+        "id": "9d18bcda6a2e63be",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "POST `api/v1/settings/:setting_key`",
+        "url": "api/v1/settings/:setting_key",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 700,
+        "wires": [
+            [
+                "b803672cf71ec8e9"
+            ]
+        ]
+    },
+    {
+        "id": "31a5ed7eed82404a",
+        "type": "subflow:e0baa17c5072b7d3",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1150,
+        "y": 640,
+        "wires": [
+            [
+                "1f97e6fba379a917"
+            ]
+        ]
+    },
+    {
+        "id": "a8316479d2c8618f",
+        "type": "switch",
+        "z": "181d977a8b81274c",
+        "name": "Switch `setting_key`",
+        "property": "req.params.setting_key",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "gpsd_usb_device",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "zigbee_usb_device",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 880,
+        "y": 700,
+        "wires": [
+            [
+                "31a5ed7eed82404a"
+            ],
+            [
+                "b584c6951067cf9d"
+            ],
+            [
+                "fd627450ae8b6d74"
+            ]
+        ]
+    },
+    {
+        "id": "b803672cf71ec8e9",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Compose update query",
+        "func": "const { setting_key } = msg.req.params;\n\nconst {\n    label,\n    value\n} = msg.payload;\n\nconst sql_query = `\n  update settings \n    set \n      label = :label,\n      value = :value\n  where setting_key = :setting_key\n`;\n\nconst params = {\n    label,\n    value,\n    setting_key\n};\n\nreturn {\n    ...msg,\n    payload: {\n        sql_query,\n        params\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 700,
+        "wires": [
+            [
+                "77840cd1f12c0fdc"
+            ]
+        ]
+    },
+    {
+        "id": "77840cd1f12c0fdc",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 680,
+        "y": 700,
+        "wires": [
+            [
+                "a8316479d2c8618f"
+            ]
+        ]
+    },
+    {
+        "id": "1f97e6fba379a917",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Get `gpsd` container",
+        "func": "return {\n    ...msg,\n    payload: {\n        service_name: 'gpsd'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 640,
+        "wires": [
+            [
+                "0c51548a484b88fc"
+            ]
+        ]
+    },
+    {
+        "id": "0c51548a484b88fc",
+        "type": "subflow:7b9d1f6f5864ccce",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1620,
+        "y": 640,
+        "wires": [
+            [
+                "b1498895bc9d6bb5"
+            ]
+        ]
+    },
+    {
+        "id": "b1498895bc9d6bb5",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1820,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "b584c6951067cf9d",
+        "type": "subflow:e0baa17c5072b7d3",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1150,
+        "y": 700,
+        "wires": [
+            [
+                "a71b394d9bd662e8"
+            ]
+        ]
+    },
+    {
+        "id": "a71b394d9bd662e8",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Get `zigbee2mqtt` container",
+        "func": "return {\n    ...msg,\n    payload: {\n        service_name: 'zigbee2mqtt'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 700,
+        "wires": [
+            [
+                "0c6c5ed7d8d9e1c1"
+            ]
+        ]
+    },
+    {
+        "id": "0c6c5ed7d8d9e1c1",
+        "type": "subflow:7b9d1f6f5864ccce",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1660,
+        "y": 700,
+        "wires": [
+            [
+                "bbb923b1ade37476"
+            ]
+        ]
+    },
+    {
+        "id": "bbb923b1ade37476",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1860,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "fd627450ae8b6d74",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1100,
+        "y": 760,
+        "wires": []
+    },
+    {
         "id": "f7360c1818b761fb",
         "type": "inject",
         "z": "e394437c1a103158",
@@ -2645,7 +3192,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "2dea7fa39895542b",
@@ -2659,16 +3206,7 @@
         "z": "e394437c1a103158",
         "name": "",
         "x": 410,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "737d7f8b4f23e9dc",
-        "type": "subflow:924d506d524e2f1f",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 110,
-        "y": 80,
+        "y": 200,
         "wires": []
     },
     {
@@ -2693,7 +3231,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 280,
+        "y": 340,
         "wires": [
             [
                 "081541771c01eea7"
@@ -2706,7 +3244,7 @@
         "z": "e394437c1a103158",
         "name": "",
         "x": 370,
-        "y": 280,
+        "y": 340,
         "wires": []
     },
     {
@@ -2715,7 +3253,34 @@
         "z": "e394437c1a103158",
         "name": "",
         "x": 420,
-        "y": 200,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "21532896ca9f3e64",
+        "type": "function",
+        "z": "e394437c1a103158",
+        "name": "(On Start) Set global variables",
+        "func": "",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "global.set('portainer_api_url', 'http://127.0.0.1:9000/api/endpoints/2');",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14fc16319a2ee0a3",
+        "type": "subflow:924d506d524e2f1f",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 110,
+        "y": 80,
         "wires": []
     },
     {
