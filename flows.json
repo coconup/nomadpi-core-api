@@ -1028,42 +1028,42 @@
         ]
     },
     {
-        "id": "43815fbb22b94432",
-        "type": "gpsd",
-        "z": "924d506d524e2f1f",
-        "name": "",
-        "hostname": "127.0.0.1",
-        "port": "2947",
-        "tpv": true,
-        "sky": false,
-        "info": false,
-        "device": false,
-        "gst": false,
-        "att": false,
-        "x": 190,
-        "y": 80,
-        "wires": [
-            [
-                "49ee4acd56fb9817"
-            ]
-        ]
-    },
-    {
         "id": "49ee4acd56fb9817",
         "type": "function",
         "z": "924d506d524e2f1f",
         "name": "Set `global.gps_info`",
-        "func": "const {\n    payload\n} = msg;\n\nif([2,3].includes(payload.mode || !global.get('gps_info'))) {\n    global.set('gps_info', msg.payload);\n};",
+        "func": "const {\n    payload\n} = msg;\n\nif(['3d', '2d'].includes(payload.mode || !global.get('gps_info'))) {\n    global.set('gps_info', msg.payload);\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 340,
         "y": 80,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "03e0c09948d61e60",
+        "type": "mqtt in",
+        "z": "924d506d524e2f1f",
+        "name": "",
+        "topic": "vanpi/gps_values",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "49ee4acd56fb9817"
+            ]
         ]
     },
     {
@@ -2727,49 +2727,6 @@
         "wires": []
     },
     {
-        "id": "caa1f739e60d602d",
-        "type": "http in",
-        "z": "181d977a8b81274c",
-        "name": "POST `api/v1/usb_devices/reset`",
-        "url": "api/v1/usb_devices/reset",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 420,
-        "wires": [
-            [
-                "ae1a36b76f8f74c1"
-            ]
-        ]
-    },
-    {
-        "id": "eb6993c6d75facea",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "200",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 640,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "ae1a36b76f8f74c1",
-        "type": "subflow:e0baa17c5072b7d3",
-        "z": "181d977a8b81274c",
-        "name": "",
-        "x": 450,
-        "y": 420,
-        "wires": [
-            [
-                "eb6993c6d75facea"
-            ]
-        ]
-    },
-    {
         "id": "d8869dc1f86645a1",
         "type": "http in",
         "z": "181d977a8b81274c",
@@ -3275,7 +3232,7 @@
         ]
     },
     {
-        "id": "14fc16319a2ee0a3",
+        "id": "fc70ba6a396464e2",
         "type": "subflow:924d506d524e2f1f",
         "z": "e394437c1a103158",
         "name": "",
