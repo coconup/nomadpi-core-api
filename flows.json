@@ -2911,12 +2911,12 @@
         "id": "9d18bcda6a2e63be",
         "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "POST `api/v1/settings/:setting_key`",
+        "name": "PUT `api/v1/settings/:setting_key`",
         "url": "api/v1/settings/:setting_key",
         "method": "put",
         "upload": false,
         "swaggerDoc": "",
-        "x": 200,
+        "x": 190,
         "y": 700,
         "wires": [
             [
@@ -2929,7 +2929,7 @@
         "type": "subflow:e0baa17c5072b7d3",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1150,
+        "x": 1130,
         "y": 640,
         "wires": [
             [
@@ -2962,7 +2962,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 880,
+        "x": 860,
         "y": 700,
         "wires": [
             [
@@ -2988,7 +2988,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
+        "x": 450,
         "y": 700,
         "wires": [
             [
@@ -3001,7 +3001,7 @@
         "type": "subflow:2f860c0929d372d8",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 680,
+        "x": 660,
         "y": 700,
         "wires": [
             [
@@ -3018,7 +3018,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 2380,
+        "x": 2360,
         "y": 640,
         "wires": []
     },
@@ -3027,7 +3027,7 @@
         "type": "subflow:e0baa17c5072b7d3",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1150,
+        "x": 1130,
         "y": 700,
         "wires": [
             [
@@ -3047,7 +3047,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1400,
+        "x": 1380,
         "y": 700,
         "wires": [
             [
@@ -3060,7 +3060,7 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1660,
+        "x": 1640,
         "y": 700,
         "wires": [
             [
@@ -3077,7 +3077,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1860,
+        "x": 1840,
         "y": 700,
         "wires": []
     },
@@ -3090,7 +3090,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1100,
+        "x": 1080,
         "y": 760,
         "wires": []
     },
@@ -3106,7 +3106,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1380,
+        "x": 1360,
         "y": 640,
         "wires": [
             [
@@ -3119,7 +3119,7 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1620,
+        "x": 1600,
         "y": 640,
         "wires": [
             [
@@ -3139,7 +3139,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1900,
+        "x": 1880,
         "y": 640,
         "wires": [
             [
@@ -3152,13 +3152,76 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 2180,
+        "x": 2160,
         "y": 640,
         "wires": [
             [
                 "b1498895bc9d6bb5"
             ]
         ]
+    },
+    {
+        "id": "14124682afec4cd3",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "POST `api/v1/mqtt_hub/restart`",
+        "url": "api/v1/mqtt_hub/restart",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 860,
+        "wires": [
+            [
+                "83e16f70b82fb8a3"
+            ]
+        ]
+    },
+    {
+        "id": "83e16f70b82fb8a3",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Get `vanpi-mqtt-hub` container",
+        "func": "return {\n    ...msg,\n    payload: {\n        service_name: 'vanpi-mqtt-hub'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 860,
+        "wires": [
+            [
+                "af5125a4b90f941b"
+            ]
+        ]
+    },
+    {
+        "id": "af5125a4b90f941b",
+        "type": "subflow:7b9d1f6f5864ccce",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 740,
+        "y": 860,
+        "wires": [
+            [
+                "aef8160a036e3305"
+            ]
+        ]
+    },
+    {
+        "id": "aef8160a036e3305",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 940,
+        "y": 860,
+        "wires": []
     },
     {
         "id": "f7360c1818b761fb",
