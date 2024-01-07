@@ -731,12 +731,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "e83d5dc5a3f616c1",
-        "type": "mcp23017chip",
-        "addr": "0x20",
-        "interval": "100"
-    },
-    {
         "id": "fff9b047550b9220",
         "type": "mqtt-broker",
         "name": "",
@@ -766,6 +760,12 @@
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
+    },
+    {
+        "id": "e83d5dc5a3f616c1",
+        "type": "mcp23017chip",
+        "addr": "0x20",
+        "interval": "100"
     },
     {
         "id": "f57dd118a2654036",
@@ -1071,7 +1071,7 @@
         "type": "function",
         "z": "cd03e8b953118d1f",
         "name": "Get `global.gps_info`",
-        "func": "const gps = global.get('gps_info');\nconst modes = {\n    0: 'unknown',\n    1: 'no_fix',\n    2: '2d',\n    3: '3d'\n};\n\nif(!gps) {\n    throw `GPS info not available`\n};\n\nreturn {\n    ...msg,\n    payload: {\n        mode: modes[gps.mode],\n        time: gps.time,\n        longitude: gps.lon,\n        latitude: gps.lat,\n        altitude_hae: gps.altHAE,\n        altitude_msl: gps.altMSL,\n        speed: gps.speed,\n        direction: gps.track,\n        climb: gps.climb,\n        estimated_errors: {\n            longitude: gps.epx,\n            latitude: gps.epy,\n            altitude: gps.epv,\n            speed: gps.eps,\n            direction: gps.epd,\n            climb: gps.epc\n        }\n    }\n};",
+        "func": "const payload = global.get('gps_info') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1372,6 +1372,118 @@
         ]
     },
     {
+        "id": "51e9ffee4c0bc96b",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "8",
+        "invert": true,
+        "x": 410,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d7a3d34f6c7c660",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "9",
+        "invert": true,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "968be9d3d6d4eebf",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "10",
+        "invert": true,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ea16f9f74190e0f",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "11",
+        "invert": true,
+        "x": 410,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f6aac866698cfdc",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "12",
+        "invert": true,
+        "x": 410,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a96a03dab3a26335",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "13",
+        "invert": true,
+        "x": 410,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a45a4f2438934378",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "15",
+        "invert": true,
+        "x": 410,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e666f6ef9bf1e74",
+        "type": "mcp23017output",
+        "z": "28a3f62edac8391d",
+        "name": "",
+        "chip": "e83d5dc5a3f616c1",
+        "bitNum": "14",
+        "invert": true,
+        "x": 410,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "f2b73ec8783670eb",
         "type": "pi-gpiod out",
         "z": "28a3f62edac8391d",
@@ -1523,118 +1635,6 @@
         "y": 720,
         "wires": [],
         "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
-    },
-    {
-        "id": "51e9ffee4c0bc96b",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "8",
-        "invert": true,
-        "x": 410,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4d7a3d34f6c7c660",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "9",
-        "invert": true,
-        "x": 410,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "968be9d3d6d4eebf",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "10",
-        "invert": true,
-        "x": 410,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0ea16f9f74190e0f",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "11",
-        "invert": true,
-        "x": 410,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2f6aac866698cfdc",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "12",
-        "invert": true,
-        "x": 410,
-        "y": 480,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a96a03dab3a26335",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "13",
-        "invert": true,
-        "x": 410,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a45a4f2438934378",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "15",
-        "invert": true,
-        "x": 410,
-        "y": 780,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "5e666f6ef9bf1e74",
-        "type": "mcp23017output",
-        "z": "28a3f62edac8391d",
-        "name": "",
-        "chip": "e83d5dc5a3f616c1",
-        "bitNum": "14",
-        "invert": true,
-        "x": 410,
-        "y": 680,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "41b66de42d91cee8",
@@ -2929,8 +2929,8 @@
         "type": "subflow:e0baa17c5072b7d3",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1130,
-        "y": 640,
+        "x": 1370,
+        "y": 620,
         "wires": [
             [
                 "1f97e6fba379a917"
@@ -2962,8 +2962,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 860,
-        "y": 700,
+        "x": 1100,
+        "y": 680,
         "wires": [
             [
                 "31a5ed7eed82404a"
@@ -3005,7 +3005,7 @@
         "y": 700,
         "wires": [
             [
-                "a8316479d2c8618f"
+                "f1ec4f73fe87f228"
             ]
         ]
     },
@@ -3018,8 +3018,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 2360,
-        "y": 640,
+        "x": 2600,
+        "y": 620,
         "wires": []
     },
     {
@@ -3027,8 +3027,8 @@
         "type": "subflow:e0baa17c5072b7d3",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1130,
-        "y": 700,
+        "x": 1370,
+        "y": 680,
         "wires": [
             [
                 "a71b394d9bd662e8"
@@ -3047,8 +3047,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1380,
-        "y": 700,
+        "x": 1620,
+        "y": 680,
         "wires": [
             [
                 "0c6c5ed7d8d9e1c1"
@@ -3060,8 +3060,8 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1640,
-        "y": 700,
+        "x": 1880,
+        "y": 680,
         "wires": [
             [
                 "bbb923b1ade37476"
@@ -3077,8 +3077,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1840,
-        "y": 700,
+        "x": 2080,
+        "y": 680,
         "wires": []
     },
     {
@@ -3090,8 +3090,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1080,
-        "y": 760,
+        "x": 1320,
+        "y": 800,
         "wires": []
     },
     {
@@ -3106,8 +3106,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1360,
-        "y": 640,
+        "x": 1600,
+        "y": 620,
         "wires": [
             [
                 "0c51548a484b88fc"
@@ -3119,8 +3119,8 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1600,
-        "y": 640,
+        "x": 1840,
+        "y": 620,
         "wires": [
             [
                 "f6e6fbb00c336018"
@@ -3139,8 +3139,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1880,
-        "y": 640,
+        "x": 2120,
+        "y": 620,
         "wires": [
             [
                 "5e73a49120a369b5"
@@ -3152,8 +3152,8 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 2160,
-        "y": 640,
+        "x": 2400,
+        "y": 620,
         "wires": [
             [
                 "b1498895bc9d6bb5"
@@ -3222,6 +3222,35 @@
         "x": 940,
         "y": 860,
         "wires": []
+    },
+    {
+        "id": "f1ec4f73fe87f228",
+        "type": "switch",
+        "z": "181d977a8b81274c",
+        "name": "`value` is present",
+        "property": "req.body.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 700,
+        "wires": [
+            [
+                "a8316479d2c8618f"
+            ],
+            [
+                "fd627450ae8b6d74"
+            ]
+        ]
     },
     {
         "id": "f7360c1818b761fb",
