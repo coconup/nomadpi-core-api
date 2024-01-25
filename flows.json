@@ -80,6 +80,14 @@
         "env": []
     },
     {
+        "id": "b78d606a12ae9c11",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3ee3b10c02a9dae4",
         "type": "subflow",
         "name": "[Relays] dispatcher",
@@ -296,7 +304,7 @@
     {
         "id": "c30c47ad0a20b80b",
         "type": "subflow",
-        "name": "[Temp Sensor] Update temperatures",
+        "name": "[Temp Sensor] Get 1-Wire values",
         "info": "",
         "category": "",
         "in": [
@@ -310,7 +318,18 @@
                 ]
             }
         ],
-        "out": [],
+        "out": [
+            {
+                "x": 720,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "215a88fad5308406",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -595,43 +614,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "5006edf73217beed",
-        "type": "subflow",
-        "name": "[Water tanks] Dispatcher",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 80,
-                "y": 160,
-                "wires": [
-                    {
-                        "id": "5f4411a7693f4453"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 820,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "68bba093d0234b34",
-                        "port": 0
-                    },
-                    {
-                        "id": "20746b7155acadd5",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
         "id": "d522f6d2f07435cd",
         "type": "subflow",
         "name": "[Portainer] Get container",
@@ -731,6 +713,347 @@
         "color": "#DDAA99"
     },
     {
+        "id": "931b8d41fb4d3124",
+        "type": "subflow",
+        "name": "[Batteries] Get all batteries",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "873222205cecdc2f"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 700,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "7a8739f934e85410",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "fbcbc95f786b1f72",
+        "type": "subflow",
+        "name": "[Batteries] Update global state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "efa5074daeceaa81"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5dcda338317c7a86",
+        "type": "subflow",
+        "name": "[Batteries] Get batteries state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b43d1c3dfac9b4c3"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 400,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b43d1c3dfac9b4c3",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d6bd8ca48ade8d7d",
+        "type": "subflow",
+        "name": "[Water tanks] Get water tanks state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "8766551fd4e3b522"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 420,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "8766551fd4e3b522",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5c6f48f8e87bdeba",
+        "type": "subflow",
+        "name": "[Temp sensors] Get all temperature sensors",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "9d8eb984951b703c"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 720,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "f756c710b3494575",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d8264d18d8e4b566",
+        "type": "subflow",
+        "name": "[Temp sensors] Update global state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "5f5fee335ab24a85"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "7f8f32220da2dd83",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Get all solar charge controllers",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "3fa0405a6381d1f4"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 720,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c9481a4af4b14335",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "f7bd6ee532013f76",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Request Renogy BT info",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ac4d3050957b2ebb"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5b7abfd84ae7c0fb",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Dispatcher",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "c911c8cc206cae5b"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 980,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "425588dd818d368c",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "d0749495e355f931",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Request state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "52cdd9e09fb00541"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "8b0e71f3c152c02a",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Get solar charge controllers state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c84b63091dd548fa"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 500,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c84b63091dd548fa",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "4ca15bb77bd03cce",
+        "type": "subflow",
+        "name": "[Solar charge controllers] Update global state",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "20df51fe25c79723"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "fff9b047550b9220",
         "type": "mqtt-broker",
         "name": "",
@@ -777,6 +1100,21 @@
         "password": "${DB_PASSWORD}",
         "tls": false,
         "database": "${DB_NAME}"
+    },
+    {
+        "id": "4c57579e23eb17f5",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "default",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "timeout": "10",
+        "rejectUnauthorized": true
     },
     {
         "id": "827e13d335fd312c",
@@ -976,7 +1314,7 @@
         "type": "function",
         "z": "44f3ed9f999bd3a8",
         "name": "JBD BMS script",
-        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `liontronBmsInfo.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw {\n        type: 'missing_env_variable',\n        message: `$PEKAWAY_SCRIPTS_PATH is not set`\n    }\n} else if(!device_id) {\n    throw {\n        type: 'invalid_request',\n        message: `\\`device_id\\` is required`\n    }\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `jbd_bms_info.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw {\n        type: 'missing_env_variable',\n        message: `$PEKAWAY_SCRIPTS_PATH is not set`\n    }\n} else if(!device_id) {\n    throw {\n        type: 'invalid_request',\n        message: `\\`device_id\\` is required`\n    }\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1107,7 +1445,7 @@
         "type": "function",
         "z": "c30c47ad0a20b80b",
         "name": "Temperature sensor script",
-        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `ds18b20.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `ds18b20_info.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1159,26 +1497,6 @@
         "x": 590,
         "y": 80,
         "wires": [
-            [
-                "562a4f72d675c33b"
-            ]
-        ]
-    },
-    {
-        "id": "562a4f72d675c33b",
-        "type": "function",
-        "z": "c30c47ad0a20b80b",
-        "name": "function 8",
-        "func": "const temperature_state = global.get('temperature_state') || {};\n\nconst new_state = {\n    ...temperature_state,\n    ...msg.payload\n};\n\nglobal.set('temperature_state', new_state)",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 760,
-        "y": 80,
-        "wires": [
             []
         ]
     },
@@ -1209,7 +1527,7 @@
         "type": "function",
         "z": "b3276c87a286f102",
         "name": "Scan USB script",
-        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `usbScan.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `usb_scan.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1380,7 +1698,7 @@
         "bitNum": "8",
         "invert": true,
         "x": 410,
-        "y": 80,
+        "y": 320,
         "wires": [
             []
         ]
@@ -1394,7 +1712,7 @@
         "bitNum": "9",
         "invert": true,
         "x": 410,
-        "y": 180,
+        "y": 360,
         "wires": [
             []
         ]
@@ -1408,7 +1726,7 @@
         "bitNum": "10",
         "invert": true,
         "x": 410,
-        "y": 280,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1422,7 +1740,7 @@
         "bitNum": "11",
         "invert": true,
         "x": 410,
-        "y": 380,
+        "y": 440,
         "wires": [
             []
         ]
@@ -1450,7 +1768,7 @@
         "bitNum": "13",
         "invert": true,
         "x": 410,
-        "y": 580,
+        "y": 520,
         "wires": [
             []
         ]
@@ -1464,7 +1782,7 @@
         "bitNum": "15",
         "invert": true,
         "x": 410,
-        "y": 780,
+        "y": 600,
         "wires": [
             []
         ]
@@ -1478,163 +1796,10 @@
         "bitNum": "14",
         "invert": true,
         "x": 410,
-        "y": 680,
+        "y": 560,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "f2b73ec8783670eb",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "17",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "6c1e1dc4910a7401",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "27",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "70f12259a4a7ad76",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "22",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "a06c202dae056775",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "10",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "ecd927f10a908484",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "9",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "ab52291981ecc883",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "11",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "0ee1e822b54e8ba0",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "5",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 380,
-        "y": 820,
-        "wires": []
-    },
-    {
-        "id": "827313b3d4fdaa84",
-        "type": "pi-gpiod out",
-        "z": "28a3f62edac8391d",
-        "d": true,
-        "name": "PIN: 27 (node.pin=0, not editable through UI)",
-        "host": "${GPIOD_HOST}",
-        "port": 8888,
-        "pin": "0",
-        "set": false,
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 490,
-        "y": 720,
-        "wires": [],
-        "info": "This node points to PIN 27 (BCM GPIO 0), \nwhich is disabled in the `pi-gpiod` UI.\n\nIn order to re-set the pin value to 0, \nif changed, it's advisable to export \nthe node and reimport it after modifying \nthe `pin` value in the JSON block."
     },
     {
         "id": "41b66de42d91cee8",
@@ -1761,7 +1926,7 @@
         "type": "function",
         "z": "e0baa17c5072b7d3",
         "name": "`.rule` file content",
-        "func": "const payload = msg.payload.map(item => {\n    const {\n        device_key,\n        device_spec\n    } = item;\n\n    const {\n        vendor_id,\n        product_id\n    } = JSON.parse(device_spec);\n\n    return `KERNEL==\"tty*\", ATTRS{idVendor}==\"${vendor_id.replace('0x', '')}\", ATTRS{idProduct}==\"${product_id.replace('0x', '')}\", MODE:=\"0666\", SYMLINK+=\"${device_key}\"`\n}).join(\"\\n\");\n\nreturn {\n    ...msg,\n    payload\n};",
+        "func": "const payload = msg.payload.map(item => {\n    const {\n        device_key,\n        device_spec\n    } = item;\n\n    const {\n        vendor_id,\n        product_id\n    } = JSON.parse(device_spec);\n\n    return `KERNEL==\"tty*\" ATTRS{idVendor}==\"${vendor_id.replace('0x', '')}\", ATTRS{idProduct}==\"${product_id.replace('0x', '')}\", MODE:=\"0666\", SYMLINK+=\"${device_key}\"`\n}).join(\"\\n\");\n\nreturn {\n    ...msg,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1831,7 +1996,7 @@
         "type": "function",
         "z": "d88de85075ac25db",
         "name": "Compose query",
-        "func": "const sql_query = `\n  create or replace view usb_devices\n\n  as\n\n  select\n    :gpsd_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'gpsd_usb_device'\n\n  union all\n\n  select\n    :zigbee_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'zigbee_usb_device'\n`;\n\nconst params = { \n  gpsd_device_key: env.get('GPSD_UDEV_KEY'),\n  zigbee_device_key: env.get('ZIGBEE_UDEV_KEY')\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "func": "const sql_query = `\n  create or replace view usb_devices\n\n  as\n\n  select\n    :gpsd_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'gpsd_usb_device'\n\n  union all\n\n  select\n    :zigbee_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'zigbee_usb_device'\n\n  union all\n\n  select\n    :microphone_usb_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'microphone_usb_device'\n`;\n\nconst params = { \n  gpsd_device_key: env.get('GPSD_UDEV_KEY'),\n  zigbee_device_key: env.get('ZIGBEE_UDEV_KEY'),\n  microphone_usb_device_key: env.get('MICROPHONE_UDEV_KEY')\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2004,7 +2169,7 @@
         "type": "function",
         "z": "43ab01fa1b483aad",
         "name": "Compose query",
-        "func": "const sql_query = `\n  create or replace view mqtt_devices\n\n  as\n\n  select\n    'water_tank' as device_type,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from water_tanks\n  where connection_type = 'mqtt'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "func": "const sql_query = `\n  create or replace view mqtt_devices\n\n  as\n\n  select\n    'sensor' as device_type,\n    sensor_type as device_subtype,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from sensors\n  where connection_type = 'mqtt'\n\n  union all\n\n  select\n    'water_tank' as device_type,\n    null as device_subtype,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from water_tanks\n  where connection_type = 'mqtt'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2049,7 +2214,7 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Compose volumetric attributes query",
-        "func": "const {\n  device_id,\n  device_type,\n  value\n} = msg.payload;\n\nconst sql_query = `\n  select\n    volumetric_type,\n    volumetric_params\n  from water_tanks\n  where id = :device_id\n`;\n\nconst params = {\n  device_id\n};\n\nreturn {\n  ...msg,\n  mqtt_payload: {\n    device_id,\n    value\n  },\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "func": "const {\n  water_tank_id,\n  value\n} = msg.payload;\n\nconst sql_query = `\n  select\n    volumetric_type,\n    volumetric_params\n  from water_tanks\n  where id = :water_tank_id\n`;\n\nconst params = {\n  water_tank_id\n};\n\nreturn {\n  ...msg,\n  mqtt_payload: {\n    water_tank_id,\n    value\n  },\n  payload: {\n    sql_query,\n    params\n  }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2115,7 +2280,7 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Calculate total and remaining volume",
-        "func": "const { device_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_when_full,\n    sensor_distance_from_surface,\n    height,\n    width,\n    length\n} = msg.payload.volumetric_params;\n\nconst total_volume_liters = height * width * length / 1000;\nconst remaining_volume_liters = (\n    Math.max(\n        0, \n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * width * length\n    ) / 1000\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        sensor_distance_when_full,\n        remaining_volume_liters\n    }\n};",
+        "func": "const { water_tank_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_when_full,\n    sensor_distance_from_surface,\n    height,\n    width,\n    length\n} = msg.payload.volumetric_params;\n\nconst total_volume_liters = height * width * length / 1000;\nconst remaining_volume_liters = (\n    Math.min(\n        Math.max(\n            0, \n            (\n                height\n                - sensor_distance_from_surface\n                + sensor_distance_when_full\n            ) * width * length\n        ) / 1000,\n        total_volume_liters\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        water_tank_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        sensor_distance_when_full,\n        remaining_volume_liters\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2135,7 +2300,7 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Update `global.water_tanks_state`",
-        "func": "const water_tanks_state = global.get('water_tanks_state');\n\nconst {\n    device_id,\n    ...rest\n} = msg.payload;\n\nconst new_water_tanks_state = {\n    ...water_tanks_state,\n    [device_id]: rest\n}\n\nglobal.set('water_tanks_state', new_water_tanks_state);\n\nreturn msg;",
+        "func": "const water_tanks_state = global.get('water_tanks_state');\n\nconst {\n    water_tank_id,\n    ...rest\n} = msg.payload;\n\nconst new_water_tanks_state = {\n    ...water_tanks_state,\n    [water_tank_id]: rest\n}\n\nglobal.set('water_tanks_state', new_water_tanks_state);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2153,7 +2318,7 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Calculate total and remaining volume",
-        "func": "const { device_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_from_surface,\n    sensor_distance_when_full,\n    height,\n    diameter\n} = msg.payload;\n\nconst square_radius = Math.pow(diameter / 2, 2);\nconst total_volume_liters = Math.PI * square_radius * height / 1000;\n\n// Calculate the remaining volume based on the liquid distance\nconst remaining_volume_liters = (\n    Math.max(\n        0,\n        (\n            height\n            - sensor_distance_from_surface\n            + sensor_distance_when_full\n        ) * Math.PI * square_radius\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        device_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
+        "func": "const { water_tank_id } = msg.mqtt_payload;\n\nconst {\n    sensor_distance_from_surface,\n    sensor_distance_when_full,\n    height,\n    diameter\n} = msg.payload;\n\nconst square_radius = Math.pow(diameter / 2, 2);\nconst total_volume_liters = Math.PI * square_radius * height / 1000;\n\n// Calculate the remaining volume based on the liquid distance\nconst remaining_volume_liters = (\n    Math.min(\n        Math.max(\n            0,\n            (\n                height\n                - sensor_distance_from_surface\n                + sensor_distance_when_full\n            ) * Math.PI * square_radius / 1000\n        ),\n        total_volume_liters\n    )\n);\n\nreturn {\n    ...msg,\n    payload: {\n        water_tank_id,\n        total_volume_liters,\n        sensor_distance_from_surface,\n        remaining_volume_liters\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2173,7 +2338,7 @@
         "type": "function",
         "z": "2af61905d791930b",
         "name": "Parse volumetric params",
-        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    device_id,\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst parsed_params = JSON.parse(volumetric_params);\n\nconst height = parseInt(parsed_params.height);\nconst width = parseInt(parsed_params.width);\nconst length = parseInt(parsed_params.length);\nconst diameter = parseInt(parsed_params.diameter);\nconst sensor_distance_when_full = parseInt(parsed_params.sensor_distance_when_full);\n\nreturn {\n    ...msg,\n    payload: {\n        ...msg.payload[0],\n        volumetric_params: {\n            height,\n            width,\n            length,\n            diameter,\n            sensor_distance_when_full,\n            sensor_distance_from_surface\n        }\n    }\n};",
+        "func": "const {\n    volumetric_params\n} = msg.payload[0];\n\nconst {\n    value\n} = msg.mqtt_payload;\n\nconst sensor_distance_from_surface = parseInt(value);\n\nconst parsed_params = JSON.parse(volumetric_params);\n\nconst height = parseInt(parsed_params.height);\nconst width = parseInt(parsed_params.width);\nconst length = parseInt(parsed_params.length);\nconst diameter = parseInt(parsed_params.diameter);\nconst sensor_distance_when_full = parseInt(parsed_params.sensor_distance_when_full);\n\nreturn {\n    ...msg,\n    payload: {\n        ...msg.payload[0],\n        volumetric_params: {\n            height,\n            width,\n            length,\n            diameter,\n            sensor_distance_when_full,\n            sensor_distance_from_surface\n        }\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2186,137 +2351,6 @@
             [
                 "0826298b22e97e05"
             ]
-        ]
-    },
-    {
-        "id": "5f4411a7693f4453",
-        "type": "switch",
-        "z": "5006edf73217beed",
-        "name": "Device type",
-        "property": "payload.device_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "mqtt",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 210,
-        "y": 160,
-        "wires": [
-            [
-                "34a42f464da15f1e"
-            ],
-            [
-                "9f0fa0e589e79c19"
-            ]
-        ]
-    },
-    {
-        "id": "34a42f464da15f1e",
-        "type": "switch",
-        "z": "5006edf73217beed",
-        "name": "Connection type",
-        "property": "payload.connection_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "mqtt",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 400,
-        "y": 120,
-        "wires": [
-            [
-                "20746b7155acadd5"
-            ],
-            [
-                "9f0fa0e589e79c19"
-            ]
-        ]
-    },
-    {
-        "id": "9f0fa0e589e79c19",
-        "type": "function",
-        "z": "5006edf73217beed",
-        "name": "Throw error",
-        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0777dcc46eeca04b",
-        "type": "catch",
-        "z": "5006edf73217beed",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 460,
-        "y": 260,
-        "wires": [
-            [
-                "68bba093d0234b34"
-            ]
-        ]
-    },
-    {
-        "id": "68bba093d0234b34",
-        "type": "function",
-        "z": "5006edf73217beed",
-        "name": "Parse error",
-        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "20746b7155acadd5",
-        "type": "function",
-        "z": "5006edf73217beed",
-        "name": "Get water tank state",
-        "func": "const water_tanks_state = global.get('water_tanks_state') || {};\n\nconst { device_id } = msg.payload;\n\nreturn {\n    ...msg,\n    payload: water_tanks_state[device_id]\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 80,
-        "wires": [
-            []
         ]
     },
     {
@@ -2548,6 +2582,700 @@
         ]
     },
     {
+        "id": "ed0e0c4d1a309ec1",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "931b8d41fb4d3124",
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "7a8739f934e85410"
+            ]
+        ]
+    },
+    {
+        "id": "873222205cecdc2f",
+        "type": "function",
+        "z": "931b8d41fb4d3124",
+        "name": "Compose query",
+        "func": "const sql_query = `\n  select *\n  from batteries\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "ed0e0c4d1a309ec1"
+            ]
+        ]
+    },
+    {
+        "id": "7a8739f934e85410",
+        "type": "function",
+        "z": "931b8d41fb4d3124",
+        "name": "Parse result",
+        "func": "const payload = msg.payload.map(battery => {\n    return {\n        ...battery,\n        connection_params: JSON.parse(battery.connection_params)\n    }\n})\n\nreturn {\n    ...msg,\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efa5074daeceaa81",
+        "type": "subflow:931b8d41fb4d3124",
+        "z": "fbcbc95f786b1f72",
+        "name": "",
+        "x": 260,
+        "y": 80,
+        "wires": [
+            [
+                "8719bc804a72d492"
+            ]
+        ]
+    },
+    {
+        "id": "8719bc804a72d492",
+        "type": "function",
+        "z": "fbcbc95f786b1f72",
+        "name": "Iterate over batteries",
+        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: battery_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        battery: {\n            battery_id\n        },\n        payload: {\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 80,
+        "wires": [
+            [
+                "e427ba670c9924bd"
+            ]
+        ]
+    },
+    {
+        "id": "e427ba670c9924bd",
+        "type": "subflow:d1e3712ec6c2128d",
+        "z": "fbcbc95f786b1f72",
+        "name": "Get battery stats",
+        "x": 710,
+        "y": 80,
+        "wires": [
+            [
+                "d1c75753b4b7d54c"
+            ]
+        ]
+    },
+    {
+        "id": "d1c75753b4b7d54c",
+        "type": "function",
+        "z": "fbcbc95f786b1f72",
+        "name": "Set `global.batteries_state`",
+        "func": "let batteries_state = {\n    ...global.get('batteries_state') || {}\n};\n\nconst {\n    battery,\n    payload\n} = msg;\n\nbatteries_state[battery.battery_id] = payload;\n\nglobal.set('batteries_state', batteries_state)",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b43d1c3dfac9b4c3",
+        "type": "function",
+        "z": "5dcda338317c7a86",
+        "name": "Get batteries state",
+        "func": "const payload = global.get('batteries_state') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8766551fd4e3b522",
+        "type": "function",
+        "z": "d6bd8ca48ade8d7d",
+        "name": "Get water tanks state",
+        "func": "const payload = global.get('water_tanks_state') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "37bf5f7a8a3cdb74",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "5c6f48f8e87bdeba",
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "f756c710b3494575"
+            ]
+        ]
+    },
+    {
+        "id": "9d8eb984951b703c",
+        "type": "function",
+        "z": "5c6f48f8e87bdeba",
+        "name": "Compose query",
+        "func": "const sql_query = `\n  select *\n  from temperature_sensors\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "37bf5f7a8a3cdb74"
+            ]
+        ]
+    },
+    {
+        "id": "f756c710b3494575",
+        "type": "function",
+        "z": "5c6f48f8e87bdeba",
+        "name": "Parse result",
+        "func": "const payload = msg.payload.map(temp_sensor => {\n    return {\n        ...temp_sensor,\n        connection_params: JSON.parse(temp_sensor.connection_params)\n    }\n})\n\nreturn {\n    ...msg,\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "905b8f9e04957a19",
+        "type": "function",
+        "z": "d8264d18d8e4b566",
+        "name": "Group sensors by `connection_type`",
+        "func": "const parsed_result = {};\n\nmsg.payload.forEach(temp_sensor => {\n    const {\n        connection_type\n    } = temp_sensor;\n\n    if(!connection_type) {\n        throw {\n            type: 'invalid_request',\n            message: 'missing `connection_type` value'\n        }\n    }\n    \n    parsed_result[connection_type] ||= [];\n    parsed_result[connection_type].push(temp_sensor)\n})\n\nconst payloads = Object.keys(parsed_result).map(connection_type => {\n    const temperature_sensors = parsed_result[connection_type].map(temp_sensor => {\n        return {\n            temperature_sensor_id: temp_sensor.id,\n            ...temp_sensor.connection_params\n        }\n    });\n\n    return {\n        payload: {\n            connection_type,\n            temperature_sensors\n        }\n    }\n});\n\nreturn payloads;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 120,
+        "wires": [
+            [
+                "11cd8eddc2e5fcec"
+            ]
+        ]
+    },
+    {
+        "id": "11cd8eddc2e5fcec",
+        "type": "switch",
+        "z": "d8264d18d8e4b566",
+        "name": "Connection type",
+        "property": "payload.connection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "one_wire",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [
+                "a8cb64a85366afd1"
+            ],
+            [
+                "66cdcfbe6448864e"
+            ]
+        ]
+    },
+    {
+        "id": "66cdcfbe6448864e",
+        "type": "function",
+        "z": "d8264d18d8e4b566",
+        "name": "Throw error",
+        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a8cb64a85366afd1",
+        "type": "function",
+        "z": "d8264d18d8e4b566",
+        "name": "Parse payload",
+        "func": "const {\n    temperature_sensors\n} = msg.payload;\n\nreturn {\n    ...msg,\n    temperature_sensors\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 80,
+        "wires": [
+            [
+                "3ffcabd4772587ba"
+            ]
+        ]
+    },
+    {
+        "id": "3ffcabd4772587ba",
+        "type": "subflow:c30c47ad0a20b80b",
+        "z": "d8264d18d8e4b566",
+        "name": "",
+        "x": 1300,
+        "y": 80,
+        "wires": [
+            [
+                "562a4f72d675c33b"
+            ]
+        ]
+    },
+    {
+        "id": "562a4f72d675c33b",
+        "type": "function",
+        "z": "d8264d18d8e4b566",
+        "name": "Set `global.temperature_state`",
+        "func": "const {\n    temperature_sensors,\n    payload\n} = msg;\n\nlet temperature_state = global.get('temperature_state') || {};\n\ntemperature_sensors.forEach(({ temperature_sensor_id, one_wire_index }) => {\n    if(payload[one_wire_index] !== undefined) {\n        temperature_state[temperature_sensor_id] = payload[one_wire_index];\n    }\n});\n\nglobal.set('temperature_state', temperature_state);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1590,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9641a403207d74f3",
+        "type": "catch",
+        "z": "d8264d18d8e4b566",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "b7b960f529b1372c"
+            ]
+        ]
+    },
+    {
+        "id": "b7b960f529b1372c",
+        "type": "function",
+        "z": "d8264d18d8e4b566",
+        "name": "Parse error",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f5fee335ab24a85",
+        "type": "subflow:5c6f48f8e87bdeba",
+        "z": "d8264d18d8e4b566",
+        "name": "",
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "905b8f9e04957a19"
+            ]
+        ]
+    },
+    {
+        "id": "0fe7e05da4f35e8f",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "7f8f32220da2dd83",
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "c9481a4af4b14335"
+            ]
+        ]
+    },
+    {
+        "id": "3fa0405a6381d1f4",
+        "type": "function",
+        "z": "7f8f32220da2dd83",
+        "name": "Compose query",
+        "func": "const sql_query = `\n  select *\n  from solar_charge_controllers\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "0fe7e05da4f35e8f"
+            ]
+        ]
+    },
+    {
+        "id": "c9481a4af4b14335",
+        "type": "function",
+        "z": "7f8f32220da2dd83",
+        "name": "Parse result",
+        "func": "const payload = msg.payload.map(battery => {\n    return {\n        ...battery,\n        connection_params: JSON.parse(battery.connection_params)\n    }\n})\n\nreturn {\n    ...msg,\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac4d3050957b2ebb",
+        "type": "function",
+        "z": "f7bd6ee532013f76",
+        "name": "Renogy solar charge controller script",
+        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `renogy_bt_info.py`;\nconst { device_id } = msg.payload;\n\nif(!root_scripts_path) {\n    throw {\n        type: 'missing_env_variable',\n        message: `$PEKAWAY_SCRIPTS_PATH is not set`\n    }\n} else if(!device_id) {\n    throw {\n        type: 'invalid_request',\n        message: `\\`device_id\\` is required`\n    }\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename} -d ${device_id}`\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "0f64a60cfc7bc1c6"
+            ]
+        ]
+    },
+    {
+        "id": "0f64a60cfc7bc1c6",
+        "type": "exec",
+        "z": "f7bd6ee532013f76",
+        "command": "python3 ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c911c8cc206cae5b",
+        "type": "switch",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "Device type",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "renogy",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "8d7728988ba69203"
+            ],
+            [
+                "4906d196fc01ac90"
+            ]
+        ]
+    },
+    {
+        "id": "8d7728988ba69203",
+        "type": "switch",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "Connection type",
+        "property": "payload.connection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ble",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 100,
+        "wires": [
+            [
+                "0ce33a637c73a55d"
+            ],
+            [
+                "4906d196fc01ac90"
+            ]
+        ]
+    },
+    {
+        "id": "4906d196fc01ac90",
+        "type": "function",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "Throw error",
+        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86f35bdf8f05ea51",
+        "type": "catch",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 460,
+        "y": 240,
+        "wires": [
+            [
+                "425588dd818d368c"
+            ]
+        ]
+    },
+    {
+        "id": "425588dd818d368c",
+        "type": "function",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "Parse error",
+        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ce33a637c73a55d",
+        "type": "subflow:f7bd6ee532013f76",
+        "z": "5b7abfd84ae7c0fb",
+        "name": "",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "52cdd9e09fb00541",
+        "type": "subflow:7f8f32220da2dd83",
+        "z": "d0749495e355f931",
+        "name": "",
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "1296aad078f73fb1"
+            ]
+        ]
+    },
+    {
+        "id": "1296aad078f73fb1",
+        "type": "function",
+        "z": "d0749495e355f931",
+        "name": "Iterate over solar charge controllers",
+        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: solar_charge_controller_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        solar_charge_controller: {\n            solar_charge_controller_id\n        },\n        payload: {\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 80,
+        "wires": [
+            [
+                "936597b79ae60bdf"
+            ]
+        ]
+    },
+    {
+        "id": "936597b79ae60bdf",
+        "type": "subflow:5b7abfd84ae7c0fb",
+        "z": "d0749495e355f931",
+        "name": "",
+        "x": 1010,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c84b63091dd548fa",
+        "type": "function",
+        "z": "8b0e71f3c152c02a",
+        "name": "Get solar charge controllers state",
+        "func": "const payload = global.get('solar_charge_controllers_state') || {};\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4d7b905594dc2d7",
+        "type": "function",
+        "z": "4ca15bb77bd03cce",
+        "name": "Set `global.solar_charge_controllers_state`",
+        "func": "let solar_charge_controllers_state = {\n    ...global.get('solar_charge_controllers_state') || {}\n};\n\nconst {\n    values,\n    payload\n} = msg;\n\nsolar_charge_controllers_state[payload[0].id] = values;\n\nglobal.set('solar_charge_controllers_state', solar_charge_controllers_state)",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c699322bb9bf7e7",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "4ca15bb77bd03cce",
+        "name": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "d4d7b905594dc2d7"
+            ]
+        ]
+    },
+    {
+        "id": "20df51fe25c79723",
+        "type": "function",
+        "z": "4ca15bb77bd03cce",
+        "name": "Compose query",
+        "func": "const {\n  mac_address,\n  battery_current,\n  battery_percentage,\n  battery_temperature,\n  battery_type,\n  battery_voltage,\n  charging_status,\n  controller_temperature,\n  // charging_amp_hours_today,\n  // discharging_amp_hours_today,\n  load_current,\n  load_power,\n  load_status,\n  load_voltage,\n  // max_charging_power_today,\n  // max_discharging_power_today,\n  // power_consumption_today,\n  // power_generation_today,\n  // power_generation_total,\n  pv_current,\n  pv_power,\n  pv_voltage,\n} = msg.payload;\n\nconst sql_query = `\n  select id\n  from solar_charge_controllers\n  where\n    connection_type = 'ble'\n    and json_value(connection_params, '$.device_id') = :mac_address\n  limit 1\n`;\n\nconst params = {\n  mac_address\n};\n\nreturn {\n  values: {\n    charging_status,\n    controller_temperature,\n    battery: {\n      state_of_charge: battery_percentage,\n      temperature: battery_temperature,\n      type: battery_type,\n      voltage: battery_voltage\n    },\n    load: {\n      current: load_current,\n      power: load_power,\n      status: load_status,\n      voltage: load_voltage,\n    },\n    photovoltaic: {\n      current: pv_current,\n      power: pv_power,\n      voltage: pv_voltage,\n    }\n  },\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "3c699322bb9bf7e7"
+            ]
+        ]
+    },
+    {
         "id": "f7a70eb3ee7a6e7c",
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
@@ -2594,12 +3322,12 @@
         "id": "f6fe2ecb7716291c",
         "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "GET `api/v1/gps_values`",
-        "url": "api/v1/gps_values",
+        "name": "GET `api/v1/gps/state`",
+        "url": "api/v1/gps/state",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 170,
+        "x": 160,
         "y": 300,
         "wires": [
             [
@@ -2612,7 +3340,7 @@
         "type": "subflow:cd03e8b953118d1f",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 380,
+        "x": 360,
         "y": 300,
         "wires": [
             [
@@ -2629,7 +3357,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 540,
+        "x": 520,
         "y": 300,
         "wires": []
     },
@@ -2646,7 +3374,8 @@
         "y": 140,
         "wires": [
             [
-                "1fdbc5f6e83fb59b"
+                "1fdbc5f6e83fb59b",
+                "0e6af655199cb9f8"
             ]
         ]
     },
@@ -2727,68 +3456,6 @@
         "wires": []
     },
     {
-        "id": "d8869dc1f86645a1",
-        "type": "http in",
-        "z": "181d977a8b81274c",
-        "name": "GET api/v1/batteries/:connection_type/:device_type/:device_id/state`",
-        "url": "api/v1/batteries/:connection_type/:device_type/:device_id/state",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 310,
-        "y": 500,
-        "wires": [
-            [
-                "c338ef6230fc84a3"
-            ]
-        ]
-    },
-    {
-        "id": "9c9dedb968da9368",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "200",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 1040,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "c338ef6230fc84a3",
-        "type": "function",
-        "z": "181d977a8b81274c",
-        "name": "Parse request",
-        "func": "const {\n    connection_type,\n    device_type,\n    device_id\n} = msg.req.params;\n\nreturn {\n    ...msg,\n    payload: {\n        connection_type,\n        device_type,\n        device_id\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 500,
-        "wires": [
-            [
-                "101c0ecc3e216c58"
-            ]
-        ]
-    },
-    {
-        "id": "101c0ecc3e216c58",
-        "type": "subflow:d1e3712ec6c2128d",
-        "z": "181d977a8b81274c",
-        "x": 860,
-        "y": 500,
-        "wires": [
-            [
-                "9c9dedb968da9368"
-            ]
-        ]
-    },
-    {
         "id": "41da5c626064985a",
         "type": "http response",
         "z": "181d977a8b81274c",
@@ -2805,12 +3472,12 @@
         "id": "7beb665f89ba6397",
         "type": "http in",
         "z": "181d977a8b81274c",
-        "name": "GET `api/v1/temperature_values`",
-        "url": "api/v1/temperature_values",
+        "name": "GET `api/v1/temperature_sensors/state`",
+        "url": "api/v1/temperature_sensors/state",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 190,
+        "x": 210,
         "y": 220,
         "wires": [
             [
@@ -2827,7 +3494,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 720,
+        "x": 760,
         "y": 220,
         "wires": []
     },
@@ -2836,74 +3503,11 @@
         "type": "subflow:1fcb65ecb479780e",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 490,
+        "x": 530,
         "y": 220,
         "wires": [
             [
                 "1beaa2df69f1f2f6"
-            ]
-        ]
-    },
-    {
-        "id": "c938af4e7a78375a",
-        "type": "http in",
-        "z": "181d977a8b81274c",
-        "name": "GET api/v1/water_tanks/:connection_type/:device_type/:device_id/state`",
-        "url": "api/v1/water_tanks/:connection_type/:device_type/:device_id/state",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 320,
-        "y": 560,
-        "wires": [
-            [
-                "d3eb22cde699bee3"
-            ]
-        ]
-    },
-    {
-        "id": "53093d60384f9fd1",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "200",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 1080,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "d3eb22cde699bee3",
-        "type": "function",
-        "z": "181d977a8b81274c",
-        "name": "Parse request",
-        "func": "const {\n    connection_type,\n    device_type,\n    device_id\n} = msg.req.params;\n\nreturn {\n    ...msg,\n    payload: {\n        connection_type,\n        device_type,\n        device_id\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 560,
-        "wires": [
-            [
-                "69d8b1cca223c818"
-            ]
-        ]
-    },
-    {
-        "id": "69d8b1cca223c818",
-        "type": "subflow:5006edf73217beed",
-        "z": "181d977a8b81274c",
-        "name": "",
-        "x": 890,
-        "y": 560,
-        "wires": [
-            [
-                "53093d60384f9fd1"
             ]
         ]
     },
@@ -2956,12 +3560,17 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "microphone_usb_device",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 3,
+        "outputs": 4,
         "x": 1100,
         "y": 680,
         "wires": [
@@ -2970,6 +3579,9 @@
             ],
             [
                 "b584c6951067cf9d"
+            ],
+            [
+                "63d1393c24bcad5e"
             ],
             [
                 "fd627450ae8b6d74"
@@ -3090,7 +3702,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1320,
+        "x": 1260,
         "y": 800,
         "wires": []
     },
@@ -3253,6 +3865,198 @@
         ]
     },
     {
+        "id": "9856d72277173c8f",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/batteries/state`",
+        "url": "api/v1/batteries/state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "91246a9c0dd82595"
+            ]
+        ]
+    },
+    {
+        "id": "5755b80a585e4300",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 620,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "91246a9c0dd82595",
+        "type": "subflow:5dcda338317c7a86",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 420,
+        "y": 460,
+        "wires": [
+            [
+                "5755b80a585e4300"
+            ]
+        ]
+    },
+    {
+        "id": "d0ced5f43dc06004",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/water_tanks/state`",
+        "url": "api/v1/water_tanks/state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 580,
+        "wires": [
+            [
+                "de27efdc58d58d86"
+            ]
+        ]
+    },
+    {
+        "id": "2289330a7767a2fb",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 700,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "de27efdc58d58d86",
+        "type": "subflow:d6bd8ca48ade8d7d",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 480,
+        "y": 580,
+        "wires": [
+            [
+                "2289330a7767a2fb"
+            ]
+        ]
+    },
+    {
+        "id": "80b2481a7c9a63aa",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "GET `api/v1/solar_charge_controllers/state`",
+        "url": "api/v1/solar_charge_controllers/state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "b9192ec4f79793ea"
+            ]
+        ]
+    },
+    {
+        "id": "3a1d9bfa729fcfd0",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 920,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b9192ec4f79793ea",
+        "type": "subflow:8b0e71f3c152c02a",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 620,
+        "y": 520,
+        "wires": [
+            [
+                "3a1d9bfa729fcfd0"
+            ]
+        ]
+    },
+    {
+        "id": "63d1393c24bcad5e",
+        "type": "subflow:e0baa17c5072b7d3",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1370,
+        "y": 740,
+        "wires": [
+            [
+                "b9de5007e369042a"
+            ]
+        ]
+    },
+    {
+        "id": "0f1e03606729297f",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1720,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b9de5007e369042a",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "function 8",
+        "func": "return {\n    ...msg,\n    payload: {\n        data: \"ok\"\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1560,
+        "y": 740,
+        "wires": [
+            [
+                "0f1e03606729297f"
+            ]
+        ]
+    },
+    {
+        "id": "0e6af655199cb9f8",
+        "type": "debug",
+        "z": "181d977a8b81274c",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 180,
+        "wires": []
+    },
+    {
         "id": "f7360c1818b761fb",
         "type": "inject",
         "z": "e394437c1a103158",
@@ -3316,18 +4120,11 @@
         "y": 340,
         "wires": [
             [
-                "081541771c01eea7"
+                "40345a0f84b5023a",
+                "12c28c8a127a03cb",
+                "249b1f9c82b8fb2c"
             ]
         ]
-    },
-    {
-        "id": "081541771c01eea7",
-        "type": "subflow:c30c47ad0a20b80b",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 370,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "687a7ba2e7fefc00",
@@ -3366,6 +4163,63 @@
         "wires": []
     },
     {
+        "id": "40345a0f84b5023a",
+        "type": "subflow:fbcbc95f786b1f72",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 410,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "12c28c8a127a03cb",
+        "type": "subflow:d8264d18d8e4b566",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 420,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "249b1f9c82b8fb2c",
+        "type": "subflow:d0749495e355f931",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 440,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "32a5d83af20cba88",
+        "type": "mqtt in",
+        "z": "e394437c1a103158",
+        "name": "",
+        "topic": "renogy_bt/state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "d18e9429b71ff540"
+            ]
+        ]
+    },
+    {
+        "id": "d18e9429b71ff540",
+        "type": "subflow:4ca15bb77bd03cce",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 970,
+        "y": 460,
+        "wires": []
+    },
+    {
         "id": "f2b8b0a08c62f6b1",
         "type": "mqtt in",
         "z": "412a66feda2814e4",
@@ -3398,16 +4252,24 @@
                 "t": "eq",
                 "v": "water_tank",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "sensor",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
+        "outputs": 2,
         "x": 420,
         "y": 80,
         "wires": [
             [
                 "0d1af9c425416463"
+            ],
+            [
+                "1b66cb87ef630889"
             ]
         ]
     },
@@ -3416,8 +4278,8 @@
         "type": "subflow:2af61905d791930b",
         "z": "412a66feda2814e4",
         "name": "",
-        "x": 860,
-        "y": 80,
+        "x": 920,
+        "y": 60,
         "wires": []
     },
     {
@@ -3425,20 +4287,37 @@
         "type": "function",
         "z": "412a66feda2814e4",
         "name": "Parse payload",
-        "func": "const { payload } = msg;\nconst { message, ...rest } = payload;\n\nreturn {\n    ...msg,\n    payload: {\n        ...rest,\n        value: message\n    }\n};",
+        "func": "const { payload } = msg;\nconst {\n    message,\n    device_id: water_tank_id,\n    ...rest\n} = payload;\n\nreturn {\n    ...msg,\n    payload: {\n        ...rest,\n        water_tank_id,\n        value: message\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 80,
+        "x": 680,
+        "y": 60,
         "wires": [
             [
                 "9cfa201de2d41045"
             ]
         ]
+    },
+    {
+        "id": "1b66cb87ef630889",
+        "type": "debug",
+        "z": "412a66feda2814e4",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 120,
+        "wires": []
     },
     {
         "id": "dd6f48cb877d8037",
@@ -4585,6 +5464,120 @@
         ]
     },
     {
+        "id": "09c3d1f8a3b0dc8b",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "stat/vibration_sensor_test/3/values",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 980,
+        "wires": [
+            [
+                "27f638171de56a7c"
+            ]
+        ]
+    },
+    {
+        "id": "27f638171de56a7c",
+        "type": "debug",
+        "z": "d1fe66a0a15b470a",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "15a8189742bcbeeb",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "stat/vibration_sensor_test/1/values",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 1040,
+        "wires": [
+            [
+                "bd6bb9d888df74a5"
+            ]
+        ]
+    },
+    {
+        "id": "bd6bb9d888df74a5",
+        "type": "debug",
+        "z": "d1fe66a0a15b470a",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "a8b996b6bc5d8339",
+        "type": "mqtt in",
+        "z": "d1fe66a0a15b470a",
+        "name": "",
+        "topic": "stat/vibration_sensor_test/2/values",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 1100,
+        "wires": [
+            [
+                "6a5f08b5e96ecebd"
+            ]
+        ]
+    },
+    {
+        "id": "6a5f08b5e96ecebd",
+        "type": "debug",
+        "z": "d1fe66a0a15b470a",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 1100,
+        "wires": []
+    },
+    {
         "id": "c735411758053451",
         "type": "inject",
         "z": "e7a6fe05a4d2b37c",
@@ -4628,22 +5621,7 @@
         "x": 300,
         "y": 100,
         "wires": [
-            [
-                "4725867557157b87"
-            ]
-        ]
-    },
-    {
-        "id": "4725867557157b87",
-        "type": "subflow:5006edf73217beed",
-        "z": "e7a6fe05a4d2b37c",
-        "name": "",
-        "x": 510,
-        "y": 100,
-        "wires": [
-            [
-                "f266801fc9a08cc1"
-            ]
+            []
         ]
     },
     {
@@ -4660,6 +5638,120 @@
         "statusType": "auto",
         "x": 720,
         "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5c4b39ec23d7d6fb",
+        "type": "function",
+        "z": "b78d606a12ae9c11",
+        "name": "function 9",
+        "func": "const {\n  payload\n} = msg;\n\nconst {\n  time,\n  ...rest\n} = payload;\n\nreturn {\n  measurement: 'gps_state',\n  payload: {\n    time: new Date(time).getTime(),\n    ...rest\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "c18042bef3d7ad56"
+            ]
+        ]
+    },
+    {
+        "id": "05078a2ac29a4184",
+        "type": "inject",
+        "z": "b78d606a12ae9c11",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "d0be47dfdac732a4"
+            ]
+        ]
+    },
+    {
+        "id": "c18042bef3d7ad56",
+        "type": "influxdb out",
+        "z": "b78d606a12ae9c11",
+        "influxdb": "4c57579e23eb17f5",
+        "name": "",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 880,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ec62b70e23e51273",
+        "type": "influxdb in",
+        "z": "b78d606a12ae9c11",
+        "influxdb": "4c57579e23eb17f5",
+        "name": "",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 620,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0be47dfdac732a4",
+        "type": "subflow:cd03e8b953118d1f",
+        "z": "b78d606a12ae9c11",
+        "name": "",
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "5c4b39ec23d7d6fb",
+                "c461cf7d3b57368d"
+            ]
+        ]
+    },
+    {
+        "id": "c461cf7d3b57368d",
+        "type": "debug",
+        "z": "b78d606a12ae9c11",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 440,
         "wires": []
     }
 ]
