@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "e657d4b95af83e0a",
+        "type": "tab",
+        "label": "Frigate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2f6480327ea906c3",
         "type": "tab",
         "label": "[Test] Relays",
@@ -3374,8 +3382,7 @@
         "y": 140,
         "wires": [
             [
-                "1fdbc5f6e83fb59b",
-                "0e6af655199cb9f8"
+                "1fdbc5f6e83fb59b"
             ]
         ]
     },
@@ -4040,23 +4047,6 @@
         ]
     },
     {
-        "id": "0e6af655199cb9f8",
-        "type": "debug",
-        "z": "181d977a8b81274c",
-        "name": "debug 19",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 400,
-        "y": 180,
-        "wires": []
-    },
-    {
         "id": "f7360c1818b761fb",
         "type": "inject",
         "z": "e394437c1a103158",
@@ -4120,9 +4110,7 @@
         "y": 340,
         "wires": [
             [
-                "40345a0f84b5023a",
-                "12c28c8a127a03cb",
-                "249b1f9c82b8fb2c"
+                "12c28c8a127a03cb"
             ]
         ]
     },
@@ -4218,6 +4206,36 @@
         "x": 970,
         "y": 460,
         "wires": []
+    },
+    {
+        "id": "8e8af121e9211a33",
+        "type": "inject",
+        "z": "e394437c1a103158",
+        "name": "Every 30s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "40345a0f84b5023a",
+                "249b1f9c82b8fb2c"
+            ]
+        ]
     },
     {
         "id": "f2b8b0a08c62f6b1",
@@ -4318,6 +4336,240 @@
         "x": 660,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "fae57d598f46ea5b",
+        "type": "mqtt in",
+        "z": "e657d4b95af83e0a",
+        "name": "Get motion state",
+        "topic": "frigate/front_left/motion/state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "4414f118c8f0ae0f"
+            ]
+        ]
+    },
+    {
+        "id": "4414f118c8f0ae0f",
+        "type": "debug",
+        "z": "e657d4b95af83e0a",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a233f09750826f20",
+        "type": "mqtt in",
+        "z": "e657d4b95af83e0a",
+        "name": "Get detect state",
+        "topic": "frigate/front_left/detect/state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "4414f118c8f0ae0f"
+            ]
+        ]
+    },
+    {
+        "id": "a7d32578a493ce24",
+        "type": "mqtt in",
+        "z": "e657d4b95af83e0a",
+        "name": "Listen to events",
+        "topic": "frigate/events",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 420,
+        "wires": [
+            [
+                "4414f118c8f0ae0f"
+            ]
+        ]
+    },
+    {
+        "id": "658259d9eec2b5d6",
+        "type": "mqtt in",
+        "z": "e657d4b95af83e0a",
+        "name": "Get recordings state",
+        "topic": "frigate/front_left/recordings/state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "4414f118c8f0ae0f"
+            ]
+        ]
+    },
+    {
+        "id": "b796105cfde5f7b6",
+        "type": "inject",
+        "z": "e657d4b95af83e0a",
+        "name": "Disarm",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 580,
+        "wires": [
+            [
+                "c77a401944694c5e"
+            ]
+        ]
+    },
+    {
+        "id": "1c9aab0f29844616",
+        "type": "mqtt out",
+        "z": "e657d4b95af83e0a",
+        "name": "",
+        "topic": "",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 570,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c77a401944694c5e",
+        "type": "function",
+        "z": "e657d4b95af83e0a",
+        "name": "function 10",
+        "func": "const payloads = [\n    'detect',\n    'recordings',\n    'snapshots',\n    'motion'\n].map(setting => {\n    return {\n        topic: `frigate/front_left/${setting}/set`,\n        payload: \"OFF\"\n    }\n})\n\n\nreturn [ payloads ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 580,
+        "wires": [
+            [
+                "1c9aab0f29844616"
+            ]
+        ]
+    },
+    {
+        "id": "d0c657cc73303b61",
+        "type": "inject",
+        "z": "e657d4b95af83e0a",
+        "name": "Arm",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 640,
+        "wires": [
+            [
+                "0b69026fb17b4c6b"
+            ]
+        ]
+    },
+    {
+        "id": "1dcda02e10ef2f9a",
+        "type": "mqtt out",
+        "z": "e657d4b95af83e0a",
+        "name": "",
+        "topic": "",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fff9b047550b9220",
+        "x": 570,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "0b69026fb17b4c6b",
+        "type": "function",
+        "z": "e657d4b95af83e0a",
+        "name": "function 11",
+        "func": "const payloads = [\n    'motion',\n    'detect',\n    'recordings',\n    'snapshots'\n].map(setting => {\n    return {\n        topic: `frigate/front_left/${setting}/set`,\n        payload: \"ON\"\n    }\n})\n\n\nreturn [ payloads ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "1dcda02e10ef2f9a"
+            ]
+        ]
     },
     {
         "id": "dd6f48cb877d8037",
