@@ -24,14 +24,6 @@
         "env": []
     },
     {
-        "id": "e657d4b95af83e0a",
-        "type": "tab",
-        "label": "Frigate",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "2f6480327ea906c3",
         "type": "tab",
         "label": "[Test] Relays",
@@ -237,8 +229,29 @@
         "name": "[GPS] Set state",
         "info": "",
         "category": "",
-        "in": [],
-        "out": [],
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "49ee4acd56fb9817"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 360,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "49ee4acd56fb9817",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -486,28 +499,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "d88de85075ac25db",
-        "type": "subflow",
-        "name": "[USB] Create `usb_devices` view",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "ec0297ab17af6839"
-                    }
-                ]
-            }
-        ],
-        "out": [],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
         "id": "d1e3712ec6c2128d",
         "type": "subflow",
         "name": "[Batteries] Dispatcher",
@@ -573,28 +564,6 @@
                 ]
             }
         ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
-        "id": "43ab01fa1b483aad",
-        "type": "subflow",
-        "name": "[MQTT] Create `mqtt_devices` view",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "adf17e5e98e12d95"
-                    }
-                ]
-            }
-        ],
-        "out": [],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -1315,6 +1284,50 @@
         "color": "#DDAA99"
     },
     {
+        "id": "75ede1672068ab0f",
+        "type": "subflow",
+        "name": "[Alarm] Disarm `trigger` cameras",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "ca7792ec74ddb5dc"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "e52b3bb6fb08cd68",
+        "type": "subflow",
+        "name": "[Alarm] Disarm `alarm_on` cameras",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "e982076e6930c9c2"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "fff9b047550b9220",
         "type": "mqtt-broker",
         "name": "",
@@ -1376,6 +1389,48 @@
         "url": "http://localhost:8086",
         "timeout": "10",
         "rejectUnauthorized": true
+    },
+    {
+        "id": "83c62c0e144839bf",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/relays/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "fc9284fab0ccd3c2",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/alarm/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "92b926f12b45fcac",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/gps/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "f603d6ef41b5d8a2",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/water_tanks/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "4be285fb0888be8c",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/batteries/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "13d475413da9bf60",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/solar_charge_controllers/state",
+        "wholemsg": "false"
+    },
+    {
+        "id": "867e54e0ead62a12",
+        "type": "websocket-listener",
+        "path": "/api/v1/ws/temperature_sensors/state",
+        "wholemsg": "false"
     },
     {
         "id": "827e13d335fd312c",
@@ -1631,38 +1686,17 @@
         "type": "function",
         "z": "924d506d524e2f1f",
         "name": "Set `global.gps_state`",
-        "func": "const {\n    payload\n} = msg;\n\nconst gps_state = global.get('gps_state');\n\nif(['3d', '2d'].includes(payload.mode || !gps_state)) {\n    global.set('gps_state', msg.payload);\n};",
+        "func": "const {\n    payload\n} = msg;\n\nconst gps_state = global.get('gps_state');\n\nif(['3d', '2d'].includes(payload.mode || !gps_state)) {\n    global.set('gps_state', msg.payload);\n};\n\nreturn {\n    payload\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 220,
         "y": 80,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "03e0c09948d61e60",
-        "type": "mqtt in",
-        "z": "924d506d524e2f1f",
-        "name": "",
-        "topic": "vanpi/gps_values",
-        "qos": "0",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 140,
-        "y": 80,
-        "wires": [
-            [
-                "49ee4acd56fb9817"
-            ]
         ]
     },
     {
@@ -2242,37 +2276,6 @@
         ]
     },
     {
-        "id": "779b79e0cc17eefe",
-        "type": "subflow:2f860c0929d372d8",
-        "z": "d88de85075ac25db",
-        "name": "",
-        "x": 360,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ec0297ab17af6839",
-        "type": "function",
-        "z": "d88de85075ac25db",
-        "name": "Compose query",
-        "func": "const sql_query = `\n  create or replace view usb_devices\n\n  as\n\n  select\n    :gpsd_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'gpsd_usb_device'\n\n  union all\n\n  select\n    :zigbee_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'zigbee_usb_device'\n\n  union all\n\n  select\n    :microphone_usb_device_key as device_key,\n    value as device_spec\n  from settings\n  where setting_key = 'microphone_usb_device'\n`;\n\nconst params = { \n  gpsd_device_key: env.get('GPSD_UDEV_KEY'),\n  zigbee_device_key: env.get('ZIGBEE_UDEV_KEY'),\n  microphone_usb_device_key: env.get('MICROPHONE_UDEV_KEY')\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 180,
-        "y": 80,
-        "wires": [
-            [
-                "779b79e0cc17eefe"
-            ]
-        ]
-    },
-    {
         "id": "a85ad1d6b4e922a4",
         "type": "subflow:44f3ed9f999bd3a8",
         "z": "d1e3712ec6c2128d",
@@ -2412,37 +2415,6 @@
         "y": 80,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "c1ca75ba04464a24",
-        "type": "subflow:2f860c0929d372d8",
-        "z": "43ab01fa1b483aad",
-        "name": "",
-        "x": 400,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "adf17e5e98e12d95",
-        "type": "function",
-        "z": "43ab01fa1b483aad",
-        "name": "Compose query",
-        "func": "const sql_query = `\n  create or replace view mqtt_devices\n\n  as\n\n  select\n    'sensor' as device_type,\n    sensor_type as device_subtype,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from sensors\n  where connection_type = 'mqtt'\n\n  union all\n\n  select\n    'water_tank' as device_type,\n    null as device_subtype,\n    id as device_id,\n    json_unquote(json_extract(connection_params, '$.mqtt_topic')) as mqtt_topic\n  from water_tanks\n  where connection_type = 'mqtt'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 80,
-        "wires": [
-            [
-                "c1ca75ba04464a24"
-            ]
         ]
     },
     {
@@ -3915,35 +3887,6 @@
         "wires": []
     },
     {
-        "id": "31d947797f03b4bb",
-        "type": "function",
-        "z": "7d49c71091189360",
-        "name": "Iterate over cameras",
-        "func": "const payloads = msg.payload.map(({ frigate_camera_id }) => {\n    return {\n        payload: { frigate_camera_id }\n    }\n});\n\nreturn [ payloads ].filter(p => p.length > 0);",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1740,
-        "y": 120,
-        "wires": [
-            [
-                "c362d1861a4a80d5"
-            ]
-        ]
-    },
-    {
-        "id": "c362d1861a4a80d5",
-        "type": "subflow:f93e3d154617f1c6",
-        "z": "7d49c71091189360",
-        "name": "",
-        "x": 1970,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "a10859844e1c0ab4",
         "type": "delay",
         "z": "7d49c71091189360",
@@ -3969,60 +3912,6 @@
         ]
     },
     {
-        "id": "1628f714c9390ca0",
-        "type": "function",
-        "z": "7d49c71091189360",
-        "name": "Set `global.alarm_state`",
-        "func": "const alarm_state = global.get('alarm_state');\n\nconst {\n    triggered_at\n} = msg.payload;\n\nif(triggered_at === alarm_state.triggered_at) {\n    const new_alarm_state = {\n        ...alarm_state,\n        triggered: false,\n        triggered_at: null,\n        gps_state: null,\n        frigate_event: null\n    };\n\n    global.set('alarm_state', new_alarm_state);\n\n    return {\n        payload: new_alarm_state\n    };\n}\n\nreturn [];",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1050,
-        "y": 120,
-        "wires": [
-            [
-                "ca7792ec74ddb5dc",
-                "a52f4a83b6708017"
-            ]
-        ]
-    },
-    {
-        "id": "ca7792ec74ddb5dc",
-        "type": "function",
-        "z": "7d49c71091189360",
-        "name": "Select `arm_on` trigger cameras",
-        "func": "const sql_query = `\n  select connection_params_camera_id as frigate_camera_id\n  from security_alarm_camera_rules\n  where arm_on = 'trigger'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1310,
-        "y": 120,
-        "wires": [
-            [
-                "90ae49bb46d74766"
-            ]
-        ]
-    },
-    {
-        "id": "90ae49bb46d74766",
-        "type": "subflow:2f860c0929d372d8",
-        "z": "7d49c71091189360",
-        "name": "",
-        "x": 1540,
-        "y": 120,
-        "wires": [
-            [
-                "31d947797f03b4bb"
-            ]
-        ]
-    },
-    {
         "id": "40ae8cb3ef6e4600",
         "type": "debug",
         "z": "7d49c71091189360",
@@ -4035,24 +3924,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "a52f4a83b6708017",
-        "type": "debug",
-        "z": "7d49c71091189360",
-        "name": "debug 21",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1240,
+        "x": 620,
         "y": 60,
         "wires": []
     },
@@ -4254,6 +4126,53 @@
         "statusType": "auto",
         "x": 2340,
         "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f9434043c5c3a5ad",
+        "type": "subflow:75ede1672068ab0f",
+        "z": "7d49c71091189360",
+        "name": "",
+        "x": 1300,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1628f714c9390ca0",
+        "type": "function",
+        "z": "7d49c71091189360",
+        "name": "Set `global.alarm_state`",
+        "func": "const alarm_state = global.get('alarm_state');\n\nconst {\n    triggered_at\n} = msg.payload;\n\nif(triggered_at === alarm_state.triggered_at) {\n    const new_alarm_state = {\n        ...alarm_state,\n        triggered: false,\n        triggered_at: null,\n        gps_state: null,\n        frigate_event: null\n    };\n\n    global.set('alarm_state', new_alarm_state);\n\n    return {\n        payload: new_alarm_state\n    };\n}\n\nreturn [];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 120,
+        "wires": [
+            [
+                "f9434043c5c3a5ad",
+                "a52f4a83b6708017"
+            ]
+        ]
+    },
+    {
+        "id": "a52f4a83b6708017",
+        "type": "debug",
+        "z": "7d49c71091189360",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 60,
         "wires": []
     },
     {
@@ -4459,16 +4378,24 @@
                 "t": "eq",
                 "v": "ON",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
+        "outputs": 2,
         "x": 230,
         "y": 140,
         "wires": [
             [
-                "bc1c04bd41b5618d"
+                "75b28e1debc7d573"
+            ],
+            [
+                "29983d5b3cc980e7"
             ]
         ]
     },
@@ -4484,8 +4411,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 140,
+        "x": 1160,
+        "y": 100,
         "wires": [
             [
                 "64f16159ae659a95"
@@ -4497,8 +4424,8 @@
         "type": "subflow:2f860c0929d372d8",
         "z": "5951c9b8d92c3224",
         "name": "",
-        "x": 720,
-        "y": 140,
+        "x": 1400,
+        "y": 100,
         "wires": [
             [
                 "ad369b698163ace5"
@@ -4510,8 +4437,8 @@
         "type": "subflow:7d49c71091189360",
         "z": "5951c9b8d92c3224",
         "name": "",
-        "x": 1140,
-        "y": 140,
+        "x": 1820,
+        "y": 100,
         "wires": []
     },
     {
@@ -4526,13 +4453,135 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
-        "y": 140,
+        "x": 1600,
+        "y": 100,
         "wires": [
             [
                 "211a3b191940d79d"
             ]
         ]
+    },
+    {
+        "id": "75b28e1debc7d573",
+        "type": "function",
+        "z": "5951c9b8d92c3224",
+        "name": "Set `motion_start_at`",
+        "func": "const alarm_state = global.get('alarm_state');\n\nconst current_timestamp = Math.floor(new Date().getTime());\n\nlet {\n    motion_start_at\n} = alarm_state;\n\nmotion_start_at ||= current_timestamp;\n\nconst new_alarm_state = {\n    ...alarm_state,\n    motion_start_at\n};\n\nglobal.set('alarm_state', new_alarm_state);\n\nreturn {\n    payload: new_alarm_state\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 100,
+        "wires": [
+            [
+                "b3ca810130ab3694"
+            ]
+        ]
+    },
+    {
+        "id": "29983d5b3cc980e7",
+        "type": "function",
+        "z": "5951c9b8d92c3224",
+        "name": "Clear `motion_start_at`",
+        "func": "const alarm_state = global.get('alarm_state');\n\nconst new_alarm_state = {\n    ...alarm_state,\n    motion_start_at: null\n};\n\nglobal.set('alarm_state', new_alarm_state);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25b1e3fc7a65540b",
+        "type": "delay",
+        "z": "5951c9b8d92c3224",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "106721c61d6e3c42"
+            ]
+        ]
+    },
+    {
+        "id": "b3ca810130ab3694",
+        "type": "switch",
+        "z": "5951c9b8d92c3224",
+        "name": "Check motion still occurring",
+        "property": "payload.motion_start_at",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "alarm_state.motion_start_at",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 880,
+        "y": 100,
+        "wires": [
+            [
+                "bc1c04bd41b5618d",
+                "3773c1e25d1cadcd"
+            ]
+        ]
+    },
+    {
+        "id": "106721c61d6e3c42",
+        "type": "debug",
+        "z": "5951c9b8d92c3224",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3773c1e25d1cadcd",
+        "type": "debug",
+        "z": "5951c9b8d92c3224",
+        "name": "debug 36",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 200,
+        "wires": []
     },
     {
         "id": "dc657bcce8ae5f97",
@@ -4733,6 +4782,130 @@
         "wires": []
     },
     {
+        "id": "31d947797f03b4bb",
+        "type": "function",
+        "z": "75ede1672068ab0f",
+        "name": "Iterate over cameras",
+        "func": "const payloads = msg.payload.map(({ frigate_camera_id }) => {\n    return {\n        payload: { frigate_camera_id }\n    }\n});\n\nreturn [ payloads ].filter(p => p.length > 0);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "c362d1861a4a80d5"
+            ]
+        ]
+    },
+    {
+        "id": "c362d1861a4a80d5",
+        "type": "subflow:f93e3d154617f1c6",
+        "z": "75ede1672068ab0f",
+        "name": "",
+        "x": 910,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ca7792ec74ddb5dc",
+        "type": "function",
+        "z": "75ede1672068ab0f",
+        "name": "Select `arm_on` trigger cameras",
+        "func": "const sql_query = `\n  select connection_params_camera_id as frigate_camera_id\n  from security_alarm_camera_rules\n  where arm_on = 'trigger'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "90ae49bb46d74766"
+            ]
+        ]
+    },
+    {
+        "id": "90ae49bb46d74766",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "75ede1672068ab0f",
+        "name": "",
+        "x": 480,
+        "y": 100,
+        "wires": [
+            [
+                "31d947797f03b4bb"
+            ]
+        ]
+    },
+    {
+        "id": "5a25578b4609fa7d",
+        "type": "function",
+        "z": "e52b3bb6fb08cd68",
+        "name": "Iterate over cameras",
+        "func": "const payloads = msg.payload.map(({ frigate_camera_id }) => {\n    return {\n        payload: { frigate_camera_id }\n    }\n});\n\nreturn [ payloads ].filter(p => p.length > 0);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 80,
+        "wires": [
+            [
+                "c941376d939769e8"
+            ]
+        ]
+    },
+    {
+        "id": "c941376d939769e8",
+        "type": "subflow:f93e3d154617f1c6",
+        "z": "e52b3bb6fb08cd68",
+        "name": "",
+        "x": 950,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e982076e6930c9c2",
+        "type": "function",
+        "z": "e52b3bb6fb08cd68",
+        "name": "Select `alarm_on` trigger cameras",
+        "func": "const sql_query = `\n  select connection_params_camera_id as frigate_camera_id\n  from security_alarm_camera_rules\n  where arm_on = 'alarm_on'\n`;\n\nconst params = {};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "949a37cf5b503260"
+            ]
+        ]
+    },
+    {
+        "id": "949a37cf5b503260",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "e52b3bb6fb08cd68",
+        "name": "",
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "5a25578b4609fa7d"
+            ]
+        ]
+    },
+    {
         "id": "f7a70eb3ee7a6e7c",
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
@@ -4844,7 +5017,8 @@
         "y": 140,
         "wires": [
             [
-                "41da5c626064985a"
+                "41da5c626064985a",
+                "d2b6ec5847fe44ee"
             ]
         ]
     },
@@ -4920,8 +5094,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 740,
-        "y": 140,
+        "x": 780,
+        "y": 120,
         "wires": []
     },
     {
@@ -5548,7 +5722,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 680,
+        "y": 700,
         "wires": [
             [
                 "0358aa21eb9e3241"
@@ -5564,7 +5738,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 580,
+        "x": 590,
         "y": 680,
         "wires": []
     },
@@ -5574,12 +5748,234 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 400,
-        "y": 680,
+        "y": 700,
         "wires": [
             [
-                "65515bff97f67987"
+                "65515bff97f67987",
+                "8930b4f5a072e877"
             ]
         ]
+    },
+    {
+        "id": "27abaf223e1705e5",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "83c62c0e144839bf",
+        "client": "",
+        "x": 1080,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d2b6ec5847fe44ee",
+        "type": "subflow:48376301d7cf8ab5",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 830,
+        "y": 160,
+        "wires": [
+            [
+                "27abaf223e1705e5"
+            ]
+        ]
+    },
+    {
+        "id": "8930b4f5a072e877",
+        "type": "subflow:933ed9d2e03018bd",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 630,
+        "y": 720,
+        "wires": [
+            [
+                "e29687ea11260ff9"
+            ]
+        ]
+    },
+    {
+        "id": "e29687ea11260ff9",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "fc9284fab0ccd3c2",
+        "client": "",
+        "x": 870,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "fc70ba6a396464e2",
+        "type": "subflow:924d506d524e2f1f",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 320,
+        "y": 1000,
+        "wires": [
+            [
+                "462c2e06190b2ff0"
+            ]
+        ]
+    },
+    {
+        "id": "462c2e06190b2ff0",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "92b926f12b45fcac",
+        "client": "",
+        "x": 530,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "03e0c09948d61e60",
+        "type": "mqtt in",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "topic": "vanpi/gps_values",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 1000,
+        "wires": [
+            [
+                "fc70ba6a396464e2"
+            ]
+        ]
+    },
+    {
+        "id": "d60f4e20ad50f81c",
+        "type": "subflow:d6bd8ca48ade8d7d",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 420,
+        "y": 1060,
+        "wires": [
+            [
+                "e218da2ba88517ef"
+            ]
+        ]
+    },
+    {
+        "id": "7f8431caf9880877",
+        "type": "subflow:5dcda338317c7a86",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 400,
+        "y": 1100,
+        "wires": [
+            [
+                "5872c574cfc09f93"
+            ]
+        ]
+    },
+    {
+        "id": "ee3ea2aac1513ca6",
+        "type": "subflow:8b0e71f3c152c02a",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 500,
+        "y": 1140,
+        "wires": [
+            [
+                "b48de6650aed6176"
+            ]
+        ]
+    },
+    {
+        "id": "f4527378483695f3",
+        "type": "subflow:1fcb65ecb479780e",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 430,
+        "y": 1180,
+        "wires": [
+            [
+                "edff70dacabc6a45"
+            ]
+        ]
+    },
+    {
+        "id": "4ff5b9ccbb7b5742",
+        "type": "inject",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1120,
+        "wires": [
+            [
+                "d60f4e20ad50f81c",
+                "7f8431caf9880877",
+                "ee3ea2aac1513ca6",
+                "f4527378483695f3"
+            ]
+        ]
+    },
+    {
+        "id": "e218da2ba88517ef",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "f603d6ef41b5d8a2",
+        "client": "",
+        "x": 720,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "5872c574cfc09f93",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "4be285fb0888be8c",
+        "client": "",
+        "x": 670,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "b48de6650aed6176",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "13d475413da9bf60",
+        "client": "",
+        "x": 920,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "edff70dacabc6a45",
+        "type": "websocket out",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "server": "867e54e0ead62a12",
+        "client": "",
+        "x": 770,
+        "y": 1180,
+        "wires": []
     },
     {
         "id": "f2b8b0a08c62f6b1",
@@ -5636,7 +6032,8 @@
                 "0d1af9c425416463"
             ],
             [
-                "1af7bed00d9dba14"
+                "1af7bed00d9dba14",
+                "1bdaee1a257c60dd"
             ],
             [
                 "3a23e9d20615362f"
@@ -5890,61 +6287,58 @@
         "wires": []
     },
     {
-        "id": "9ba6d812b3578da9",
-        "type": "inject",
-        "z": "412a66feda2814e4",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 520,
-        "y": 640,
-        "wires": [
-            [
-                "26f92762dbbc3ef2"
-            ]
-        ]
-    },
-    {
-        "id": "26f92762dbbc3ef2",
-        "type": "subflow:933ed9d2e03018bd",
-        "z": "412a66feda2814e4",
-        "name": "",
-        "x": 740,
-        "y": 640,
-        "wires": [
-            [
-                "ce177e855af28c29"
-            ]
-        ]
-    },
-    {
-        "id": "ce177e855af28c29",
+        "id": "1bdaee1a257c60dd",
         "type": "debug",
         "z": "412a66feda2814e4",
-        "name": "debug 23",
+        "name": "debug 33",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 960,
-        "y": 640,
+        "x": 640,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "af98b4b7f26ed5e3",
+        "type": "mqtt in",
+        "z": "412a66feda2814e4",
+        "name": "",
+        "topic": "frigate/front_left/motion",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 520,
+        "wires": [
+            [
+                "f3153bfb961ba695"
+            ]
+        ]
+    },
+    {
+        "id": "f3153bfb961ba695",
+        "type": "debug",
+        "z": "412a66feda2814e4",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 520,
         "wires": []
     },
     {
@@ -5972,19 +6366,10 @@
         "y": 200,
         "wires": [
             [
-                "2dea7fa39895542b",
-                "687a7ba2e7fefc00"
+                "1fe0309507dc230b",
+                "b8e5d88f57cea7ff"
             ]
         ]
-    },
-    {
-        "id": "2dea7fa39895542b",
-        "type": "subflow:d88de85075ac25db",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 410,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "fa44778ce07e4609",
@@ -6016,15 +6401,6 @@
         ]
     },
     {
-        "id": "687a7ba2e7fefc00",
-        "type": "subflow:43ab01fa1b483aad",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 420,
-        "y": 260,
-        "wires": []
-    },
-    {
         "id": "21532896ca9f3e64",
         "type": "function",
         "z": "e394437c1a103158",
@@ -6041,15 +6417,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "fc70ba6a396464e2",
-        "type": "subflow:924d506d524e2f1f",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 110,
-        "y": 80,
-        "wires": []
     },
     {
         "id": "40345a0f84b5023a",
@@ -6139,257 +6506,53 @@
         ]
     },
     {
-        "id": "fae57d598f46ea5b",
-        "type": "mqtt in",
-        "z": "e657d4b95af83e0a",
-        "name": "Get motion state",
-        "topic": "frigate/front_left/motion/state",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 220,
-        "y": 140,
-        "wires": [
-            [
-                "4414f118c8f0ae0f"
-            ]
-        ]
-    },
-    {
-        "id": "4414f118c8f0ae0f",
-        "type": "debug",
-        "z": "e657d4b95af83e0a",
-        "name": "debug 19",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "a233f09750826f20",
-        "type": "mqtt in",
-        "z": "e657d4b95af83e0a",
-        "name": "Get detect state",
-        "topic": "frigate/front_left/detect/state",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 220,
-        "y": 220,
-        "wires": [
-            [
-                "4414f118c8f0ae0f"
-            ]
-        ]
-    },
-    {
-        "id": "a7d32578a493ce24",
-        "type": "mqtt in",
-        "z": "e657d4b95af83e0a",
-        "name": "Listen to events",
-        "topic": "frigate/events",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 220,
-        "y": 420,
-        "wires": [
-            [
-                "4414f118c8f0ae0f"
-            ]
-        ]
-    },
-    {
-        "id": "658259d9eec2b5d6",
-        "type": "mqtt in",
-        "z": "e657d4b95af83e0a",
-        "name": "Get recordings state",
-        "topic": "frigate/front_left/recordings/state",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 230,
-        "y": 300,
-        "wires": [
-            [
-                "4414f118c8f0ae0f"
-            ]
-        ]
-    },
-    {
-        "id": "b796105cfde5f7b6",
-        "type": "inject",
-        "z": "e657d4b95af83e0a",
-        "name": "Disarm",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 250,
-        "y": 580,
-        "wires": [
-            [
-                "c77a401944694c5e"
-            ]
-        ]
-    },
-    {
-        "id": "1c9aab0f29844616",
-        "type": "mqtt out",
-        "z": "e657d4b95af83e0a",
+        "id": "1fe0309507dc230b",
+        "type": "subflow:75ede1672068ab0f",
+        "z": "e394437c1a103158",
         "name": "",
-        "topic": "",
-        "qos": "2",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "fff9b047550b9220",
-        "x": 570,
-        "y": 580,
+        "x": 410,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "c77a401944694c5e",
+        "id": "b8e5d88f57cea7ff",
+        "type": "subflow:933ed9d2e03018bd",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "9995cac3ef48642e"
+            ]
+        ]
+    },
+    {
+        "id": "3fca476f882bff80",
+        "type": "subflow:e52b3bb6fb08cd68",
+        "z": "e394437c1a103158",
+        "name": "",
+        "x": 840,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9995cac3ef48642e",
         "type": "function",
-        "z": "e657d4b95af83e0a",
-        "name": "function 10",
-        "func": "const payloads = [\n    'detect',\n    'recordings',\n    'snapshots',\n    'motion'\n].map(setting => {\n    return {\n        topic: `frigate/front_left/${setting}/set`,\n        payload: \"OFF\"\n    }\n})\n\n\nreturn [ payloads ];",
+        "z": "e394437c1a103158",
+        "name": "Check not armed",
+        "func": "const { armed } = msg.payload;\n\nif(!armed) {\n    return {}\n} else {\n    return []\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 580,
+        "x": 590,
+        "y": 260,
         "wires": [
             [
-                "1c9aab0f29844616"
-            ]
-        ]
-    },
-    {
-        "id": "d0c657cc73303b61",
-        "type": "inject",
-        "z": "e657d4b95af83e0a",
-        "name": "Arm",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 250,
-        "y": 640,
-        "wires": [
-            [
-                "0b69026fb17b4c6b"
-            ]
-        ]
-    },
-    {
-        "id": "1dcda02e10ef2f9a",
-        "type": "mqtt out",
-        "z": "e657d4b95af83e0a",
-        "name": "",
-        "topic": "",
-        "qos": "2",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "fff9b047550b9220",
-        "x": 570,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "0b69026fb17b4c6b",
-        "type": "function",
-        "z": "e657d4b95af83e0a",
-        "name": "function 11",
-        "func": "const payloads = [\n    'motion',\n    'detect',\n    'recordings',\n    'snapshots'\n].map(setting => {\n    return {\n        topic: `frigate/front_left/${setting}/set`,\n        payload: \"ON\"\n    }\n})\n\n\nreturn [ payloads ];",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 640,
-        "wires": [
-            [
-                "1dcda02e10ef2f9a"
-            ]
-        ]
-    },
-    {
-        "id": "3caeafc5d834698d",
-        "type": "mqtt in",
-        "z": "e657d4b95af83e0a",
-        "name": "Listen to motion",
-        "topic": "frigate/front_left/motion",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 220,
-        "y": 480,
-        "wires": [
-            [
-                "4414f118c8f0ae0f"
+                "3fca476f882bff80"
             ]
         ]
     },
