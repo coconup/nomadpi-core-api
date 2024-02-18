@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "2ec629db0b2d93d1",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "412a66feda2814e4",
         "type": "tab",
         "label": "MQTT Hub",
@@ -367,18 +375,18 @@
                 "y": 100,
                 "wires": [
                     {
-                        "id": "08e3e221b1ea90ee"
+                        "id": "203b04a219021af7"
                     }
                 ]
             }
         ],
         "out": [
             {
-                "x": 760,
+                "x": 640,
                 "y": 80,
                 "wires": [
                     {
-                        "id": "4a1a8de294b7154f",
+                        "id": "d7a0ab15f94c0aa3",
                         "port": 0
                     }
                 ]
@@ -593,7 +601,7 @@
     {
         "id": "d522f6d2f07435cd",
         "type": "subflow",
-        "name": "[Portainer] Get container",
+        "name": "[Docker] Get container",
         "info": "",
         "category": "",
         "in": [
@@ -609,7 +617,7 @@
         ],
         "out": [
             {
-                "x": 1220,
+                "x": 1100,
                 "y": 80,
                 "wires": [
                     {
@@ -624,42 +632,9 @@
         "color": "#DDAA99"
     },
     {
-        "id": "9c0f55db9b5a4462",
-        "type": "subflow",
-        "name": "[Portainer] Get access token",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "352a53d8795dfcbb"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 600,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "eb520c589947876d",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
         "id": "7b9d1f6f5864ccce",
         "type": "subflow",
-        "name": "[Portainer] Restart container",
+        "name": "[Docker] Restart container",
         "info": "",
         "category": "",
         "in": [
@@ -675,11 +650,11 @@
         ],
         "out": [
             {
-                "x": 1300,
+                "x": 1000,
                 "y": 80,
                 "wires": [
                     {
-                        "id": "08e96559c84b53f6",
+                        "id": "689e133112ae6ce2",
                         "port": 0
                     }
                 ]
@@ -846,7 +821,7 @@
     {
         "id": "d8264d18d8e4b566",
         "type": "subflow",
-        "name": "[Temp sensors] Update global state",
+        "name": "[Temp sensors] Update one-wire state",
         "info": "",
         "category": "",
         "in": [
@@ -1328,6 +1303,72 @@
         "color": "#DDAA99"
     },
     {
+        "id": "4fec160c96cbd7e5",
+        "type": "subflow",
+        "name": "[Cloudflare] Refresh credentials",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "d93ad76dcd020cdd"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1140,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b537e0ca9e479866",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "0c36da2ded227873",
+        "type": "subflow",
+        "name": "[Nextcloud] Refresh credentials",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "ceecc1d5bd98370a"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1460,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "65d89ecbaaad73d9",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "fff9b047550b9220",
         "type": "mqtt-broker",
         "name": "",
@@ -1431,6 +1472,26 @@
         "type": "websocket-listener",
         "path": "/api/v1/ws/temperature_sensors/state",
         "wholemsg": "false"
+    },
+    {
+        "id": "adad033320ce05a2",
+        "type": "serial-port",
+        "name": "Webasto",
+        "serialport": "/dev/vanpi-webasto-usb",
+        "serialbaud": "2400",
+        "databits": "8",
+        "parity": "even",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "100",
+        "bin": "bin",
+        "out": "time",
+        "addchar": "",
+        "responsetimeout": "10000"
     },
     {
         "id": "827e13d335fd312c",
@@ -1796,76 +1857,56 @@
         ]
     },
     {
-        "id": "719e21a14994edb0",
+        "id": "203b04a219021af7",
         "type": "exec",
         "z": "b3276c87a286f102",
-        "command": "python3",
-        "addpay": "payload",
+        "command": "jc lsusb -v",
+        "addpay": "",
         "append": "",
         "useSpawn": "false",
         "timer": "",
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 340,
+        "x": 190,
         "y": 100,
         "wires": [
             [
-                "86cffd55d951734a"
+                "99d84750ab8b5b77"
             ],
             [],
             []
         ]
     },
     {
-        "id": "08e3e221b1ea90ee",
-        "type": "function",
-        "z": "b3276c87a286f102",
-        "name": "Scan USB script",
-        "func": "const root_scripts_path = env.get('PEKAWAY_SCRIPTS_PATH');\nconst filename = `usb_scan.py`;\n\nif(!root_scripts_path) {\n    throw `$PEKAWAY_SCRIPTS_PATH is not set`\n} else {\n    return {\n        ...msg,\n        payload: `${root_scripts_path}/${filename}`\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 180,
-        "y": 100,
-        "wires": [
-            [
-                "719e21a14994edb0"
-            ]
-        ]
-    },
-    {
-        "id": "86cffd55d951734a",
+        "id": "99d84750ab8b5b77",
         "type": "json",
         "z": "b3276c87a286f102",
         "name": "",
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 510,
+        "x": 350,
         "y": 80,
         "wires": [
             [
-                "4a1a8de294b7154f"
+                "d7a0ab15f94c0aa3"
             ]
         ]
     },
     {
-        "id": "4a1a8de294b7154f",
+        "id": "d7a0ab15f94c0aa3",
         "type": "function",
         "z": "b3276c87a286f102",
         "name": "Parse items",
-        "func": "const {\n    payload\n} = msg;\n\nconst usb_items = payload.map(item => {\n    const {\n        idVendor,\n        idProduct,\n        iManufacturer,\n        iProduct,\n        iSerial\n    } = item;\n\n    const [vendor_id, vendor_name] = idVendor.split(/ (.*)/s, 2);\n    const [product_id, product_name] = idProduct.split(/ (.*)/s, 2);\n    const manufacturer_name = iManufacturer.split(/ (.*)/s, 2)[1];\n    const product_description = iProduct.split(/ (.*)/s, 2)[1];\n    const serial = iSerial.split(/ (.*)/s, 2)[1];\n\n    return {\n        product_id,\n        product_name,\n        vendor_id,\n        vendor_name,\n        manufacturer_name,\n        product_description,\n        serial\n    }\n});\n\nreturn {\n    ...msg,\n    payload: usb_items\n};",
+        "func": "const {\n    payload\n} = msg;\n\nconst usb_items = payload.map(item => {\n    const {\n        bus: bus_id,\n        device: device_id,\n        device_descriptor\n    } = item;\n\n    const {\n        idVendor,\n        idProduct,\n        iSerial,\n        iManufacturer,\n        iProduct\n    } = device_descriptor;\n\n    return {\n        bus_id,\n        device_id,\n        product_id: idProduct.value,\n        product_name: idProduct.description,\n        vendor_id: idVendor.value,\n        vendor_name: idVendor.description,\n        manufacturer_name: iManufacturer.description,\n        product_description: iProduct.description,\n        serial_id: iSerial.description\n    }\n});\n\nreturn {\n    ...msg,\n    payload: usb_items\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
+        "x": 510,
         "y": 80,
         "wires": [
             []
@@ -2598,7 +2639,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1070,
+        "x": 950,
         "y": 80,
         "wires": [
             []
@@ -2608,59 +2649,53 @@
         "id": "0d5b2114da75e3d1",
         "type": "function",
         "z": "d522f6d2f07435cd",
-        "name": "Validate request",
-        "func": "const { service_name } = msg.payload;\n\nif (!service_name) {\n    throw { type: 'invalid_request' }\n};\n\nreturn {\n    ...msg,\n    service_name\n};",
+        "name": "Validate request and compose command",
+        "func": "const { service_name } = msg.payload;\n\nif (!service_name) {\n    throw { type: 'invalid_request' }\n};\n\nconst payload = `curl --unix-socket /var/run/docker.sock http://localhost/containers/json?all=true`;\n\nreturn {\n    ...msg,\n    service_name,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
+        "x": 280,
         "y": 80,
         "wires": [
             [
-                "99ccd3cca2dd4597"
+                "852700f367980827"
             ]
         ]
     },
     {
-        "id": "99ccd3cca2dd4597",
-        "type": "subflow:9c0f55db9b5a4462",
+        "id": "852700f367980827",
+        "type": "exec",
         "z": "d522f6d2f07435cd",
-        "name": "",
-        "x": 420,
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Get containers",
+        "x": 560,
         "y": 80,
         "wires": [
             [
-                "c2b9d9ba03fcdc2b"
-            ]
+                "1fb88a049422ae26"
+            ],
+            [],
+            []
         ]
     },
     {
-        "id": "a49dfc6056dda404",
-        "type": "http request",
+        "id": "1fb88a049422ae26",
+        "type": "json",
         "z": "d522f6d2f07435cd",
-        "name": "Portainer API request",
-        "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [
-            {
-                "keyType": "other",
-                "keyValue": "x-api-key",
-                "valueType": "msg",
-                "valueValue": "access_token"
-            }
-        ],
-        "x": 860,
+        "name": "Parse JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 770,
         "y": 80,
         "wires": [
             [
@@ -2669,62 +2704,11 @@
         ]
     },
     {
-        "id": "c2b9d9ba03fcdc2b",
-        "type": "function",
-        "z": "d522f6d2f07435cd",
-        "name": "Compose request",
-        "func": "const api_url = global.get('portainer_api_url');\n\nconst { value: access_token } = msg.payload[0];\n\nconst url = `${api_url}/docker/containers/json?all=true`\n\nreturn {\n    ...msg,\n    url,\n    access_token\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 650,
-        "y": 80,
-        "wires": [
-            [
-                "a49dfc6056dda404"
-            ]
-        ]
-    },
-    {
-        "id": "352a53d8795dfcbb",
-        "type": "function",
-        "z": "9c0f55db9b5a4462",
-        "name": "Get Portainer access token query",
-        "func": "const sql_query = `\n  select value\n  from settings\n  where setting_key = 'portainer_access_token'\n`;\n\nconst params = {};\n\nreturn {\n    ...msg,\n    payload: {\n        sql_query,\n        params\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 240,
-        "y": 80,
-        "wires": [
-            [
-                "eb520c589947876d"
-            ]
-        ]
-    },
-    {
-        "id": "eb520c589947876d",
-        "type": "subflow:2f860c0929d372d8",
-        "z": "9c0f55db9b5a4462",
-        "name": "",
-        "x": 480,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "932fb4a01c4811ce",
         "type": "subflow:d522f6d2f07435cd",
         "z": "7b9d1f6f5864ccce",
         "name": "",
-        "x": 250,
+        "x": 240,
         "y": 80,
         "wires": [
             [
@@ -2736,8 +2720,8 @@
         "id": "83c260bfccf56224",
         "type": "function",
         "z": "7b9d1f6f5864ccce",
-        "name": "Set `container_id`",
-        "func": "const container_id = msg.payload['Id'];\n\nreturn {\n    ...msg,\n    container_id\n};",
+        "name": "Compose request",
+        "func": "const container_id = msg.payload['Id'];\n\nconst payload = `curl --unix-socket /var/run/docker.sock -X POST http://localhost/containers/${container_id}/restart`;\n\nreturn {\n    ...msg,\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2748,70 +2732,48 @@
         "y": 80,
         "wires": [
             [
-                "a6fbba7a7bdee225"
+                "2d4cfce907a252be"
             ]
         ]
     },
     {
-        "id": "08e96559c84b53f6",
-        "type": "http request",
+        "id": "2d4cfce907a252be",
+        "type": "exec",
         "z": "7b9d1f6f5864ccce",
-        "name": "Portainer API request",
-        "method": "POST",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [
-            {
-                "keyType": "other",
-                "keyValue": "x-api-key",
-                "valueType": "msg",
-                "valueValue": "access_token"
-            }
-        ],
-        "x": 1140,
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Restart container",
+        "x": 670,
         "y": 80,
         "wires": [
+            [
+                "689e133112ae6ce2"
+            ],
+            [],
             []
         ]
     },
     {
-        "id": "a6fbba7a7bdee225",
-        "type": "subflow:9c0f55db9b5a4462",
-        "z": "7b9d1f6f5864ccce",
-        "name": "",
-        "x": 700,
-        "y": 80,
-        "wires": [
-            [
-                "db260d6111a6b71f"
-            ]
-        ]
-    },
-    {
-        "id": "db260d6111a6b71f",
+        "id": "689e133112ae6ce2",
         "type": "function",
         "z": "7b9d1f6f5864ccce",
-        "name": "Compose request",
-        "func": "const api_url = global.get('portainer_api_url');\n\nconst { container_id } = msg;\nconst { value: access_token } = msg.payload[0];\n\nconst url = `${api_url}/docker/containers/${container_id}/restart`\n\nreturn {\n    ...msg,\n    url,\n    access_token\n};",
+        "name": "Return success",
+        "func": "return {\n    ...msg,\n    payload: {\n        status: 'success'\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
+        "x": 880,
         "y": 80,
         "wires": [
-            [
-                "08e96559c84b53f6"
-            ]
+            []
         ]
     },
     {
@@ -3048,41 +3010,17 @@
                 "t": "eq",
                 "v": "one_wire",
                 "vt": "str"
-            },
-            {
-                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
+        "outputs": 1,
         "x": 860,
         "y": 120,
         "wires": [
             [
                 "a8cb64a85366afd1"
-            ],
-            [
-                "66cdcfbe6448864e"
             ]
-        ]
-    },
-    {
-        "id": "66cdcfbe6448864e",
-        "type": "function",
-        "z": "d8264d18d8e4b566",
-        "name": "Throw error",
-        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1090,
-        "y": 160,
-        "wires": [
-            []
         ]
     },
     {
@@ -3097,8 +3035,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1060,
-        "y": 80,
+        "x": 1040,
+        "y": 120,
         "wires": [
             [
                 "3ffcabd4772587ba"
@@ -3110,8 +3048,8 @@
         "type": "subflow:c30c47ad0a20b80b",
         "z": "d8264d18d8e4b566",
         "name": "",
-        "x": 1300,
-        "y": 80,
+        "x": 1280,
+        "y": 120,
         "wires": [
             [
                 "562a4f72d675c33b"
@@ -3130,8 +3068,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1590,
-        "y": 80,
+        "x": 1570,
+        "y": 120,
         "wires": [
             []
         ]
@@ -4404,7 +4342,7 @@
         "type": "function",
         "z": "5951c9b8d92c3224",
         "name": "Select `trigger_on_motion` cameras",
-        "func": "const {\n  device_id: camera_id\n} = msg.payload;\n\nconst sql_query = `\n  select connection_params_camera_id as frigate_camera_id\n  from security_alarm_camera_rules\n  where camera_id = :camera_id\n    and connection_type = 'frigate'\n    and trigger_on_motion = 1\n`;\n\nconst params = {\n  camera_id\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "func": "const {\n  camera_id\n} = msg;\n\nconst sql_query = `\n  select connection_params_camera_id as frigate_camera_id\n  from security_alarm_camera_rules\n  where camera_id = :camera_id\n    and connection_type = 'frigate'\n    and trigger_on_motion = 1\n`;\n\nconst params = {\n  camera_id\n};\n\nreturn {\n  payload: {\n    sql_query,\n    params\n  }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4415,7 +4353,8 @@
         "y": 100,
         "wires": [
             [
-                "64f16159ae659a95"
+                "64f16159ae659a95",
+                "dd571c69df2678c1"
             ]
         ]
     },
@@ -4428,7 +4367,8 @@
         "y": 100,
         "wires": [
             [
-                "ad369b698163ace5"
+                "ad369b698163ace5",
+                "5f3a8fec631f29d4"
             ]
         ]
     },
@@ -4466,7 +4406,7 @@
         "type": "function",
         "z": "5951c9b8d92c3224",
         "name": "Set `motion_start_at`",
-        "func": "const alarm_state = global.get('alarm_state');\n\nconst current_timestamp = Math.floor(new Date().getTime());\n\nlet {\n    motion_start_at\n} = alarm_state;\n\nmotion_start_at ||= current_timestamp;\n\nconst new_alarm_state = {\n    ...alarm_state,\n    motion_start_at\n};\n\nglobal.set('alarm_state', new_alarm_state);\n\nreturn {\n    payload: new_alarm_state\n};",
+        "func": "const { device_id: camera_id } = msg.payload;\n\nconst alarm_state = global.get('alarm_state');\n\nconst current_timestamp = Math.floor(new Date().getTime());\n\nlet {\n    motion_start_at\n} = alarm_state;\n\nmotion_start_at ||= current_timestamp;\n\nconst new_alarm_state = {\n    ...alarm_state,\n    motion_start_at\n};\n\nglobal.set('alarm_state', new_alarm_state);\n\nreturn {\n    camera_id,\n    payload: new_alarm_state\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4477,7 +4417,7 @@
         "y": 100,
         "wires": [
             [
-                "b3ca810130ab3694"
+                "25b1e3fc7a65540b"
             ]
         ]
     },
@@ -4520,7 +4460,8 @@
         "y": 100,
         "wires": [
             [
-                "106721c61d6e3c42"
+                "106721c61d6e3c42",
+                "b3ca810130ab3694"
             ]
         ]
     },
@@ -4579,8 +4520,42 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1120,
-        "y": 200,
+        "x": 1060,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5f3a8fec631f29d4",
+        "type": "debug",
+        "z": "5951c9b8d92c3224",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "dd571c69df2678c1",
+        "type": "debug",
+        "z": "5951c9b8d92c3224",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 280,
         "wires": []
     },
     {
@@ -4906,6 +4881,185 @@
         ]
     },
     {
+        "id": "d93ad76dcd020cdd",
+        "type": "function",
+        "z": "4fec160c96cbd7e5",
+        "name": "Update `tunnel_token`",
+        "func": "const { tunnel_token } = msg.payload.value;\n\nconst secrets_folder = '/secrets/cloudflare';\nconst tunnel_token_path = `${secrets_folder}/tunnel_token`;\n\nconst commands = [\n    `mkdir -p ${secrets_folder}`,\n    `echo ${tunnel_token} > ${tunnel_token_path}`\n];\n\nconst payload = commands.join(' && ');\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 100,
+        "wires": [
+            [
+                "d995ea3068d6b6eb"
+            ]
+        ]
+    },
+    {
+        "id": "d995ea3068d6b6eb",
+        "type": "exec",
+        "z": "4fec160c96cbd7e5",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 100,
+        "wires": [
+            [
+                "3e5966214e9aa383"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3e5966214e9aa383",
+        "type": "function",
+        "z": "4fec160c96cbd7e5",
+        "name": "Get `cloudflared-tunnel` container",
+        "func": "return {\n    ...msg,\n    payload: {\n        service_name: 'cloudflared-tunnel'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 80,
+        "wires": [
+            [
+                "b537e0ca9e479866"
+            ]
+        ]
+    },
+    {
+        "id": "b537e0ca9e479866",
+        "type": "subflow:7b9d1f6f5864ccce",
+        "z": "4fec160c96cbd7e5",
+        "name": "",
+        "x": 950,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ceecc1d5bd98370a",
+        "type": "function",
+        "z": "0c36da2ded227873",
+        "name": "Get `nextcloud_host` settings",
+        "func": "const credentials = msg.payload.value;\n\nconst sql_query = `\n  select value\n  from settings\n  where setting_key = 'nextcloud_host'\n`;\n\nreturn {\n    ...msg,\n    credentials,\n    payload: { sql_query }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 100,
+        "wires": [
+            [
+                "96ad150d7efb64aa"
+            ]
+        ]
+    },
+    {
+        "id": "96ad150d7efb64aa",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "0c36da2ded227873",
+        "name": "",
+        "x": 480,
+        "y": 100,
+        "wires": [
+            [
+                "20af527216db7942"
+            ]
+        ]
+    },
+    {
+        "id": "20af527216db7942",
+        "type": "function",
+        "z": "0c36da2ded227873",
+        "name": "Update secrets",
+        "func": "const {\n    username,\n    password\n} = msg.credentials;\n\nconst {\n    value: host\n} = msg.payload[0];\n\nconst secrets_folder = '/secrets/nextcloud';\nconst host_path = `${secrets_folder}/nextcloud_host`;\nconst username_path = `${secrets_folder}/nextcloud_username`;\nconst password_path = `${secrets_folder}/nextcloud_password`;\n\nconst commands = [\n    `mkdir -p ${secrets_folder}`,\n    `echo ${host} > ${host_path}`,\n    `echo ${username} > ${username_path}`,\n    `echo ${password} > ${password_path}`\n];\n\nconst payload = commands.join(' && ');\n\nreturn {\n    ...msg,\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 100,
+        "wires": [
+            [
+                "f023052e4ca0d74d"
+            ]
+        ]
+    },
+    {
+        "id": "f023052e4ca0d74d",
+        "type": "exec",
+        "z": "0c36da2ded227873",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 810,
+        "y": 100,
+        "wires": [
+            [
+                "b2785d8a44b406e3"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b2785d8a44b406e3",
+        "type": "function",
+        "z": "0c36da2ded227873",
+        "name": "Get `nextcloud-client` container",
+        "func": "return {\n    ...msg,\n    payload: {\n        service_name: 'nextcloud-client'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 80,
+        "wires": [
+            [
+                "65d89ecbaaad73d9"
+            ]
+        ]
+    },
+    {
+        "id": "65d89ecbaaad73d9",
+        "type": "subflow:7b9d1f6f5864ccce",
+        "z": "0c36da2ded227873",
+        "name": "",
+        "x": 1290,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "f7a70eb3ee7a6e7c",
         "type": "subflow:48376301d7cf8ab5",
         "z": "181d977a8b81274c",
@@ -5191,7 +5345,7 @@
             },
             {
                 "t": "eq",
-                "v": "microphone_usb_device",
+                "v": "nextcloud_host",
                 "vt": "str"
             },
             {
@@ -5211,7 +5365,7 @@
                 "b584c6951067cf9d"
             ],
             [
-                "63d1393c24bcad5e"
+                "0a46fbe81e9fd8ab"
             ],
             [
                 "fd627450ae8b6d74"
@@ -5260,7 +5414,7 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 2600,
+        "x": 2560,
         "y": 720,
         "wires": []
     },
@@ -5270,7 +5424,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 1370,
-        "y": 780,
+        "y": 760,
         "wires": [
             [
                 "a71b394d9bd662e8"
@@ -5290,7 +5444,7 @@
         "finalize": "",
         "libs": [],
         "x": 1620,
-        "y": 780,
+        "y": 760,
         "wires": [
             [
                 "0c6c5ed7d8d9e1c1"
@@ -5302,8 +5456,8 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1880,
-        "y": 780,
+        "x": 1870,
+        "y": 760,
         "wires": [
             [
                 "bbb923b1ade37476"
@@ -5319,8 +5473,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 2080,
-        "y": 780,
+        "x": 2060,
+        "y": 760,
         "wires": []
     },
     {
@@ -5332,8 +5486,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 1260,
-        "y": 900,
+        "x": 1320,
+        "y": 860,
         "wires": []
     },
     {
@@ -5361,7 +5515,7 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 1840,
+        "x": 1830,
         "y": 720,
         "wires": [
             [
@@ -5381,7 +5535,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2120,
+        "x": 2100,
         "y": 720,
         "wires": [
             [
@@ -5394,7 +5548,7 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 2400,
+        "x": 2370,
         "y": 720,
         "wires": [
             [
@@ -5412,7 +5566,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 920,
+        "y": 1080,
         "wires": [
             [
                 "83e16f70b82fb8a3"
@@ -5432,7 +5586,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 920,
+        "y": 1080,
         "wires": [
             [
                 "af5125a4b90f941b"
@@ -5444,8 +5598,8 @@
         "type": "subflow:7b9d1f6f5864ccce",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 740,
-        "y": 920,
+        "x": 730,
+        "y": 1080,
         "wires": [
             [
                 "aef8160a036e3305"
@@ -5461,8 +5615,8 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "x": 940,
-        "y": 920,
+        "x": 920,
+        "y": 1080,
         "wires": []
     },
     {
@@ -5624,52 +5778,6 @@
         ]
     },
     {
-        "id": "63d1393c24bcad5e",
-        "type": "subflow:e0baa17c5072b7d3",
-        "z": "181d977a8b81274c",
-        "name": "",
-        "x": 1370,
-        "y": 840,
-        "wires": [
-            [
-                "b9de5007e369042a"
-            ]
-        ]
-    },
-    {
-        "id": "0f1e03606729297f",
-        "type": "http response",
-        "z": "181d977a8b81274c",
-        "name": "Response",
-        "statusCode": "200",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "x": 1720,
-        "y": 840,
-        "wires": []
-    },
-    {
-        "id": "b9de5007e369042a",
-        "type": "function",
-        "z": "181d977a8b81274c",
-        "name": "function 8",
-        "func": "return {\n    ...msg,\n    payload: {\n        data: \"ok\"\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1560,
-        "y": 840,
-        "wires": [
-            [
-                "0f1e03606729297f"
-            ]
-        ]
-    },
-    {
         "id": "e399feac322ff350",
         "type": "http in",
         "z": "181d977a8b81274c",
@@ -5810,7 +5918,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 320,
-        "y": 1000,
+        "y": 1160,
         "wires": [
             [
                 "462c2e06190b2ff0"
@@ -5825,7 +5933,7 @@
         "server": "92b926f12b45fcac",
         "client": "",
         "x": 530,
-        "y": 1000,
+        "y": 1160,
         "wires": []
     },
     {
@@ -5842,7 +5950,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 140,
-        "y": 1000,
+        "y": 1160,
         "wires": [
             [
                 "fc70ba6a396464e2"
@@ -5855,7 +5963,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 420,
-        "y": 1060,
+        "y": 1260,
         "wires": [
             [
                 "e218da2ba88517ef"
@@ -5868,7 +5976,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 400,
-        "y": 1100,
+        "y": 1300,
         "wires": [
             [
                 "5872c574cfc09f93"
@@ -5881,7 +5989,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 500,
-        "y": 1140,
+        "y": 1340,
         "wires": [
             [
                 "b48de6650aed6176"
@@ -5894,7 +6002,7 @@
         "z": "181d977a8b81274c",
         "name": "",
         "x": 430,
-        "y": 1180,
+        "y": 1380,
         "wires": [
             [
                 "edff70dacabc6a45"
@@ -5923,7 +6031,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 1120,
+        "y": 1320,
         "wires": [
             [
                 "d60f4e20ad50f81c",
@@ -5941,7 +6049,7 @@
         "server": "f603d6ef41b5d8a2",
         "client": "",
         "x": 720,
-        "y": 1060,
+        "y": 1260,
         "wires": []
     },
     {
@@ -5952,7 +6060,7 @@
         "server": "4be285fb0888be8c",
         "client": "",
         "x": 670,
-        "y": 1100,
+        "y": 1300,
         "wires": []
     },
     {
@@ -5963,7 +6071,7 @@
         "server": "13d475413da9bf60",
         "client": "",
         "x": 920,
-        "y": 1140,
+        "y": 1340,
         "wires": []
     },
     {
@@ -5974,7 +6082,941 @@
         "server": "867e54e0ead62a12",
         "client": "",
         "x": 770,
-        "y": 1180,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "9e8c97920d79ba94",
+        "type": "http in",
+        "z": "181d977a8b81274c",
+        "name": "POST `api/v1/credentials/:service_id/refresh`",
+        "url": "api/v1/credentials/:service_id/refresh",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 1000,
+        "wires": [
+            [
+                "75b6073f8d582290"
+            ]
+        ]
+    },
+    {
+        "id": "75b6073f8d582290",
+        "type": "function",
+        "z": "181d977a8b81274c",
+        "name": "Get decrypted credentials",
+        "func": "const { service_id } = msg.req.params;\n\nconst servicesApiRootUrl = env.get('SERVICES_API_ROOT_URL');\nconst url = `${servicesApiRootUrl}/credentials/service/${service_id}`;\n\nreturn {\n    ...msg,\n    url\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1000,
+        "wires": [
+            [
+                "3c895e408ff3f169"
+            ]
+        ]
+    },
+    {
+        "id": "a87c6df21607e27f",
+        "type": "switch",
+        "z": "181d977a8b81274c",
+        "name": "`value` is present",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1070,
+        "y": 1000,
+        "wires": [
+            [
+                "113cacd9759f8f4d"
+            ],
+            [
+                "a95ab9389c4ffe94"
+            ]
+        ]
+    },
+    {
+        "id": "113cacd9759f8f4d",
+        "type": "switch",
+        "z": "181d977a8b81274c",
+        "name": "Switch `service_id`",
+        "property": "req.params.service_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "cloudflare",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "nextcloud",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1290,
+        "y": 980,
+        "wires": [
+            [
+                "95fcdb95a3b21721"
+            ],
+            [
+                "48929a26820ea96e"
+            ],
+            [
+                "a95ab9389c4ffe94"
+            ]
+        ]
+    },
+    {
+        "id": "a95ab9389c4ffe94",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1500,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "55d628b99823c59b",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1600,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "3c895e408ff3f169",
+        "type": "http request",
+        "z": "181d977a8b81274c",
+        "name": "Call services API",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 1000,
+        "wires": [
+            [
+                "236ba30f4817b864"
+            ]
+        ]
+    },
+    {
+        "id": "236ba30f4817b864",
+        "type": "json",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 910,
+        "y": 1000,
+        "wires": [
+            [
+                "a87c6df21607e27f"
+            ]
+        ]
+    },
+    {
+        "id": "01b091c88ee9b5f8",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1760,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "95fcdb95a3b21721",
+        "type": "subflow:4fec160c96cbd7e5",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1550,
+        "y": 920,
+        "wires": [
+            [
+                "01b091c88ee9b5f8"
+            ]
+        ]
+    },
+    {
+        "id": "48929a26820ea96e",
+        "type": "subflow:0c36da2ded227873",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1550,
+        "y": 980,
+        "wires": [
+            [
+                "f20b3f6c4cac038e"
+            ]
+        ]
+    },
+    {
+        "id": "f20b3f6c4cac038e",
+        "type": "http response",
+        "z": "181d977a8b81274c",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 1760,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "0a46fbe81e9fd8ab",
+        "type": "subflow:0c36da2ded227873",
+        "z": "181d977a8b81274c",
+        "name": "",
+        "x": 1390,
+        "y": 800,
+        "wires": [
+            [
+                "55d628b99823c59b"
+            ]
+        ]
+    },
+    {
+        "id": "3a52cb55cca413c8",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Get all heaters",
+        "func": "const { payload: temperature_state } = msg;\n\nconst sql_query = `\n  select\n    id,\n    name,\n    vendor_id,\n    product_id,\n    connection_type,\n    connection_params,\n    heater_settings\n  from heaters\n`;\n\nconst params = {};\n\nreturn {\n    ...msg,\n    temperature_state,\n    payload: {\n        sql_query,\n        params\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 140,
+        "wires": [
+            [
+                "996c47082a073b2b"
+            ]
+        ]
+    },
+    {
+        "id": "996c47082a073b2b",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "x": 1180,
+        "y": 140,
+        "wires": [
+            [
+                "c23f742bd21fe365"
+            ]
+        ]
+    },
+    {
+        "id": "a6f2375ccd46a632",
+        "type": "inject",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "48936a6d8c97a199"
+            ]
+        ]
+    },
+    {
+        "id": "c23f742bd21fe365",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Iterate over heaters",
+        "func": "const {\n    gps_state,\n    heaters_state,\n    temperature_state,\n    payload\n} = msg;\n\nconst payloads = payload.map(heater => {\n    const {\n        id,\n        name,\n        vendor_id,\n        product_id,\n        connection_type,\n        connection_params: raw_connection_params,\n        heater_settings: raw_heater_settings\n    } = heater;\n\n    const connection_params = JSON.parse(raw_connection_params);\n    const heater_settings = JSON.parse(raw_heater_settings);\n\n    return {\n        gps_state,\n        heaters_state,\n        temperature_state,\n        payload: {\n            id,\n            name,\n            vendor_id,\n            product_id,\n            connection_type,\n            connection_params,\n            heater_settings\n        }\n    }\n});\n\nreturn [ payloads ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 140,
+        "wires": [
+            [
+                "c4b374a208e05146"
+            ]
+        ]
+    },
+    {
+        "id": "63179f4835ad06a0",
+        "type": "switch",
+        "z": "2ec629db0b2d93d1",
+        "name": "Switch `vendor_id`",
+        "property": "heater.vendor_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "webasto",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2010,
+        "y": 140,
+        "wires": [
+            [
+                "c5904f88f5c02390"
+            ]
+        ]
+    },
+    {
+        "id": "c5904f88f5c02390",
+        "type": "switch",
+        "z": "2ec629db0b2d93d1",
+        "name": "Switch `product_id`",
+        "property": "heater.product_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "thermo_top_evo_5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2210,
+        "y": 140,
+        "wires": [
+            [
+                "cdccdcc93c55ec6a",
+                "5655503ad0fafdb8"
+            ]
+        ]
+    },
+    {
+        "id": "d5e06aaea82d3b2a",
+        "type": "switch",
+        "z": "2ec629db0b2d93d1",
+        "name": "Switch `connection_type`",
+        "property": "heater.connection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "usb",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1790,
+        "y": 140,
+        "wires": [
+            [
+                "63179f4835ad06a0"
+            ]
+        ]
+    },
+    {
+        "id": "c4b374a208e05146",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Infer desired state",
+        "func": "const {\n    payload: heater,\n    temperature_state,\n    gps_state={}\n} = msg;\n\nconst {\n    id: heater_id,\n    heater_settings={}\n} = heater;\n\nconst { thermostat } = heater_settings;\n\nif(!thermostat) throw heater_settings;\n\nconst {\n    mode,\n    timer_from,\n    timer_to,\n    target_temperature,\n    temperature_sensor_id\n} = thermostat;\n\nconst on_temperature = target_temperature - 3;\nconst off_temperature = target_temperature + 2;\n\nconst {\n    temperature\n} = temperature_state[temperature_sensor_id];\n\nlet desired_state;\n\nif(temperature >= off_temperature || mode === 'off') {\n    desired_state = 'off';\n} else if(temperature <= on_temperature && mode === 'on') {\n    desired_state = 'on';\n} else if(mode === 'timer') {\n    const {\n        latitude,\n        longitude\n    } = gps_state;\n\n    let timezone = 'UTC';\n    if(latitude !== undefined) {\n        timezone = geoTz.find(latitude, longitude);\n    };\n\n    const start_date = new Date();\n    start_date.setHours(parseInt(timer_from.split(':')[0]));\n    start_date.setMinutes(parseInt(timer_from.split(':')[1]));\n\n    const end_date = new Date();\n    end_date.setHours(parseInt(timer_to.split(':')[0]));\n    end_date.setMinutes(parseInt(timer_to.split(':')[1]));\n\n    const current_time_string = new Date().toLocaleString('en-US', { timeZone: timezone });\n    const current_time = new Date(current_time_string);\n\n    let is_within_timeframe;\n    if (end_date < start_date) {\n        is_within_timeframe = current_time >= start_date || current_time <= end_date;\n    } else {\n        is_within_timeframe = current_time >= start_date && current_time <= end_date;\n    }\n    \n    if(!is_within_timeframe) {\n        desired_state = 'off'\n    } else if(temperature <= on_temperature) {\n        desired_state = 'on'\n    }\n};\n\nif(desired_state) {\n    return {\n        ...msg,\n        heater,\n        payload: desired_state\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "geoTz",
+                "module": "geo-tz"
+            }
+        ],
+        "x": 1570,
+        "y": 140,
+        "wires": [
+            [
+                "d5e06aaea82d3b2a",
+                "f471a2e9de0b145a"
+            ]
+        ]
+    },
+    {
+        "id": "e32c26a44cc7ad68",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Get `global.heaters_state`",
+        "func": "const { payload: gps_state } = msg;\n\nconst heaters_state = global.get('heaters_state') || {};\n\nreturn {\n    ...msg,\n    gps_state,\n    heaters_state\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "9fa434c666dc1788"
+            ]
+        ]
+    },
+    {
+        "id": "9fa434c666dc1788",
+        "type": "subflow:1fcb65ecb479780e",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "3a52cb55cca413c8"
+            ]
+        ]
+    },
+    {
+        "id": "48936a6d8c97a199",
+        "type": "subflow:cd03e8b953118d1f",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "e32c26a44cc7ad68"
+            ]
+        ]
+    },
+    {
+        "id": "f471a2e9de0b145a",
+        "type": "debug",
+        "z": "2ec629db0b2d93d1",
+        "name": "debug 42",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1800,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "cdccdcc93c55ec6a",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Compose command",
+        "func": "const {\n    heaters_state,\n    heater,\n    payload\n} = msg;\n\nconst { status } = heaters_state[heater.id] || '';\n\nlet buffer;\nif(payload === 'off') {\n    if(status !== 'off') {\n        buffer = Buffer.from([\n            0xF4,\n            0x02,\n            0x10,\n            0xE6\n        ]);\n    }\n} else if(payload === 'on') {\n    if(status === 'on') {\n        // Keep-alive\n        buffer = Buffer.from([\n            0xF4,\n            0x04,\n            0x44,\n            0x21,\n            0x00,\n            0x95\n        ]);\n    } else {\n        // Start heating\n        buffer = Buffer.from([\n            0xF4,\n            0x03,\n            0x21,\n            0x3B,\n            0xED\n        ]);\n    }\n};\n\nglobal.set(\n    'heaters_state',\n    {\n        ...heaters_state,\n        [heater.id]: { status: payload }\n    }\n);\n\nif(buffer !== undefined) {\n    return {\n        payload: buffer\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2420,
+        "y": 140,
+        "wires": [
+            [
+                "0d4f67823f791a4c",
+                "610b1761c204c9ab"
+            ]
+        ]
+    },
+    {
+        "id": "0d4f67823f791a4c",
+        "type": "debug",
+        "z": "2ec629db0b2d93d1",
+        "name": "debug 43",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5655503ad0fafdb8",
+        "type": "debug",
+        "z": "2ec629db0b2d93d1",
+        "name": "debug 44",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2460,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "97ea1bff45fccec3",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "abfrage 50-05 sensoren1",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x03,\n 0x50,\n 0x05,\n 0xA2\n]);\n\nmsg.payload = buf;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2350,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8cd6d42ef6a39efa",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "standheizen 1h",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x03,\n 0x21,\n 0x3B,\n 0xED\n]);\n\nmsg.payload = buf;\n\nreturn msg;\n\n\n//0xf4\",\"0x03\",\"0x23\",\"0x3b\",\"0xef - zuheizen \n\n//0xf4\",\"0x03\",\"0x21\",\"0x3b\",\"0xed  - standheizen",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2380,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1aa4cfc872abf8b",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "stop befehl",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x02,\n 0x10,\n 0xe6\n]);\n\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2390,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "466bb3daf3af9ff6",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "abfrage 50-07 status",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x03,\n 0x50,\n 0x07,\n 0xa0\n]);\n\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2360,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "193bf8337e33d4a9",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "error abfrage",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x03,\n 0x56,\n 0x01,\n 0xa0\n]);\n\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2390,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80e645ff2e96d5e7",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "keep alive befehl 21",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x04,\n 0x44,\n 0x21,\n 0x00,\n 0x95\n]);\n\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2360,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26de02805397832f",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "abfrage 50-15 sensoren2",
+        "func": "const buf = Buffer.from([\n 0xF4,\n 0x03,\n 0x50,\n 0x0f,\n 0xa8\n]);\n\nmsg.payload = buf;\n\nreturn msg;\n\n//    f4 03 50 0f a8                                    ô.P.¨            \n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2350,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c580ea5b1659531",
+        "type": "inject",
+        "z": "2ec629db0b2d93d1",
+        "name": "Start Standheizen 60min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "[\"0xf4\",\"0x03\",\"0x21\",\"0x3b\",\"0xed\"] ",
+                "vt": "bin"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"0xf4\",\"0x03\",\"0x21\",\"0x3b\",\"0xed\"] ",
+        "payloadType": "bin",
+        "x": 2350,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0eabd34d92c8521",
+        "type": "inject",
+        "z": "2ec629db0b2d93d1",
+        "name": "Stop",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"f4\",\"02\",\"10\",\"E6\"]",
+        "payloadType": "bin",
+        "x": 2410,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b692cb9261fe89b",
+        "type": "inject",
+        "z": "2ec629db0b2d93d1",
+        "name": "Stand zuheizen 60min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"0xf4\",\"0x03\",\"0x23\",\"0x3b\",\"0xef\"]",
+        "payloadType": "bin",
+        "x": 2360,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0cb0f9270656680f",
+        "type": "comment",
+        "z": "2ec629db0b2d93d1",
+        "name": "Debug",
+        "info": "",
+        "x": 2390,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "610b1761c204c9ab",
+        "type": "serial out",
+        "z": "2ec629db0b2d93d1",
+        "name": "Send request",
+        "serial": "adad033320ce05a2",
+        "x": 2640,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "02f49c953d0b19eb",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Compose command",
+        "func": "return {\n    payload: Buffer.from([\n        // 0xF4,\n        // 0x03,\n        // 0xA1,\n        // 0x3C,\n        // 0xD1\n\n        0x4F, 0x37, 0xD0, 0x30, 0x1E, 0x25, 0xD0, 0x5A, 0x00, 0x1E, 0x39, 0x33, 0x6C, 0x03, 0x00, 0x01, 0x03, 0x04, 0x00, 0x02, 0x00, 0x58, 0x00, 0x23, 0x0B, 0x59, 0x00, 0x00, 0x05, 0x32, 0x00, 0x10, 0x01, 0x15, 0x7F, 0x13, 0x03, 0xD9, 0x34, 0x04, 0x6A, 0x24, 0x00, 0x2C, 0x00, 0x12, 0xC8, 0x11, 0x13, 0x88, 0x0C, 0x68, 0x51, 0x00, 0x00, 0x00, 0xCD\n    ])\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 420,
+        "wires": [
+            [
+                "262a2291b599550a"
+            ]
+        ]
+    },
+    {
+        "id": "6520982aa69ff9eb",
+        "type": "inject",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "02f49c953d0b19eb"
+            ]
+        ]
+    },
+    {
+        "id": "262a2291b599550a",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Parse payload",
+        "func": "const { payload } = msg;\n\nconst command = payload[2] - 0x80;\n\nlet parsed_payload;\nif(command) {\n    const command_hex = command.toString(16);\n    if(command_hex === '21') {\n        // Turn on answer\n        parsed_payload = {\n            status: 'on'\n        }\n    } else if(command_hex === '44') {\n        // Keep-alive answer\n        parsed_payload = {\n            status: 'on'\n        }\n    } else if(command_hex === '10') {\n        // Turn off answer\n        parsed_payload = {\n            status: 'off'\n        }\n    } else if(command_hex === '50') {\n        // Status answer\n        const response_hex = payload[1].toString(16);\n        if(response_hex === '1c') {\n            const [\n                pump_percent,\n                voltage_1,\n                voltage_2,\n                status_code_hex\n            ] = [\n                payload[23] / 2,\n                payload[25],\n                payload[26],\n                payload[28].toString(16)\n            ];\n\n            const get_status_string = () => {\n                switch(status_code_hex) {\n                    case '63': return 'TRS-cooling'\n                    case '64': return 'Rest heat utilisation'\n                    case '65': return 'State activated'\n                    case '66': return 'Ready'\n                    case '67': return 'Burner regeneration'\n                    case '68': return 'Initialisation process'\n                    case '69': return 'Sleep_Mode'\n                    case '6a': return 'Continue fuel priming'\n                    case '6b': return 'Continue stabilization, cold start'\n                    case '6c': return 'Continue stabilization, warm start'\n                    case '6d': return 'After-run ramp'\n                    case '6e': return 'Rest heat utilisation'\n                    case '6f': return 'Stabilization, cold start'\n                    case '70': return 'PROCESSOR OFF'\n                    case '71': return 'WAIT STATE'\n                    case '72': return 'Continue stabilization'\n                    case '73': return 'MOTOR CHECK'\n                    case '74': return 'FLAME MONITOR COOLING'\n                    case '75': return 'PRE-GLOWING1'\n                    case '76': return 'PRE-GLOWING2'\n                    case '77': return 'PRE-GLOWING2 Partial Load Start'\n                    case '78': return 'FLAME MONITOR CALIBATION Start'\n                    case '79': return 'START 1'\n                    case '7a': return 'START 2'\n                    case '7b': return 'START 3'\n                    case '7c': return 'START 4'\n                    case '7d': return 'START 5'\n                    case '7e': return 'START 6'\n                    case '7f': return 'GLOW PLUG RAMP'\n                    case '80': return 'FLAME MONITOR MEASURMENT1'\n                    case '81': return 'FLAME MONITOR MEASURMENT2'\n                    case '82': return 'START1 Partial Load Start'\n                    case '83': return 'START2 Partial Load Start'\n                    case '84': return 'START3 Partial Load Start'\n                    case '85': return 'START4 Partial Load Start'\n                    case '86': return 'START5 Partial Load Start'\n                    case '87': return 'START6 Partial Load Start'\n                    case '88': return 'GLOW PLUG RAMP Partial Load Start'\n                    case '89': return 'FLAME MONITOR MEASUREMENT1 Partial Load Start'\n                    case '8a': return 'FLAME MONITOR MEASUREMENT2 Partial Load Start'\n                    case '8b': return 'FULL LOAD'\n                    case '8c': return 'RAMP DOWN'\n                    case '8d': return 'PARTIAL LOAD'\n                    case '8e': return 'RAMP UP'\n                    case '8f': return 'PAUSE'\n                    case '90': return 'BURN-OUT Full Load'\n                    case '91': return 'BURN-OUT Partial Load'\n                    case '92': return 'BURN-OUT Start'\n                    case '93': return 'BURN-OUT Partial Load Start'\n                    case '94': return 'BURN-OUT Overheating'\n                    case '95': return 'COOL 1'\n                    case '96': return 'FLAME MONITOR CALIBRATION'\n                    case '97': return 'COOL 2'\n                    case '98': return 'Boost'\n                    case '99': return 'CONTINUOUS COOLANT TEMPERATURE CONTROL'\n                    case '9a': return 'CONTINUOUS COOLANT TEMPERATURE CONTROL HOLD'\n                    case 'a0': return 'Stabilization, warm start'\n                    case 'a1': return 'Start ramp, cold start'\n                    case 'a2': return 'Start ramp, warm start'\n                    case 'a3': return 'Residual heat utilization test'\n                }\n            };\n\n            const status_string = get_status_string();\n\n            parsed_payload = {\n                status_string,\n                status_code_hex,\n                pump_percent,\n                voltage_1,\n                voltage_2,\n            };\n        } else if(response_hex === '37') {\n            const [\n                fan_rpm_1,\n                fan_rpm_2,\n                fuel_pump_hz,\n                flame_status,\n                glow_rod_resistance_mohm_1,\n                glow_rod_resistance_mohm_2,\n                glow_rod_percent,\n                heating_output_percent,\n                power_consumption_1,\n                power_consumption_2,\n                temperature\n            ] = [\n                payload[5],\n                payload[6],\n                payload[12],\n                payload[32],\n                payload[36],\n                payload[37],\n                payload[42] / 2,\n                payload[46] / 2,\n                payload[51],\n                payload[52],\n                payload[54] - 50,\n            ];\n\n            parsed_payload = {\n                fan_rpm_1,\n                fan_rpm_2,\n                fuel_pump_hz,\n                flame_status,\n                glow_rod_resistance_mohm_1,\n                glow_rod_resistance_mohm_2,\n                glow_rod_percent,\n                heating_output_percent,\n                power_consumption_1,\n                power_consumption_2,\n                temperature\n            };\n        }\n    }\n}\n\nreturn { payload: parsed_payload };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "faadb2285bf69e34",
+                "4faadebcea55b5b3"
+            ]
+        ]
+    },
+    {
+        "id": "a99132cb5ed66a43",
+        "type": "serial in",
+        "z": "2ec629db0b2d93d1",
+        "name": "Webasto message received",
+        "serial": "adad033320ce05a2",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "262a2291b599550a"
+            ]
+        ]
+    },
+    {
+        "id": "faadb2285bf69e34",
+        "type": "debug",
+        "z": "2ec629db0b2d93d1",
+        "name": "debug 45",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4faadebcea55b5b3",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Get all heaters",
+        "func": "const { payload: serial_payload } = msg;\n\nconst sql_query = `\n  select id\n  from heaters\n  where vendor_id = 'webasto'\n    and connection_type = 'usb'\n`;\n\nconst params = {};\n\nreturn {\n    ...msg,\n    serial_payload,\n    payload: {\n        sql_query,\n        params\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 320,
+        "wires": [
+            [
+                "6b4682d7355c7614"
+            ]
+        ]
+    },
+    {
+        "id": "6b4682d7355c7614",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "2ec629db0b2d93d1",
+        "name": "",
+        "x": 880,
+        "y": 320,
+        "wires": [
+            [
+                "4fd70e633d77e13f"
+            ]
+        ]
+    },
+    {
+        "id": "4fd70e633d77e13f",
+        "type": "function",
+        "z": "2ec629db0b2d93d1",
+        "name": "Iterate over heaters",
+        "func": "const {\n    payload,\n    serial_payload\n} = msg;\n\nconst payloads = payload.map(heater => {\n    const { id: heater_id } = heater;\n\n    return {\n        heater_id,\n        serial_payload\n    }\n});\n\nreturn [ payloads ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            [
+                "4ce9c6f04d2af4b4"
+            ]
+        ]
+    },
+    {
+        "id": "4ce9c6f04d2af4b4",
+        "type": "debug",
+        "z": "2ec629db0b2d93d1",
+        "name": "debug 46",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 300,
         "wires": []
     },
     {
@@ -6020,11 +7062,16 @@
                 "t": "eq",
                 "v": "sensor",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "temperature_sensor",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 3,
+        "outputs": 4,
         "x": 420,
         "y": 80,
         "wires": [
@@ -6032,11 +7079,13 @@
                 "0d1af9c425416463"
             ],
             [
-                "1af7bed00d9dba14",
-                "1bdaee1a257c60dd"
+                "1af7bed00d9dba14"
             ],
             [
                 "3a23e9d20615362f"
+            ],
+            [
+                "3fd1b5113ba587bd"
             ]
         ]
     },
@@ -6180,8 +7229,7 @@
         "y": 200,
         "wires": [
             [
-                "8166053c18def6dc",
-                "7f384eb4a5f65dd7"
+                "8166053c18def6dc"
             ]
         ]
     },
@@ -6271,60 +7319,6 @@
         "wires": []
     },
     {
-        "id": "7f384eb4a5f65dd7",
-        "type": "debug",
-        "z": "412a66feda2814e4",
-        "name": "debug 24",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "1bdaee1a257c60dd",
-        "type": "debug",
-        "z": "412a66feda2814e4",
-        "name": "debug 33",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "af98b4b7f26ed5e3",
-        "type": "mqtt in",
-        "z": "412a66feda2814e4",
-        "name": "",
-        "topic": "frigate/front_left/motion",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 240,
-        "y": 520,
-        "wires": [
-            [
-                "f3153bfb961ba695"
-            ]
-        ]
-    },
-    {
         "id": "f3153bfb961ba695",
         "type": "debug",
         "z": "412a66feda2814e4",
@@ -6340,6 +7334,98 @@
         "x": 460,
         "y": 520,
         "wires": []
+    },
+    {
+        "id": "ab76350fe6aaa613",
+        "type": "function",
+        "z": "412a66feda2814e4",
+        "name": "Get temperature",
+        "func": "const {\n    mqtt_payload,\n    temperature_sensor_id\n} = msg;\n\nconst {\n    mqtt_payload_property\n} = msg.payload[0];\n\nreturn {\n    ...msg,\n    payload: {\n        temperature_sensor_id,\n        temperature: mqtt_payload[mqtt_payload_property]\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 280,
+        "wires": [
+            [
+                "44805f5a74e1dc22"
+            ]
+        ]
+    },
+    {
+        "id": "3fd1b5113ba587bd",
+        "type": "function",
+        "z": "412a66feda2814e4",
+        "name": "Get `mqtt_payload_property`",
+        "func": "const {\n  message,\n  device_id: temperature_sensor_id\n} = msg.payload;\n\nconst sql_query = `\n  select \n    json_unquote(\n      json_extract(\n        connection_params, \n        '$.mqtt_payload_property'\n      )\n    ) as mqtt_payload_property\n  from temperature_sensors\n  where id = :temperature_sensor_id\n`;\n\nconst params = {\n  temperature_sensor_id\n};\n\nreturn {\n  mqtt_payload: JSON.parse(message),\n  temperature_sensor_id,\n  payload: {\n    sql_query,\n    params\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 280,
+        "wires": [
+            [
+                "64ad68b15b255bf8"
+            ]
+        ]
+    },
+    {
+        "id": "64ad68b15b255bf8",
+        "type": "subflow:2f860c0929d372d8",
+        "z": "412a66feda2814e4",
+        "name": "",
+        "x": 940,
+        "y": 280,
+        "wires": [
+            [
+                "ab76350fe6aaa613"
+            ]
+        ]
+    },
+    {
+        "id": "44805f5a74e1dc22",
+        "type": "function",
+        "z": "412a66feda2814e4",
+        "name": "Set `global.temperature_state`",
+        "func": "const {\n    temperature_sensor_id,\n    temperature\n} = msg.payload;\n\nif(temperature) {\n    let temperature_state = global.get('temperature_state') || {};\n    global.set(\n        'temperature_state', \n        {\n            ...temperature_state,\n            [temperature_sensor_id]: { temperature }\n        }\n    );\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a0d1b06349876103",
+        "type": "mqtt in",
+        "z": "412a66feda2814e4",
+        "name": "",
+        "topic": "shelly/events/rpc",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "f3153bfb961ba695"
+            ]
+        ]
     },
     {
         "id": "f7360c1818b761fb",
