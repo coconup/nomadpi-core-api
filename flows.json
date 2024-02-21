@@ -7482,7 +7482,8 @@
         "y": 340,
         "wires": [
             [
-                "12c28c8a127a03cb"
+                "12c28c8a127a03cb",
+                "9d230bd350593bc3"
             ]
         ]
     },
@@ -7585,10 +7586,7 @@
         "x": 130,
         "y": 420,
         "wires": [
-            [
-                "40345a0f84b5023a",
-                "249b1f9c82b8fb2c"
-            ]
+            []
         ]
     },
     {
@@ -7639,6 +7637,125 @@
         "wires": [
             [
                 "3fca476f882bff80"
+            ]
+        ]
+    },
+    {
+        "id": "dc1a46fce251a022",
+        "type": "debug",
+        "z": "e394437c1a103158",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8d98f8fb93929081",
+        "type": "mqtt in",
+        "z": "e394437c1a103158",
+        "name": "",
+        "topic": "ble_to_mqtt",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "fff9b047550b9220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 680,
+        "wires": [
+            [
+                "2903eed58c0f483b"
+            ]
+        ]
+    },
+    {
+        "id": "3ea99926c506c6b7",
+        "type": "http request",
+        "z": "e394437c1a103158",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:5005/get_info?mac_address=A4:C1:38:0B:79:22&device_id=1&device_type=battery&adapter=batmon&device_subtype=jbd",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 470,
+        "y": 560,
+        "wires": [
+            [
+                "867058cbfefed0b7"
+            ]
+        ]
+    },
+    {
+        "id": "9d230bd350593bc3",
+        "type": "function",
+        "z": "e394437c1a103158",
+        "name": "function 10",
+        "func": "\nreturn {\n    ...msg,\n    requestTimeout: 10000\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 580,
+        "wires": [
+            [
+                "3ea99926c506c6b7"
+            ]
+        ]
+    },
+    {
+        "id": "867058cbfefed0b7",
+        "type": "http request",
+        "z": "e394437c1a103158",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:5005/get_info?mac_address=84:c6:92:13:c0:f4&device_id=1&device_type=battery&adapter=renogy&device_subtype=rover",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2903eed58c0f483b",
+        "type": "json",
+        "z": "e394437c1a103158",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 680,
+        "wires": [
+            [
+                "dc1a46fce251a022"
             ]
         ]
     },
