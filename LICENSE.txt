@@ -1,3 +1,3 @@
 Source code in this repository is variously licensed under the GNU Affero General Public License (AGPL):
 
-https://github.com/coconup/nomadpi/blob/main/LICENCE.txt
+https://github.com/coconup/nomadpi/blob/main/LICENSE.txt
