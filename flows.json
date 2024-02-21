@@ -507,43 +507,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "d1e3712ec6c2128d",
-        "type": "subflow",
-        "name": "[Batteries] Dispatcher",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 160,
-                "wires": [
-                    {
-                        "id": "8276b42967ce2963"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 820,
-                "y": 140,
-                "wires": [
-                    {
-                        "id": "a85ad1d6b4e922a4",
-                        "port": 0
-                    },
-                    {
-                        "id": "cff0d2d68e414164",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
         "id": "1fcb65ecb479780e",
         "type": "subflow",
         "name": "[Temp Sensor] Get temperature values",
@@ -700,7 +663,7 @@
     {
         "id": "fbcbc95f786b1f72",
         "type": "subflow",
-        "name": "[Batteries] Update global state",
+        "name": "[Batteries] Request state",
         "info": "",
         "category": "",
         "in": [
@@ -896,39 +859,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "5b7abfd84ae7c0fb",
-        "type": "subflow",
-        "name": "[Solar charge controllers] Dispatcher",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 140,
-                "wires": [
-                    {
-                        "id": "c911c8cc206cae5b"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 980,
-                "y": 140,
-                "wires": [
-                    {
-                        "id": "425588dd818d368c",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
         "id": "d0749495e355f931",
         "type": "subflow",
         "name": "[Solar charge controllers] Request state",
@@ -979,28 +909,6 @@
                 ]
             }
         ],
-        "env": [],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
-        "id": "4ca15bb77bd03cce",
-        "type": "subflow",
-        "name": "[Solar charge controllers] Update global state",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "20df51fe25c79723"
-                    }
-                ]
-            }
-        ],
-        "out": [],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -2288,7 +2196,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 830,
+        "x": 840,
         "y": 80,
         "wires": [
             [
@@ -2308,135 +2216,11 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 1180,
+        "x": 1200,
         "y": 80,
         "wires": [
             [],
             [],
-            []
-        ]
-    },
-    {
-        "id": "a85ad1d6b4e922a4",
-        "type": "subflow:44f3ed9f999bd3a8",
-        "z": "d1e3712ec6c2128d",
-        "name": "",
-        "x": 600,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "8276b42967ce2963",
-        "type": "switch",
-        "z": "d1e3712ec6c2128d",
-        "name": "Device type",
-        "property": "payload.device_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "jbd",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 170,
-        "y": 160,
-        "wires": [
-            [
-                "cc34d9c66177e492"
-            ],
-            [
-                "5f3fc687b18afa45"
-            ]
-        ]
-    },
-    {
-        "id": "cc34d9c66177e492",
-        "type": "switch",
-        "z": "d1e3712ec6c2128d",
-        "name": "Connection type",
-        "property": "payload.connection_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "ble",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 360,
-        "y": 120,
-        "wires": [
-            [
-                "a85ad1d6b4e922a4"
-            ],
-            [
-                "5f3fc687b18afa45"
-            ]
-        ]
-    },
-    {
-        "id": "5f3fc687b18afa45",
-        "type": "function",
-        "z": "d1e3712ec6c2128d",
-        "name": "Throw error",
-        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9a24ef20470b8ef8",
-        "type": "catch",
-        "z": "d1e3712ec6c2128d",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 420,
-        "y": 260,
-        "wires": [
-            [
-                "cff0d2d68e414164"
-            ]
-        ]
-    },
-    {
-        "id": "cff0d2d68e414164",
-        "type": "function",
-        "z": "d1e3712ec6c2128d",
-        "name": "Parse error",
-        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 260,
-        "wires": [
             []
         ]
     },
@@ -2845,7 +2629,7 @@
         "type": "function",
         "z": "fbcbc95f786b1f72",
         "name": "Iterate over batteries",
-        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: battery_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        battery: {\n            battery_id\n        },\n        payload: {\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
+        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: battery_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        payload: {\n            battery_id,\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2856,37 +2640,88 @@
         "y": 80,
         "wires": [
             [
-                "e427ba670c9924bd"
+                "947f601761780bb7"
             ]
         ]
     },
     {
-        "id": "e427ba670c9924bd",
-        "type": "subflow:d1e3712ec6c2128d",
+        "id": "255830a85721e7f3",
+        "type": "http request",
         "z": "fbcbc95f786b1f72",
-        "name": "Get battery stats",
-        "x": 710,
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1150,
         "y": 80,
         "wires": [
-            [
-                "d1c75753b4b7d54c"
-            ]
+            []
         ]
     },
     {
-        "id": "d1c75753b4b7d54c",
+        "id": "9d69d37ba1a9b787",
         "type": "function",
         "z": "fbcbc95f786b1f72",
-        "name": "Set `global.batteries_state`",
-        "func": "let batteries_state = {\n    ...global.get('batteries_state') || {}\n};\n\nconst {\n    battery,\n    payload\n} = msg;\n\nbatteries_state[battery.battery_id] = payload;\n\nglobal.set('batteries_state', batteries_state)",
+        "name": "Request MQTT update",
+        "func": "const {\n    battery_id,\n    device_type,\n    device_id\n} = msg.payload;\n\nconst url = `http://127.0.0.1:5005/get_info`;\n\nconst payload = {\n    device_type: 'battery',\n    device_id: battery_id,\n    adapter: 'batmon',\n    mac_address: device_id,\n    device_subtype: device_type,\n};\n\nreturn {\n    ...msg,\n    url,\n    payload,\n    requestTimeout: 10000\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
+        "x": 960,
         "y": 80,
+        "wires": [
+            [
+                "255830a85721e7f3"
+            ]
+        ]
+    },
+    {
+        "id": "947f601761780bb7",
+        "type": "switch",
+        "z": "fbcbc95f786b1f72",
+        "name": "Switch `connection_type`",
+        "property": "payload.connection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ble",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 80,
+        "wires": [
+            [
+                "9d69d37ba1a9b787"
+            ]
+        ]
+    },
+    {
+        "id": "5be5793a574c50cf",
+        "type": "catch",
+        "z": "fbcbc95f786b1f72",
+        "name": "",
+        "scope": [
+            "255830a85721e7f3"
+        ],
+        "uncaught": false,
+        "x": 1130,
+        "y": 140,
         "wires": [
             []
         ]
@@ -3212,128 +3047,6 @@
         ]
     },
     {
-        "id": "c911c8cc206cae5b",
-        "type": "switch",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "Device type",
-        "property": "payload.device_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "renogy",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 210,
-        "y": 140,
-        "wires": [
-            [
-                "8d7728988ba69203"
-            ],
-            [
-                "4906d196fc01ac90"
-            ]
-        ]
-    },
-    {
-        "id": "8d7728988ba69203",
-        "type": "switch",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "Connection type",
-        "property": "payload.connection_type",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "ble",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 400,
-        "y": 100,
-        "wires": [
-            [
-                "0ce33a637c73a55d"
-            ],
-            [
-                "4906d196fc01ac90"
-            ]
-        ]
-    },
-    {
-        "id": "4906d196fc01ac90",
-        "type": "function",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "Throw error",
-        "func": "const { payload } = msg;\n\nthrow {\n    type: 'invalid_request',\n    payload\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "86f35bdf8f05ea51",
-        "type": "catch",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 460,
-        "y": 240,
-        "wires": [
-            [
-                "425588dd818d368c"
-            ]
-        ]
-    },
-    {
-        "id": "425588dd818d368c",
-        "type": "function",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "Parse error",
-        "func": "const { error } = msg;\nlet { message } = error;\n\ntry {\n    message = JSON.parse(message);\n} catch(err) {}\n\nreturn {\n    ...msg,\n    statusCode: 400,\n    payload: {\n        error: {\n            ...error,\n            message\n        }\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0ce33a637c73a55d",
-        "type": "subflow:f7bd6ee532013f76",
-        "z": "5b7abfd84ae7c0fb",
-        "name": "",
-        "x": 730,
-        "y": 80,
-        "wires": []
-    },
-    {
         "id": "52cdd9e09fb00541",
         "type": "subflow:7f8f32220da2dd83",
         "z": "d0749495e355f931",
@@ -3351,7 +3064,7 @@
         "type": "function",
         "z": "d0749495e355f931",
         "name": "Iterate over solar charge controllers",
-        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: solar_charge_controller_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        solar_charge_controller: {\n            solar_charge_controller_id\n        },\n        payload: {\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
+        "func": "const payloads = msg.payload.map(payload => {\n    const {\n        id: solar_charge_controller_id,\n        connection_type,\n        connection_params\n    } = payload;\n\n    const {\n        device_type,\n        device_id\n    } = connection_params;\n\n    return {\n        payload: {\n            solar_charge_controller_id,\n            connection_type,\n            device_type,\n            device_id\n        }\n    }\n})\n\nreturn payloads;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3362,17 +3075,113 @@
         "y": 80,
         "wires": [
             [
-                "936597b79ae60bdf"
+                "34f29d3f7f013dce"
             ]
         ]
     },
     {
-        "id": "936597b79ae60bdf",
-        "type": "subflow:5b7abfd84ae7c0fb",
+        "id": "34f29d3f7f013dce",
+        "type": "switch",
+        "z": "d0749495e355f931",
+        "name": "Switch `connection_type`",
+        "property": "payload.connection_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ble",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 80,
+        "wires": [
+            [
+                "44efb8175b18d112"
+            ]
+        ]
+    },
+    {
+        "id": "e012a74cc5cd1c2f",
+        "type": "function",
+        "z": "d0749495e355f931",
+        "name": "Request MQTT update",
+        "func": "const {\n    solar_charge_controller_id,\n    device_type,\n    device_id\n} = msg.payload;\n\nconst url = `http://127.0.0.1:5005/get_info`;\n\nconst payload = {\n    device_type: 'solar_charge_controller',\n    device_id: solar_charge_controller_id,\n    adapter: 'renogy',\n    mac_address: device_id,\n    device_subtype: 'rover',\n};\n\nreturn {\n    ...msg,\n    url,\n    payload,\n    requestTimeout: 10000\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 80,
+        "wires": [
+            [
+                "21d13cc3eb11c4e4"
+            ]
+        ]
+    },
+    {
+        "id": "21d13cc3eb11c4e4",
+        "type": "http request",
         "z": "d0749495e355f931",
         "name": "",
-        "x": 1010,
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1610,
         "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "44efb8175b18d112",
+        "type": "switch",
+        "z": "d0749495e355f931",
+        "name": "Switch `device_type`",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "renogy",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1200,
+        "y": 80,
+        "wires": [
+            [
+                "e012a74cc5cd1c2f"
+            ]
+        ]
+    },
+    {
+        "id": "59321f5aa93eaa6c",
+        "type": "catch",
+        "z": "d0749495e355f931",
+        "name": "",
+        "scope": [
+            "21d13cc3eb11c4e4"
+        ],
+        "uncaught": false,
+        "x": 1590,
+        "y": 140,
         "wires": [
             []
         ]
@@ -3393,57 +3202,6 @@
         "y": 80,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "d4d7b905594dc2d7",
-        "type": "function",
-        "z": "4ca15bb77bd03cce",
-        "name": "Set `global.solar_charge_controllers_state`",
-        "func": "let solar_charge_controllers_state = {\n    ...global.get('solar_charge_controllers_state') || {}\n};\n\nconst {\n    values,\n    payload\n} = msg;\n\nsolar_charge_controllers_state[payload[0].id] = values;\n\nglobal.set('solar_charge_controllers_state', solar_charge_controllers_state)",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 670,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3c699322bb9bf7e7",
-        "type": "subflow:2f860c0929d372d8",
-        "z": "4ca15bb77bd03cce",
-        "name": "",
-        "x": 400,
-        "y": 80,
-        "wires": [
-            [
-                "d4d7b905594dc2d7"
-            ]
-        ]
-    },
-    {
-        "id": "20df51fe25c79723",
-        "type": "function",
-        "z": "4ca15bb77bd03cce",
-        "name": "Compose query",
-        "func": "const {\n  mac_address,\n  battery_current,\n  battery_percentage,\n  battery_temperature,\n  battery_type,\n  battery_voltage,\n  charging_status,\n  controller_temperature,\n  // charging_amp_hours_today,\n  // discharging_amp_hours_today,\n  load_current,\n  load_power,\n  load_status,\n  load_voltage,\n  // max_charging_power_today,\n  // max_discharging_power_today,\n  // power_consumption_today,\n  // power_generation_today,\n  // power_generation_total,\n  pv_current,\n  pv_power,\n  pv_voltage,\n} = msg.payload;\n\nconst sql_query = `\n  select id\n  from solar_charge_controllers\n  where\n    connection_type = 'ble'\n    and json_value(connection_params, '$.device_id') = :mac_address\n  limit 1\n`;\n\nconst params = {\n  mac_address\n};\n\nreturn {\n  values: {\n    charging_status,\n    controller_temperature,\n    battery: {\n      state_of_charge: battery_percentage,\n      temperature: battery_temperature,\n      type: battery_type,\n      voltage: battery_voltage\n    },\n    load: {\n      current: load_current,\n      power: load_power,\n      status: load_status,\n      voltage: load_voltage,\n    },\n    photovoltaic: {\n      current: pv_current,\n      power: pv_power,\n      voltage: pv_voltage,\n    }\n  },\n  payload: {\n    sql_query,\n    params\n  }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 80,
-        "wires": [
-            [
-                "3c699322bb9bf7e7"
-            ]
         ]
     },
     {
@@ -5917,7 +5675,7 @@
         "type": "subflow:924d506d524e2f1f",
         "z": "181d977a8b81274c",
         "name": "",
-        "x": 320,
+        "x": 340,
         "y": 1160,
         "wires": [
             [
@@ -5932,7 +5690,7 @@
         "name": "",
         "server": "92b926f12b45fcac",
         "client": "",
-        "x": 530,
+        "x": 550,
         "y": 1160,
         "wires": []
     },
@@ -5949,7 +5707,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 140,
+        "x": 150,
         "y": 1160,
         "wires": [
             [
@@ -6035,8 +5793,6 @@
         "wires": [
             [
                 "d60f4e20ad50f81c",
-                "7f8431caf9880877",
-                "ee3ea2aac1513ca6",
                 "f4527378483695f3"
             ]
         ]
@@ -7483,7 +7239,8 @@
         "wires": [
             [
                 "12c28c8a127a03cb",
-                "9d230bd350593bc3"
+                "40345a0f84b5023a",
+                "249b1f9c82b8fb2c"
             ]
         ]
     },
@@ -7510,7 +7267,7 @@
         "type": "subflow:fbcbc95f786b1f72",
         "z": "e394437c1a103158",
         "name": "",
-        "x": 410,
+        "x": 390,
         "y": 400,
         "wires": []
     },
@@ -7531,63 +7288,6 @@
         "x": 440,
         "y": 460,
         "wires": []
-    },
-    {
-        "id": "32a5d83af20cba88",
-        "type": "mqtt in",
-        "z": "e394437c1a103158",
-        "name": "",
-        "topic": "renogy_bt/state",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "fff9b047550b9220",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 700,
-        "y": 460,
-        "wires": [
-            [
-                "d18e9429b71ff540"
-            ]
-        ]
-    },
-    {
-        "id": "d18e9429b71ff540",
-        "type": "subflow:4ca15bb77bd03cce",
-        "z": "e394437c1a103158",
-        "name": "",
-        "x": 970,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "8e8af121e9211a33",
-        "type": "inject",
-        "z": "e394437c1a103158",
-        "name": "Every 30s",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 130,
-        "y": 420,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "1fe0309507dc230b",
@@ -7641,22 +7341,6 @@
         ]
     },
     {
-        "id": "dc1a46fce251a022",
-        "type": "debug",
-        "z": "e394437c1a103158",
-        "name": "debug 47",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 680,
-        "wires": []
-    },
-    {
         "id": "8d98f8fb93929081",
         "type": "mqtt in",
         "z": "e394437c1a103158",
@@ -7669,78 +7353,12 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 680,
+        "x": 350,
+        "y": 540,
         "wires": [
             [
                 "2903eed58c0f483b"
             ]
-        ]
-    },
-    {
-        "id": "3ea99926c506c6b7",
-        "type": "http request",
-        "z": "e394437c1a103158",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://127.0.0.1:5005/get_info?mac_address=A4:C1:38:0B:79:22&device_id=1&device_type=battery&adapter=batmon&device_subtype=jbd",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 470,
-        "y": 560,
-        "wires": [
-            [
-                "867058cbfefed0b7"
-            ]
-        ]
-    },
-    {
-        "id": "9d230bd350593bc3",
-        "type": "function",
-        "z": "e394437c1a103158",
-        "name": "function 10",
-        "func": "\nreturn {\n    ...msg,\n    requestTimeout: 10000\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 580,
-        "wires": [
-            [
-                "3ea99926c506c6b7"
-            ]
-        ]
-    },
-    {
-        "id": "867058cbfefed0b7",
-        "type": "http request",
-        "z": "e394437c1a103158",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://127.0.0.1:5005/get_info?mac_address=84:c6:92:13:c0:f4&device_id=1&device_type=battery&adapter=renogy&device_subtype=rover",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 630,
-        "y": 560,
-        "wires": [
-            []
         ]
     },
     {
@@ -7751,13 +7369,108 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 430,
-        "y": 680,
+        "x": 490,
+        "y": 540,
         "wires": [
             [
-                "dc1a46fce251a022"
+                "39d0b78799139a62"
             ]
         ]
+    },
+    {
+        "id": "c6709dd301766880",
+        "type": "function",
+        "z": "e394437c1a103158",
+        "name": "Set `global.batteries_state`",
+        "func": "let batteries_state = {\n    ...global.get('batteries_state') || {}\n};\n\nconst {\n    device_id,\n    voltages,\n    voltage,\n    current,\n    power,\n    charge,\n    capacity,\n    soc,\n    num_cycles,\n    temperatures,\n} = msg.payload;\n\nconst payload = {\n    voltage: {\n        total: voltage,\n        cells: voltages,\n    },\n    cells_count: voltages.length,\n    current_load: current,\n    power_load: power,\n    capacity: {\n        remaining: charge,\n        total: capacity,\n    },\n    cycles_count: num_cycles,\n    state_of_charge: soc,\n    temperatures\n}\n\nbatteries_state[device_id] = payload;\n\nglobal.set('batteries_state', batteries_state);\n\nreturn {\n    ...msg,\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 520,
+        "wires": [
+            [
+                "9fe20b609a5b7a78"
+            ]
+        ]
+    },
+    {
+        "id": "39d0b78799139a62",
+        "type": "switch",
+        "z": "e394437c1a103158",
+        "name": "Switch `device_type`",
+        "property": "payload.device_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "battery",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "solar_charge_controller",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 540,
+        "wires": [
+            [
+                "c6709dd301766880"
+            ],
+            [
+                "74384a05379d3e83"
+            ]
+        ]
+    },
+    {
+        "id": "9fe20b609a5b7a78",
+        "type": "websocket out",
+        "z": "e394437c1a103158",
+        "name": "",
+        "server": "4be285fb0888be8c",
+        "client": "",
+        "x": 1190,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "74384a05379d3e83",
+        "type": "function",
+        "z": "e394437c1a103158",
+        "name": "Set `global.solar_charge_controllers_state`",
+        "func": "let solar_charge_controllers_state = {\n    ...global.get('solar_charge_controllers_state') || {}\n};\n\nconst {\n    device_id,\n    model,\n    charging_status,\n    controller_temperature,\n    pv_voltage,\n    pv_current,\n    pv_power,\n    load_status,\n    load_voltage,\n    load_current,\n    load_power,\n    battery_type,\n    battery_temperature,\n    battery_voltage,\n    battery_current,\n    battery_percentage\n } = msg.payload;\n\n const payload = {\n    model,\n    charging_status,\n    controller_temperature,\n    photovoltaic: {\n        current: pv_current,\n        power: pv_power,\n        voltage: pv_voltage\n    },\n    load: {\n        current: load_current,\n        power: load_power,\n        status: load_status,\n        voltage: load_voltage\n    },\n    battery: {\n        temperature: battery_temperature,\n        type: battery_type,\n        voltage: battery_voltage\n    }\n }\n\nsolar_charge_controllers_state[device_id] = payload;\n\nglobal.set('solar_charge_controllers_state', solar_charge_controllers_state);\n\nreturn {\n    ...msg,\n    payload\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 560,
+        "wires": [
+            [
+                "ac4b2c1d08b8f18a"
+            ]
+        ]
+    },
+    {
+        "id": "ac4b2c1d08b8f18a",
+        "type": "websocket out",
+        "z": "e394437c1a103158",
+        "name": "",
+        "server": "13d475413da9bf60",
+        "client": "",
+        "x": 1340,
+        "y": 560,
+        "wires": []
     },
     {
         "id": "dd6f48cb877d8037",
