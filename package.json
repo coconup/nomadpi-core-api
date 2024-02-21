@@ -1,10 +1,13 @@
 {
-    "name": "van-pi-api",
+    "name": "nomadpi-api",
     "description": "A Node-RED Project",
     "version": "0.0.1",
     "dependencies": {
-        "node-red-contrib-gpsd": "1.0.4",
-        "node-red-contrib-mcp23017chip": "0.1.0"
+        "geo-tz": "^8.0.1",
+        "node-red-contrib-mcp23017chip": "0.1.0",
+        "node-red-contrib-influxdb": "0.7.0",
+        "node-red-contrib-mysql-config": "1.0.4",
+        "node-red-node-serialport": "2.0.2"
     },
     "node-red": {
         "settings": {

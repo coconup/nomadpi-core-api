@@ -1,6 +1,6 @@
-# VanPi core API
+# nomadPi core API
 
-This project is a streamlined version of the original [VanPi OS](https://github.com/Pekaway/VAN_PI/tree/main/VanPi-OS), designed to provide essential functionality for hardware operation through an HTTP API. The primary purpose is to allow control of connected devices via any client that can interact with the API.
+This project is designed to provide essential functionality for hardware operation of nomadPi through an HTTP API. The primary purpose is to allow control of connected devices via any client that can interact with the API.
 
 ## Features
 
@@ -27,4 +27,4 @@ The project is open to expansion with additional device support. As more devices
 
 ## Contributing
 
-If you have access to hardware supported by the original VanPi OS and would like to port functionality to this project, feel free to fork the repository and open a pull request. Your contributions are valuable, and collaboration is key to enhancing the project.
+If you have access to not-yet-supported hardware and would like to implement functionality to this project, feel free to fork the repository and open a pull request. Your contributions are valuable, and collaboration is key to enhancing the project.
