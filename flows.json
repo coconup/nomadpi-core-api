@@ -2246,12 +2246,12 @@
         "id": "b27fc867cae90a0f",
         "type": "switch",
         "z": "2af61905d791930b",
-        "name": "Value >= 0",
+        "name": "Value > 0",
         "property": "payload.value",
         "propertyType": "msg",
         "rules": [
             {
-                "t": "gte",
+                "t": "gt",
                 "v": "0",
                 "vt": "str"
             }
@@ -2259,7 +2259,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 190,
+        "x": 180,
         "y": 80,
         "wires": [
             [
